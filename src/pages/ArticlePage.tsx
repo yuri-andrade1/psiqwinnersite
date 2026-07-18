@@ -66,6 +66,72 @@ export default function ArticlePage() {
       .finally(() => setLoading(false));
   }, [slug]);
 
+  const imageUrl = post ? sanityImageUrl(post.coverImage) : undefined;
+
+  useEffect(() => {
+    if (!post) return;
+    
+    // Save original tags to restore on unmount
+    const originalTitle = document.title;
+    const originalDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+    
+    // Update basic tags
+    document.title = `${post.title} | Artigo - Dr. Psiwinner`;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', post.excerpt || 'Artigo informativo sobre psicologia e saúde mental.');
+    
+    // Update Open Graph tags
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', post.title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', post.excerpt || '');
+    if (imageUrl) {
+      document.querySelector('meta[property="og:image"]')?.setAttribute('content', imageUrl);
+    }
+    
+    // Inject JSON-LD Schema.org Structured Data
+    const schemaId = 'sanity-post-schema';
+    let scriptTag = document.getElementById(schemaId) as HTMLScriptElement;
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.id = schemaId;
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+    
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt || '',
+      "image": imageUrl || '',
+      "datePublished": post.publishedAt,
+      "dateModified": post.publishedAt,
+      "author": {
+        "@type": "Person",
+        "name": post.author || "Dr. Psiwinner",
+        "jobTitle": "Psicólogo Clínico"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Psiwinner Psicologia Clínica",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${window.location.origin}/favicon.svg`
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
+      }
+    };
+    scriptTag.text = JSON.stringify(schemaData);
+    
+    return () => {
+      // Restore original metadata and clean up schema
+      document.title = originalTitle;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', originalDesc);
+      scriptTag.remove();
+    };
+  }, [post, imageUrl]);
+
   if (loading) return <main className="min-h-screen pt-32 text-center font-sans text-sm text-[#2C3531]">Carregando artigo...</main>;
   if (!post) {
     return (
@@ -75,8 +141,6 @@ export default function ArticlePage() {
       </main>
     );
   }
-
-  const imageUrl = sanityImageUrl(post.coverImage);
 
   return (
     <main className="min-h-screen bg-[#FDFCFB] pt-28 pb-24">

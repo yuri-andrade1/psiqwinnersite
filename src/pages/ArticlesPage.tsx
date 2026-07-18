@@ -15,6 +15,22 @@ export default function ArticlesPage() {
     sanityClient.fetch<SanityPost[]>(POST_LIST_QUERY).then(setPosts).catch(() => setError(true)).finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    const originalTitle = document.title;
+    const originalDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+
+    document.title = 'Artigos e Leituras de Saúde Mental | Dr. Psiwinner';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Explore artigos, reflexões e dicas de saúde mental escritos pelo Dr. Psiwinner, psicólogo especialista em Terapia Cognitivo-Comportamental.');
+
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Artigos e Leituras de Saúde Mental | Dr. Psiwinner');
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', 'Explore artigos, reflexões e dicas de saúde mental escritos pelo Dr. Psiwinner.');
+
+    return () => {
+      document.title = originalTitle;
+      document.querySelector('meta[name="description"]')?.setAttribute('content', originalDesc);
+    };
+  }, []);
+
   return <main className="min-h-screen bg-[#F9F7F2] pt-32 pb-24"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="border-b border-[#1A1A1A] pb-8 mb-12"><p className="font-sans text-xs uppercase tracking-widest text-[#8E8A83] mb-3">Artigos & Leituras</p><h1 className="font-display font-bold text-4xl sm:text-5xl text-[#1A1A1A] tracking-tight">Saúde mental, com informação e acolhimento</h1></div>
     {loading && <p className="font-sans text-sm text-[#2C3531]">Carregando artigos...</p>}
