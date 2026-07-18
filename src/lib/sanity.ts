@@ -1,6 +1,7 @@
 import {createClient} from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
+// Sanity configuration client
 const projectId = import.meta.env.VITE_SANITY_PROJECT_ID;
 const dataset = import.meta.env.VITE_SANITY_DATASET;
 
