@@ -1,9 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Search, ArrowRight, BookOpen, Clock, Filter, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ARTICLES } from '../data';
 import { Article } from '../types';
 import ArticleReader from './ArticleReader';
+import { isSanityConfigured, POST_LIST_QUERY, sanityClient, sanityImageUrl, type SanityPost } from '../lib/sanity';
 
 export default function Articles() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,14 +13,71 @@ export default function Articles() {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubsubscribed] = useState(false);
+  const [sanityPosts, setSanityPosts] = useState<SanityPost[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const categories = useMemo(() => {
-    const list = new Set(ARTICLES.map((art) => art.category));
-    return ['Todos', ...Array.from(list)];
+  useEffect(() => {
+    if (!sanityClient) {
+      setLoading(false);
+      return;
+    }
+    sanityClient
+      .fetch<SanityPost[]>(POST_LIST_QUERY)
+      .then((posts) => {
+        setSanityPosts(posts);
+      })
+      .catch((err) => {
+        console.error('Erro ao buscar artigos do Sanity na home:', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
+  const formatDate = (dateStr: string) => {
+    try {
+      return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date(dateStr));
+    } catch {
+      return dateStr;
+    }
+  };
+
+  const mappedSanityPosts = useMemo(() => {
+    return sanityPosts.map((post) => {
+      // Estimate read time: roughly 150 words per minute
+      const wordCount = post.excerpt ? post.excerpt.split(/\s+/).length : 0;
+      const readTimeMinutes = Math.max(2, Math.ceil(wordCount / 150));
+      
+      return {
+        id: post._id,
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt || '',
+        content: '', // not needed as it redirects to individual page
+        category: post.category || 'Geral',
+        readTime: `${readTimeMinutes} min de leitura`,
+        date: formatDate(post.publishedAt),
+        image: sanityImageUrl(post.coverImage),
+        tags: post.tags || [],
+        isSanity: true
+      };
+    });
+  }, [sanityPosts]);
+
+  const activeArticles = useMemo(() => {
+    if (isSanityConfigured && sanityPosts.length > 0) {
+      return mappedSanityPosts;
+    }
+    return ARTICLES;
+  }, [isSanityConfigured, sanityPosts, mappedSanityPosts]);
+
+  const categories = useMemo(() => {
+    const list = new Set(activeArticles.map((art) => art.category));
+    return ['Todos', ...Array.from(list)];
+  }, [activeArticles]);
+
   const filteredArticles = useMemo(() => {
-    return ARTICLES.filter((art) => {
+    return activeArticles.filter((art) => {
       const matchesSearch =
         art.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         art.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -29,7 +88,15 @@ export default function Articles() {
 
       return matchesSearch && matchesCategory;
     });
-  }, [searchTerm, selectedCategory]);
+  }, [activeArticles, searchTerm, selectedCategory]);
+
+  // Display top 3 filtered articles on home page if using Sanity
+  const displayedArticles = useMemo(() => {
+    if (isSanityConfigured && sanityPosts.length > 0) {
+      return filteredArticles.slice(0, 3);
+    }
+    return filteredArticles;
+  }, [filteredArticles, isSanityConfigured, sanityPosts]);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +164,7 @@ export default function Articles() {
         </div>
 
         {/* Empty state visual */}
-        {filteredArticles.length === 0 && (
+        {displayedArticles.length === 0 && (
           <div className="text-center py-16 bg-[#FDFCFB] border border-dashed border-[#1A1A1A] rounded-none max-w-lg mx-auto">
             <BookOpen className="w-8 h-8 mx-auto text-[#8E8A83] mb-3" />
             <p className="font-display font-bold text-[#1A1A1A] text-base mb-1">Nenhum artigo encontrado</p>
@@ -109,64 +176,85 @@ export default function Articles() {
 
         {/* Articles List Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredArticles.map((art) => (
-            <article
-              key={art.id}
-              onClick={() => setSelectedArticle(art)}
-              className="flex flex-col bg-[#FDFCFB] border border-[#E5E1DA] hover:border-[#1A1A1A] rounded-none overflow-hidden transition-all duration-300 cursor-pointer group editorial-shadow"
-              id={`article-card-${art.id}`}
-            >
-              {/* Cover Image */}
-              {art.image && (
-                <div className="aspect-[16/10] overflow-hidden bg-[#F9F7F2] relative border-b border-[#E5E1DA]">
-                  <img
-                    src={art.image}
-                    alt={art.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block text-[9px] font-bold text-[#FDFCFB] bg-[#1A1A1A] px-2.5 py-1 rounded-none uppercase tracking-widest">
-                      {art.category}
+          {displayedArticles.map((art) => {
+            const isSanity = 'isSanity' in art && art.isSanity;
+            const CardComponent = (isSanity ? Link : 'div') as React.ElementType;
+            const cardProps = isSanity
+              ? { to: `/artigos/${art.slug}` }
+              : { onClick: () => setSelectedArticle(art as Article) };
+
+            return (
+              <CardComponent
+                key={art.id}
+                {...cardProps}
+                className="flex flex-col bg-[#FDFCFB] border border-[#E5E1DA] hover:border-[#1A1A1A] rounded-none overflow-hidden transition-all duration-300 cursor-pointer group editorial-shadow"
+                id={`article-card-${art.id}`}
+              >
+                {/* Cover Image */}
+                {art.image && (
+                  <div className="aspect-[16/10] overflow-hidden bg-[#F9F7F2] relative border-b border-[#E5E1DA]">
+                    <img
+                      src={art.image}
+                      alt={art.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-block text-[9px] font-bold text-[#FDFCFB] bg-[#1A1A1A] px-2.5 py-1 rounded-none uppercase tracking-widest">
+                        {art.category}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Text Summary Info */}
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    {/* Date and time read */}
+                    <div className="flex items-center space-x-3 text-[10px] font-mono font-bold text-[#8E8A83] mb-3">
+                      <span>{art.date}</span>
+                      <span className="flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {art.readTime}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-2 group-hover:text-[#8E8A83] transition-colors duration-200 leading-snug line-clamp-2">
+                      {art.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="font-sans text-xs text-[#2C3531] leading-relaxed mb-4 line-clamp-3">
+                      {art.excerpt}
+                    </p>
+                  </div>
+
+                  {/* Footer read link */}
+                  <div className="pt-4 border-t border-[#E5E1DA] flex items-center justify-between">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A] inline-flex items-center">
+                      Ler artigo completo
+                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                     </span>
                   </div>
                 </div>
-              )}
-
-              {/* Text Summary Info */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  {/* Date and time read */}
-                  <div className="flex items-center space-x-3 text-[10px] font-mono font-bold text-[#8E8A83] mb-3">
-                    <span>{art.date}</span>
-                    <span className="flex items-center">
-                      <Clock className="w-3 h-3 mr-1" />
-                      {art.readTime}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-2 group-hover:text-[#8E8A83] transition-colors duration-200 leading-snug line-clamp-2">
-                    {art.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="font-sans text-xs text-[#2C3531] leading-relaxed mb-4 line-clamp-3">
-                    {art.excerpt}
-                  </p>
-                </div>
-
-                {/* Footer read link */}
-                <div className="pt-4 border-t border-[#E5E1DA] flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A] inline-flex items-center">
-                    Ler artigo completo
-                    <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                  </span>
-                </div>
-              </div>
-            </article>
-          ))}
+              </CardComponent>
+            );
+          })}
         </div>
+
+        {/* View all articles CTA button when using Sanity */}
+        {isSanityConfigured && sanityPosts.length > 0 && (
+          <div className="text-center mt-12">
+            <Link
+              to="/artigos"
+              className="inline-flex items-center px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#1A1A1A] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-[#FDFCFB] transition-colors duration-200 rounded-none cursor-pointer"
+            >
+              Ver todos os artigos
+              <ArrowRight className="w-3.5 h-3.5 ml-2" />
+            </Link>
+          </div>
+        )}
 
         {/* Featured Mental Wellness Banner with our generated vector illustration */}
         <div className="mt-20 bg-[#FDFCFB] border border-[#1A1A1A] rounded-none p-8 sm:p-12 flex flex-col lg:flex-row gap-8 items-center editorial-shadow-dark">

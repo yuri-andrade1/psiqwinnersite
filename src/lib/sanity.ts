@@ -21,7 +21,9 @@ export interface SanityPost {
   body?: any[];
   publishedAt: string;
   author?: string;
+  category?: string;
+  tags?: string[];
 }
 
-export const POST_LIST_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc) {_id, title, "slug": slug.current, coverImage, excerpt, publishedAt, author}`;
-export const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug][0] {_id, title, "slug": slug.current, coverImage, excerpt, body, publishedAt, author}`;
+export const POST_LIST_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc) {_id, title, "slug": slug.current, coverImage, excerpt, publishedAt, author, category, tags}`;
+export const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug][0] {_id, title, "slug": slug.current, coverImage, excerpt, body, publishedAt, author, category, tags}`;
