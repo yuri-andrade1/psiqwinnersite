@@ -1,0 +1,6 @@
+{
+  "name": "Psiwinner - Psicologia Clínica",
+  "description": "Website profissional para o psicólogo Psiwinner, com especialidades, formações acadêmicas, avaliações do Google, artigos e contato rápido via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
