@@ -7,13 +7,19 @@
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
+    "studio:dev": "sanity dev",
+    "studio:deploy": "sanity deploy",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@portabletext/react": "^3.2.1",
+    "@sanity/client": "^7.11.0",
+    "@sanity/image-url": "^1.1.0",
     "lucide-react": "^0.546.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "react-router-dom": "^7.6.2",
     "motion": "^12.23.24"
   },
   "devDependencies": {
@@ -21,7 +27,8 @@
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "typescript": "~5.8.2",
-    "vite": "^6.2.3"
+    "vite": "^6.2.3",
+    "sanity": "^4.0.0"
   },
   "engines": {
     "node": ">=20.19.0"

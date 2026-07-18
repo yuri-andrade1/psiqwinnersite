@@ -15,10 +15,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Especialidades', href: '#especialidades' },
+    { name: 'Especialidades', href: '/#especialidades' },
     { name: 'Formação', href: '#formacao' },
     { name: 'Avaliações', href: '#avaliacoes' },
-    { name: 'Artigos', href: '#artigos' },
+    { name: 'Artigos', href: '/artigos' },
     { name: 'FAQ', href: '#faq' },
     { name: 'Contato', href: '#contato' },
   ];
@@ -40,7 +40,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center space-x-3 group">
+          <a href="/" className="flex items-center space-x-3 group">
             <span className="font-display italic font-black text-2xl tracking-tight text-[#1A1A1A] group-hover:opacity-80 transition-opacity duration-300">
               psiwinner
             </span>

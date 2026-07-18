@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageSquare, ArrowUp } from 'lucide-react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { DOCTOR_INFO } from './data';
 
 import Navbar from './components/Navbar';
@@ -16,6 +17,13 @@ import Reviews from './components/Reviews';
 import Articles from './components/Articles';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
+
+const ArticlesPage = React.lazy(() => import('./pages/ArticlesPage'));
+const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
+
+function HomePage() {
+  return <main><Hero /><Specialties /><Credentials /><Reviews /><Articles /><FAQ /><Contact /></main>;
+}
 
 export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -54,29 +62,12 @@ export default function App() {
       {/* Dynamic Header / Navigation */}
       <Navbar />
 
-      {/* Main Sections */}
-      <main>
-        {/* Hero Section */}
-        <Hero />
-
-        {/* Clinical Specialties */}
-        <Specialties />
-
-        {/* Credentials, Education & Academic Timeline */}
-        <Credentials />
-
-        {/* Verified Google Business Reviews */}
-        <Reviews />
-
-        {/* Rich Articles & Searchable Blog Engine */}
-        <Articles />
-
-        {/* Logistics & Treatment FAQs */}
-        <FAQ />
-
-        {/* Google Map & Contact Compilation Form */}
-        <Contact />
-      </main>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/artigos" element={<React.Suspense fallback={<RouteLoading />}><ArticlesPage /></React.Suspense>} />
+        <Route path="/artigos/:slug" element={<React.Suspense fallback={<RouteLoading />}><ArticlePage /></React.Suspense>} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
       {/* Persistent Conversion Utilities (Floating Controls) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end space-y-3">
@@ -136,5 +127,9 @@ export default function App() {
       </div>
     </div>
   );
+}
+
+function RouteLoading() {
+  return <main className="min-h-screen pt-32 text-center font-sans text-sm text-[#2C3531]">Carregando...</main>;
 }
 

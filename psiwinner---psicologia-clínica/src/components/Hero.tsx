@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 import { MessageSquare, ShieldCheck, MapPin, Laptop, Sparkles } from 'lucide-react';
 import { DOCTOR_INFO } from '../data';
 
@@ -9,7 +9,7 @@ export default function Hero() {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -20,7 +20,7 @@ export default function Hero() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 15 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   };
