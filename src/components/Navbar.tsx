@@ -16,11 +16,11 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Especialidades', href: '/#especialidades' },
-    { name: 'Formação', href: '#formacao' },
-    { name: 'Avaliações', href: '#avaliacoes' },
+    { name: 'Formação', href: '/#formacao' },
+    { name: 'Avaliações', href: '/#avaliacoes' },
     { name: 'Artigos', href: '/artigos' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contato', href: '#contato' },
+    { name: 'FAQ', href: '/#faq' },
+    { name: 'Contato', href: '/#contato' },
   ];
 
   const handleWhatsAppClick = () => {
@@ -117,4 +117,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
