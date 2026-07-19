@@ -76,7 +76,7 @@ export default function ArticlePage() {
     const originalDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
     
     // Update basic tags
-    document.title = `${post.title} | Artigo - Dr. Psiwinner`;
+    document.title = `${post.title} | Artigo - Psicólogo Winner Furtado`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', post.excerpt || 'Artigo informativo sobre psicologia e saúde mental.');
     
     // Update Open Graph tags
@@ -106,7 +106,7 @@ export default function ArticlePage() {
       "dateModified": post.publishedAt,
       "author": {
         "@type": "Person",
-        "name": post.author || "Dr. Psiwinner",
+        "name": post.author || "Winner Furtado",
         "jobTitle": "Psicólogo Clínico"
       },
       "publisher": {

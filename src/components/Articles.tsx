@@ -109,7 +109,7 @@ export default function Articles() {
             </p>
           </div>
           <p className="font-sans text-xs text-[#2C3531] max-w-sm mt-4 md:mt-0 leading-relaxed">
-            Escritos pelo Dr. Psiwinner com o objetivo de descomplicar conceitos da psicologia e trazer dicas práticas para o seu bem-estar diário.
+            Escritos pelo Psicólogo Winner Furtado com o objetivo de descomplicar conceitos da psicologia e trazer dicas práticas para o seu bem-estar diário.
           </p>
         </div>
 

@@ -254,14 +254,14 @@ export default function ArticleReader({ article, onClose }: ArticleReaderProps) 
               <div className="flex-1 text-center md:text-left">
                 <h4 className="font-display font-bold text-lg text-[#1A1A1A] mb-1">Ficou com alguma dúvida sobre o assunto?</h4>
                 <p className="font-sans text-xs text-[#2C3531] leading-relaxed mb-4">
-                  Se você se identificou com este texto ou gostaria de conversar sobre seus sintomas com o Dr. Psiwinner, agende uma sessão de forma rápida e segura.
+                  Se você se identificou com este texto ou gostaria de conversar sobre seus sintomas comigo, agende uma sessão de forma rápida e segura.
                 </p>
                 <button
                   onClick={handleWhatsAppContact}
                   className="inline-flex items-center px-5 py-3 text-xs font-bold uppercase tracking-wider text-white bg-[#1A1A1A] hover:bg-[#333] transition-colors duration-200 cursor-pointer rounded-none border border-[#1A1A1A]"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Conversar com Dr. Psiwinner pelo WhatsApp
+                  Conversar comigo pelo WhatsApp
                 </button>
               </div>
             </div>

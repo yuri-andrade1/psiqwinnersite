@@ -19,11 +19,11 @@ export default function ArticlesPage() {
     const originalTitle = document.title;
     const originalDesc = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
 
-    document.title = 'Artigos e Leituras de Saúde Mental | Dr. Psiwinner';
-    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Explore artigos, reflexões e dicas de saúde mental escritos pelo Dr. Psiwinner, psicólogo especialista em Terapia Cognitivo-Comportamental.');
+    document.title = 'Artigos e Leituras de Saúde Mental | Psicólogo Winner Furtado';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', 'Explore artigos, reflexões e dicas de saúde mental escritos pelo Psicólogo Winner Furtado, especialista em Terapia Cognitivo-Comportamental.');
 
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Artigos e Leituras de Saúde Mental | Dr. Psiwinner');
-    document.querySelector('meta[property="og:description"]')?.setAttribute('content', 'Explore artigos, reflexões e dicas de saúde mental escritos pelo Dr. Psiwinner.');
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', 'Artigos e Leituras de Saúde Mental | Psicólogo Winner Furtado');
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', 'Explore artigos, reflexões e dicas de saúde mental escritos pelo Psicólogo Winner Furtado.');
 
     return () => {
       document.title = originalTitle;
