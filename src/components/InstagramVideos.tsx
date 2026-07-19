@@ -13,43 +13,43 @@ export interface InstagramVideo {
 export const INSTAGRAM_VIDEOS: InstagramVideo[] = [
   {
     id: 'v1',
-    title: 'Como saber se a ansiedade está controlando sua vida?',
+    title: 'O amor é construído nos pequenos detalhes diários',
     url: 'https://www.instagram.com/reel/DYvEGVMB7yP/?igsh=MWxmNXR1YnJsaXRkcw==',
     coverImage: profileImage
   },
   {
     id: 'v2',
-    title: 'O que é a dependência emocional e como superá-la?',
+    title: 'Apego Ansioso vs. Apego Evitativo nas relações',
     url: 'https://www.instagram.com/reel/DY7V_l_FyoE/?igsh=czgwc3A0NXIyZHNo',
     coverImage: profileImage
   },
   {
     id: 'v3',
-    title: 'Dizer "não" sem culpa: O poder dos limites saudáveis',
+    title: 'Os 4 Cavaleiros do Apocalipse das relações (John Gottman)',
     url: 'https://www.instagram.com/reel/DXEXTEODtxL/?igsh=bjFqcWRwOXNoNThs',
     coverImage: profileImage
   },
   {
     id: 'v4',
-    title: 'Autoestima: Como construir um autorespeito duradouro?',
+    title: 'Você já ouviu falar deste transtorno de personalidade?',
     url: 'https://www.instagram.com/reel/Daliw1aPrOL/?igsh=N25ya2dyMmJ6NWFq',
     coverImage: profileImage
   },
   {
     id: 'v5',
-    title: 'Por que a comparação nas redes sociais adoece sua mente?',
+    title: 'O Efeito Michelangelo: Relações que nos esculpem',
     url: 'https://www.instagram.com/reel/DZIQPl0ulYg/?igsh=MWlhczllZDFtMHh6dg==',
     coverImage: profileImage
   },
   {
     id: 'v6',
-    title: 'O que realmente acontece na primeira sessão de terapia?',
+    title: 'Relações em aberto: O perigo de viver em modo espera',
     url: 'https://www.instagram.com/reel/DYQMyyHNBeV/?igsh=MW1pNTkwbWNlNGpu',
     coverImage: profileImage
   },
   {
     id: 'v7',
-    title: 'Regulação emocional: O que fazer quando tudo transborda?',
+    title: 'Como construir e manter amizades na vida adulta',
     url: 'https://www.instagram.com/reel/DX-Jw8MMUPR/?igsh=bmhxYnE1cGR4MXZn',
     coverImage: profileImage
   }
