@@ -7,7 +7,7 @@ const dataset = import.meta.env.VITE_SANITY_DATASET;
 
 export const isSanityConfigured = Boolean(projectId && dataset);
 export const sanityClient = isSanityConfigured
-  ? createClient({projectId, dataset, apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2025-06-01', useCdn: import.meta.env.PROD, perspective: 'published'})
+  ? createClient({projectId, dataset, apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2025-06-01', useCdn: false, perspective: 'published'})
   : null;
 
 const imageBuilder = sanityClient ? imageUrlBuilder(sanityClient) : null;
