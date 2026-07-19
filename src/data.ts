@@ -13,7 +13,7 @@ export const DOCTOR_INFO = {
   phone: '(35) 98443-4572',
   instagram: '@psiwinner',
   tiktok: '@psiwinner',
-  googleProfile: 'https://share.google/8skUFoDyCMOscHj4J',
+  googleProfile: 'https://www.doctoralia.com.br/winner-furtado/psicologo/pouso-alegre#profile-reviews',
   onlineConsultationAvailable: true,
   presentialConsultationAvailable: false,
 };

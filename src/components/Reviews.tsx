@@ -17,7 +17,7 @@ export default function Reviews() {
           </p>
           <div className="w-16 h-0.5 bg-[#1A1A1A] mx-auto mb-6"></div>
           <p className="font-sans text-xs text-[#2C3531] leading-relaxed">
-            A ética profissional e o bem-estar dos pacientes são nossa prioridade. Confira depoimentos reais deixados de forma espontânea na plataforma Google Business.
+            A ética profissional e o bem-estar dos pacientes são nossa prioridade. Confira depoimentos reais deixados de forma espontânea na plataforma Doctoralia.
           </p>
         </div>
 
@@ -81,7 +81,7 @@ export default function Reviews() {
                     rel="noopener noreferrer"
                     className="font-mono uppercase tracking-wider font-bold hover:underline hover:text-[#1A1A1A] transition-colors"
                   >
-                    Google Maps
+                    Doctoralia
                   </a>
                 </div>
 
