@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Search, ArrowRight, BookOpen, Clock, Filter, Sparkles } from 'lucide-react';
+import { Search, ArrowRight, BookOpen, Clock, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ARTICLES } from '../data';
 import { Article } from '../types';
@@ -11,8 +11,6 @@ export default function Articles() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [subscribed, setSubsubscribed] = useState(false);
   const [sanityPosts, setSanityPosts] = useState<SanityPost[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -97,14 +95,6 @@ export default function Articles() {
     }
     return filteredArticles;
   }, [filteredArticles, isSanityConfigured, sanityPosts]);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setSubsubscribed(true);
-      setNewsletterEmail('');
-    }
-  };
 
   return (
     <section id="artigos" className="py-24 bg-[#F9F7F2] relative border-b border-[#1A1A1A]">
@@ -256,55 +246,6 @@ export default function Articles() {
           </div>
         )}
 
-        {/* Featured Mental Wellness Banner with our generated vector illustration */}
-        <div className="mt-20 bg-[#FDFCFB] border border-[#1A1A1A] rounded-none p-8 sm:p-12 flex flex-col lg:flex-row gap-8 items-center editorial-shadow-dark">
-          <div className="lg:col-span-8 flex-1">
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-[#F9F7F2] border border-[#1A1A1A] mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#1A1A1A]" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]">Newsletter & Saúde Mental</span>
-            </div>
-            <h3 className="font-display font-bold text-2xl text-[#1A1A1A] mb-2">Quer receber conteúdos exclusivos?</h3>
-            <p className="font-sans text-xs sm:text-sm text-[#2C3531] leading-relaxed mb-6">
-              Toda semana o Dr. Psiwinner compartilha reflexões rápidas, recomendações de livros e práticas de autocuidado. Inscreva seu e-mail para acompanhar gratuitamente.
-            </p>
-            
-            {subscribed ? (
-              <div className="p-4 bg-[#F9F7F2] border border-[#1A1A1A] inline-block">
-                <p className="font-sans text-xs font-bold text-[#1A1A1A] uppercase tracking-wider">
-                  ✓ Obrigado por se inscrever! Você começará a receber nossos boletins em breve.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-md">
-                <input
-                  type="email"
-                  required
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="Seu melhor e-mail"
-                  className="flex-1 px-4 py-2.5 text-xs font-sans bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A]"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-[#1A1A1A] hover:bg-[#333] transition-colors rounded-none cursor-pointer border border-[#1A1A1A]"
-                >
-                  Inscrever-se
-                </button>
-              </form>
-            )}
-          </div>
-          
-          <div className="lg:col-span-4 shrink-0 max-w-[280px] w-full rounded-none overflow-hidden bg-[#F9F7F2] border border-[#1A1A1A]">
-            <img
-              src="/src/assets/images/mental_wellness_vector_1784330624617.jpg"
-              alt="Ilustração de saúde mental"
-              className="w-full h-full object-cover grayscale opacity-90"
-              onError={(e) => {
-                e.currentTarget.src = "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&q=80&w=800";
-              }}
-            />
-          </div>
-        </div>
 
       </div>
 
