@@ -1,36 +1,12 @@
-import React, { useState } from 'react';
-import { motion } from 'motion/react';
-import { GraduationCap, Award, BookOpen, HeartPulse, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { GraduationCap, Award, BookOpen, CheckCircle } from 'lucide-react';
 import { CREDENTIALS, DOCTOR_INFO } from '../data';
 
 export default function Credentials() {
-  const [activeTab, setActiveTab] = useState<'todos' | 'academic' | 'experiencia'>('todos');
-
-  // Filter logic
-  const filteredCredentials = CREDENTIALS.filter((cred) => {
-    if (activeTab === 'academic') {
-      return cred.category === 'graduacao' || cred.category === 'pos';
-    }
-    if (activeTab === 'experiencia') {
-      return cred.category === 'experiencia' || cred.category === 'associacao';
-    }
-    return true; // 'todos'
-  });
-
-  const getIcon = (category: string) => {
-    switch (category) {
-      case 'graduacao':
-        return <GraduationCap className="w-4 h-4" />;
-      case 'pos':
-        return <BookOpen className="w-4 h-4" />;
-      case 'experiencia':
-        return <HeartPulse className="w-4 h-4" />;
-      case 'associacao':
-        return <Award className="w-4 h-4" />;
-      default:
-        return <CheckCircle className="w-4 h-4" />;
-    }
-  };
+  // Separate credentials by category
+  const mainCredentials = CREDENTIALS.filter(c => c.category === 'graduacao' || c.category === 'pos');
+  const additionalFormations = CREDENTIALS.filter(c => c.category === 'formacao' || c.id === 'c7' || c.id === 'c8');
+  const professionalExperience = CREDENTIALS.filter(c => c.category === 'experiencia' || c.category === 'associacao');
 
   return (
     <section id="formacao" className="py-24 bg-[#FDFCFB] relative border-b border-[#1A1A1A]">
@@ -71,67 +47,68 @@ export default function Credentials() {
             </div>
           </div>
 
-          {/* Right Column: Timeline & Credentials */}
-          <div className="lg:col-span-7">
+          {/* Right Column: Categorized credentials grid */}
+          <div className="lg:col-span-7 space-y-8">
             
-            {/* Timeline Filter Controls */}
-            <div className="flex flex-wrap gap-2 mb-10 border-b border-[#1A1A1A] pb-4">
-              {[
-                { id: 'todos', label: 'Toda a Trajetória' },
-                { id: 'academic', label: 'Formação Acadêmica' },
-                { id: 'experiencia', label: 'Experiência & Conselhos' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-none border transition-all duration-200 cursor-pointer ${
-                    activeTab === tab.id
-                      ? 'bg-[#1A1A1A] text-[#FDFCFB] border-[#1A1A1A]'
-                      : 'text-[#1A1A1A] bg-[#F9F7F2] border-[#E5E1DA] hover:border-[#1A1A1A]'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+            {/* Category 1: Formação Principal & Pós-Graduações */}
+            <div className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]/80">
+              <div className="flex items-center space-x-3 mb-6 pb-3 border-b border-[#E5E1DA]">
+                <GraduationCap className="w-5 h-5 text-[#1A1A1A]" />
+                <h4 className="font-display font-bold text-sm uppercase tracking-wider text-[#1A1A1A]">Formação Acadêmica & Pós-Graduações</h4>
+              </div>
+              <ul className="space-y-5">
+                {mainCredentials.map((cred) => (
+                  <li key={cred.id} className="flex items-start space-x-3.5">
+                    <div className="mt-1.5 flex-shrink-0 w-2 h-2 bg-[#1A1A1A] rounded-none rotate-45" />
+                    <div>
+                      <h5 className="font-sans font-bold text-sm text-[#1A1A1A] leading-tight">
+                        {cred.degree} {cred.id === 'c4' && <span className="text-[10px] text-[#8E8A83] font-normal italic">(Cursando)</span>}
+                      </h5>
+                      <p className="font-sans text-xs text-[#8E8A83] mt-1 font-semibold">{cred.institution}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Timeline Tree */}
-            <div className="relative border-l border-[#1A1A1A] pl-6 ml-4 space-y-10">
-              {filteredCredentials.map((cred, index) => (
-                <motion.div
-                  key={cred.id}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className="relative group"
-                  id={`credential-timeline-${cred.id}`}
-                >
-                  {/* Timeline bullet icon */}
-                  <span className="absolute -left-[37px] top-0.5 flex items-center justify-center w-8 h-8 rounded-none bg-[#F9F7F2] border border-[#1A1A1A] text-[#1A1A1A] group-hover:bg-[#1A1A1A] group-hover:text-[#FDFCFB] transition-all duration-300">
-                    {getIcon(cred.category)}
-                  </span>
-
-                  {/* Timeline content details */}
-                  <div>
-                    <span className="inline-block text-[10px] font-mono font-bold text-[#1A1A1A] bg-[#F9F7F2] border border-[#1A1A1A] px-2 py-0.5 rounded-none mb-2">
-                      {cred.year}
-                    </span>
-                    <h4 className="font-display font-bold text-lg text-[#1A1A1A] transition-colors duration-200">
-                      {cred.degree}
-                    </h4>
-                    <p className="font-display italic text-sm text-[#8E8A83] mb-2">
-                      {cred.institution}
-                    </p>
-                    {cred.description && (
-                      <p className="font-sans text-xs text-[#2C3531] leading-relaxed max-w-xl">
-                        {cred.description}
-                      </p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+            {/* Category 2: Formações Complementares */}
+            <div className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]/80">
+              <div className="flex items-center space-x-3 mb-6 pb-3 border-b border-[#E5E1DA]">
+                <BookOpen className="w-5 h-5 text-[#1A1A1A]" />
+                <h4 className="font-display font-bold text-sm uppercase tracking-wider text-[#1A1A1A]">Cursos de Formação Complementar</h4>
+              </div>
+              <ul className="space-y-5">
+                {additionalFormations.map((cred) => (
+                  <li key={cred.id} className="flex items-start space-x-3.5">
+                    <div className="mt-1.5 flex-shrink-0 w-2 h-2 bg-[#1A1A1A] rounded-none rotate-45" />
+                    <div>
+                      <h5 className="font-sans font-bold text-sm text-[#1A1A1A] leading-tight">{cred.degree}</h5>
+                      <p className="font-sans text-xs text-[#8E8A83] mt-1 font-semibold">{cred.institution}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            {/* Category 3: Registro & Atuação */}
+            <div className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]/80">
+              <div className="flex items-center space-x-3 mb-6 pb-3 border-b border-[#E5E1DA]">
+                <Award className="w-5 h-5 text-[#1A1A1A]" />
+                <h4 className="font-display font-bold text-sm uppercase tracking-wider text-[#1A1A1A]">Registro Profissional & Atuação</h4>
+              </div>
+              <ul className="space-y-5">
+                {professionalExperience.map((cred) => (
+                  <li key={cred.id} className="flex items-start space-x-3.5">
+                    <div className="mt-1.5 flex-shrink-0 w-2 h-2 bg-[#1A1A1A] rounded-none rotate-45" />
+                    <div>
+                      <h5 className="font-sans font-bold text-sm text-[#1A1A1A] leading-tight">{cred.degree}</h5>
+                      <p className="font-sans text-xs text-[#8E8A83] mt-1 font-semibold">{cred.institution}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
 
         </div>
