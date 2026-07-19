@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Play, Instagram, ArrowRight, Eye } from 'lucide-react';
+import profileImage from '../assets/images/psicologo_profile.jpg';
 
 export interface InstagramVideo {
   id: string;
@@ -14,43 +15,43 @@ export const INSTAGRAM_VIDEOS: InstagramVideo[] = [
     id: 'v1',
     title: 'Como saber se a ansiedade está controlando sua vida?',
     url: 'https://www.instagram.com/reel/DYvEGVMB7yP/?igsh=MWxmNXR1YnJsaXRkcw==',
-    coverImage: 'https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   },
   {
     id: 'v2',
     title: 'O que é a dependência emocional e como superá-la?',
     url: 'https://www.instagram.com/reel/DY7V_l_FyoE/?igsh=czgwc3A0NXIyZHNo',
-    coverImage: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   },
   {
     id: 'v3',
     title: 'Dizer "não" sem culpa: O poder dos limites saudáveis',
     url: 'https://www.instagram.com/reel/DXEXTEODtxL/?igsh=bjFqcWRwOXNoNThs',
-    coverImage: 'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   },
   {
     id: 'v4',
     title: 'Autoestima: Como construir um autorespeito duradouro?',
     url: 'https://www.instagram.com/reel/Daliw1aPrOL/?igsh=N25ya2dyMmJ6NWFq',
-    coverImage: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   },
   {
     id: 'v5',
     title: 'Por que a comparação nas redes sociais adoece sua mente?',
     url: 'https://www.instagram.com/reel/DZIQPl0ulYg/?igsh=MWlhczllZDFtMHh6dg==',
-    coverImage: 'https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   },
   {
     id: 'v6',
     title: 'O que realmente acontece na primeira sessão de terapia?',
     url: 'https://www.instagram.com/reel/DYQMyyHNBeV/?igsh=MW1pNTkwbWNlNGpu',
-    coverImage: 'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   },
   {
     id: 'v7',
     title: 'Regulação emocional: O que fazer quando tudo transborda?',
     url: 'https://www.instagram.com/reel/DX-Jw8MMUPR/?igsh=bmhxYnE1cGR4MXZn',
-    coverImage: 'https://images.unsplash.com/photo-1474418386616-3d23a7fa7427?auto=format&fit=crop&q=80&w=480&h=853'
+    coverImage: profileImage
   }
 ];
 

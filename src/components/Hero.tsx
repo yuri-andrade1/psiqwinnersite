@@ -122,7 +122,7 @@ export default function Hero() {
               {/* Profile Image with fallback */}
               <img
                 id="hero-profile-image"
-                src="/src/assets/images/psicologo_profile_1784330612743.jpg"
+                src="/src/assets/images/psicologo_profile.jpg"
                 alt="Retrato profissional de Winner Furtado"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
