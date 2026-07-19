@@ -207,8 +207,7 @@ export const GOOGLE_REVIEWS: Review[] = [
     rating: 5,
     dateText: 'Há 3 semanas',
     text: 'O Winner é um profissional extremamente atencioso, acolhedor e sabe conduzir as sessões com muita sensibilidade. Gosto muito da forma como ele propõe reflexões práticas que me ajudam a enxergar as situações sob novas perspectivas no cotidiano. Recomendo seu trabalho de olhos fechados!',
-    verified: true,
-    response: 'Fico muito grato pelo seu relato, Igor. Nosso compromisso é justamente oferecer um espaço de escuta qualificada que colabore para novas formas de olhar e responder aos desafios diários. Um grande abraço!'
+    verified: true
   },
   {
     id: 'r2',
@@ -216,8 +215,7 @@ export const GOOGLE_REVIEWS: Review[] = [
     rating: 5,
     dateText: 'Há um mês',
     text: 'Excelente profissional, muito atencioso e empático! O atendimento dele transmite muita segurança e acolhimento desde a primeira consulta. Indico de olhos fechados.',
-    verified: true,
-    response: 'Muito obrigado pela confiança em meu trabalho. Fico feliz em poder oferecer esse espaço seguro e acolhedor para as nossas sessões.'
+    verified: true
   },
   {
     id: 'r3',
