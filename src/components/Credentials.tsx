@@ -5,7 +5,7 @@ import { CREDENTIALS, DOCTOR_INFO } from '../data';
 export default function Credentials() {
   // Separate credentials by category
   const mainCredentials = CREDENTIALS.filter(c => c.category === 'graduacao' || c.category === 'pos');
-  const additionalFormations = CREDENTIALS.filter(c => c.category === 'formacao' || c.id === 'c7' || c.id === 'c8');
+  const additionalFormations = CREDENTIALS.filter(c => c.category === 'formacao');
   const professionalExperience = CREDENTIALS.filter(c => c.category === 'experiencia' || c.category === 'associacao');
 
   return (

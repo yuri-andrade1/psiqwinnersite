@@ -171,7 +171,7 @@ export const CREDENTIALS: Credential[] = [
     degree: 'Formação em Psicopatologia',
     institution: 'Curso de Especialização',
     year: 'Formação',
-    category: 'pos',
+    category: 'formacao',
     description: 'Estudo aprofundado de transtornos mentais, diagnósticos clínicos e psicopatologia geral.'
   },
   {
@@ -179,7 +179,7 @@ export const CREDENTIALS: Credential[] = [
     degree: 'Formação em Obesidade e Emagrecimento',
     institution: 'Curso de Especialização',
     year: 'Formação',
-    category: 'pos',
+    category: 'formacao',
     description: 'Intervenções focadas em comportamento alimentar, compulsão, mudanças de hábitos e perda de peso saudável.'
   },
   {
