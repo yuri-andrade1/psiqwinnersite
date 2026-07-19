@@ -206,23 +206,23 @@ export const GOOGLE_REVIEWS: Review[] = [
     authorName: 'Igor Bernardes',
     rating: 5,
     dateText: 'Há 3 semanas',
-    text: 'O Winner é um profissional extremamente atencioso, acolhedor e sabe conduzir as sessões com muita sensibilidade. Gosto muito da forma como ele propõe reflexões práticas que me ajudam a enxergar as situações sob novas perspectivas no cotidiano. Recomendo seu trabalho de olhos fechados!',
+    text: 'Tenho tido uma experiência muito positiva com o atendimento. Winner é um profissional atencioso, acolhedor e sabe conduzir as sessões com sensibilidade. Gosto da forma como ele propõe reflexões que me ajudam a enxergar situações por novas perspectivas. Recomendo o seu trabalho para quem busca um acompanhamento humano, gentil e empático.',
     verified: true
   },
   {
     id: 'r2',
-    authorName: 'A. V.',
+    authorName: 'Isadora Silva',
     rating: 5,
-    dateText: 'Há um mês',
-    text: 'Excelente profissional, muito atencioso e empático! O atendimento dele transmite muita segurança e acolhimento desde a primeira consulta. Indico de olhos fechados.',
+    dateText: 'Há 1 mês',
+    text: 'Winner é um psicólogo excepcional! Seu trabalho é incrível. Sempre fui reticente quanto a terapia e ele me mostrou um ambiente acolhedor e seguro para que esse processo seja mais leve. Sua abordagem e técnica torna a experiência da consulta muito gratificante.',
     verified: true
   },
   {
     id: 'r3',
-    authorName: 'Mariana Santos',
+    authorName: 'Diana',
     rating: 5,
     dateText: 'Há 2 meses',
-    text: 'Iniciei a psicoterapia online com o Winner e tem sido uma experiência incrível. O atendimento remoto dele funciona super bem, é muito seguro e acolhedor. Ele tem uma postura profissional impecável e as estratégias da TCC me ajudam no dia a dia.',
+    text: 'O psicólogo Winner é um profissional incrível. Com as sessões, aprendi a racionalizar melhor meus pensamentos e sentimentos, a senti-los e processá-los com mais clareza. Ele é muito acolhedor, o que me faz sentir à vontade para ser eu mesma, além de ser inteligente e sempre me ajudar a encontrar caminhos e soluções para as questões que trago.',
     verified: true
   }
 ];
