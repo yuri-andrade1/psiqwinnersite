@@ -203,31 +203,28 @@ export const CREDENTIALS: Credential[] = [
 export const GOOGLE_REVIEWS: Review[] = [
   {
     id: 'r1',
-    authorName: 'Thiago Mendes',
-    authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120&h=120',
+    authorName: 'Igor Bernardes',
     rating: 5,
-    dateText: 'Há uma semana',
-    text: 'Fazer terapia com o Dr. Winner foi fundamental no meu tratamento para crises de ansiedade. Desde a primeira sessão me senti ouvido e muito respeitado. As técnicas de TCC me ajudaram na prática no meu dia a dia. Recomendo demais!',
+    dateText: 'Há 3 semanas',
+    text: 'O Winner é um profissional extremamente atencioso, acolhedor e sabe conduzir as sessões com muita sensibilidade. Gosto muito da forma como ele propõe reflexões práticas que me ajudam a enxergar as situações sob novas perspectivas no cotidiano. Recomendo seu trabalho de olhos fechados!',
     verified: true,
-    response: 'Obrigado pelo depoimento, Thiago. Fico muito feliz em ver sua evolução e sua dedicação em aplicar as estratégias em sua rotina!'
+    response: 'Fico muito grato pelo seu relato, Igor. Nosso compromisso é justamente oferecer um espaço de escuta qualificada que colabore para novas formas de olhar e responder aos desafios diários. Um grande abraço!'
   },
   {
     id: 'r2',
-    authorName: 'Camila Rodrigues',
-    authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120',
+    authorName: 'A. V.',
     rating: 5,
     dateText: 'Há um mês',
-    text: 'Excelente profissional. Ele me ajudou muito a entender minha dependência emocional e a fortalecer minha autoestima. O atendimento online é muito seguro e prático, a plataforma por onde fazemos as chamadas funciona super bem. Nota 10!',
+    text: 'Excelente profissional, muito atencioso e empático! O atendimento dele transmite muita segurança e acolhimento desde a primeira consulta. Indico de olhos fechados.',
     verified: true,
-    response: 'Fico imensamente grato, Camila. Fortalecer a autoestima e ganhar autonomia emocional é um processo de coragem. Parabéns pelo seu desenvolvimento!'
+    response: 'Muito obrigado pela confiança em meu trabalho. Fico feliz em poder oferecer esse espaço seguro e acolhedor para as nossas sessões.'
   },
   {
     id: 'r3',
-    authorName: 'Lucas Oliveira',
-    authorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120&h=120',
+    authorName: 'Mariana Santos',
     rating: 5,
     dateText: 'Há 2 meses',
-    text: 'Profissional atencioso, ético e direto ao ponto. Ele me deu ferramentas incríveis para lidar com hábitos alimentares e regulação do humor. Muito bom mesmo.',
+    text: 'Iniciei a psicoterapia online com o Winner e tem sido uma experiência incrível. O atendimento remoto dele funciona super bem, é muito seguro e acolhedor. Ele tem uma postura profissional impecável e as estratégias da TCC me ajudam no dia a dia.',
     verified: true
   }
 ];

@@ -69,9 +69,14 @@ export default function Reviews() {
               ))}
             </div>
 
-            <p className="font-sans text-xs text-[#2C3531] font-bold uppercase tracking-wider">
-              128 avaliações no Google
-            </p>
+            <a
+              href={DOCTOR_INFO.googleProfile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans text-xs text-[#2C3531] font-bold uppercase tracking-wider underline hover:text-[#8E8A83] transition-colors"
+            >
+              Ver no Google Maps
+            </a>
             <p className="font-mono text-[9px] text-[#1A1A1A] font-bold bg-[#FDFCFB] border border-[#1A1A1A] px-2.5 py-1 mt-3 uppercase tracking-wider">
               Pontuação Excelente
             </p>
@@ -251,7 +256,14 @@ export default function Reviews() {
                     <CheckCircle className="w-3 h-3 mr-1" />
                     Avaliação Verificada
                   </div>
-                  <span className="font-mono uppercase tracking-wider font-bold">Google Maps</span>
+                  <a
+                    href={DOCTOR_INFO.googleProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono uppercase tracking-wider font-bold hover:underline hover:text-[#1A1A1A] transition-colors"
+                  >
+                    Google Maps
+                  </a>
                 </div>
 
                 {review.response && (
