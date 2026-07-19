@@ -59,7 +59,7 @@ export default function Hero() {
               variants={itemVariants}
               className="font-display italic font-light text-4xl sm:text-5xl lg:text-6xl tracking-tight text-[#1A1A1A] leading-[1.1] mb-6"
             >
-              Caminhos para <span className="font-bold font-display not-italic">reconquistar</span> o seu equilíbrio e bem-estar mental.
+              Saia do modo alerta e construa relações mais <span className="font-bold font-display not-italic">seguras</span>.
             </motion.h1>
 
             {/* Sub-headline */}
@@ -67,7 +67,7 @@ export default function Hero() {
               variants={itemVariants}
               className="font-sans text-base text-[#2C3531] leading-relaxed max-w-2xl mb-8"
             >
-              {DOCTOR_INFO.shortBio} No consultório de <strong className="text-[#1A1A1A] font-semibold">{DOCTOR_INFO.name}</strong>, você encontrará um ambiente acolhedor, seguro e totalmente confidencial para trilhar a sua jornada de autotransformação.
+              {DOCTOR_INFO.shortBio} Aqui, no meu espaço de atendimento online, você encontrará um ambiente acolhedor, seguro e totalmente confidencial para darmos o primeiro passo na sua jornada de autotransformação.
             </motion.p>
 
             {/* CTAs */}
