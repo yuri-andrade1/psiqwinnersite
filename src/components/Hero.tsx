@@ -67,7 +67,7 @@ export default function Hero() {
               variants={itemVariants}
               className="font-sans text-base text-[#2C3531] leading-relaxed max-w-2xl mb-8"
             >
-              {DOCTOR_INFO.shortBio} Aqui, no meu espaço de atendimento online, você encontrará um ambiente acolhedor, seguro e totalmente confidencial para darmos o primeiro passo na sua jornada de autotransformação.
+              Acredito que a terapia é uma construção conjunta. Eu contribuo com o conhecimento da Terapia Cognitivo-Comportamental (TCC) e você com aquilo que ninguém conhece melhor: a sua própria vida. Juntos, desenvolvemos estratégias para construir uma vida com mais segurança, autonomia e sentido.
             </motion.p>
 
             {/* CTAs */}
