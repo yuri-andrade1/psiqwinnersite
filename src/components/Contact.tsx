@@ -215,6 +215,25 @@ export default function Contact() {
               <Instagram className="w-4 h-4 mr-1.5" />
               {DOCTOR_INFO.instagram}
             </a>
+            <a
+              href={`https://www.tiktok.com/${DOCTOR_INFO.tiktok}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center hover:text-[#1A1A1A] transition-colors"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4 mr-1.5"
+              >
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+              </svg>
+              {DOCTOR_INFO.tiktok}
+            </a>
           </div>
 
           <p className="font-sans text-center sm:text-right leading-relaxed font-semibold">
