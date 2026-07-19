@@ -80,7 +80,7 @@ export default function PrivacyModal() {
                   3. Direitos do Usuário (Titular dos Dados)
                 </h4>
                 <p>
-                  Você tem o direito de solicitar a retificação, limitação ou exclusão de qualquer dada compartilhada durante a marcação de consultas diretamente ao profissional. Nenhum dado é repassado a terceiros sem consentimento prévio por escrito.
+                  Você tem o direito de solicitar a retificação, limitação ou exclusão de qualquer informação compartilhada durante a marcação de consultas diretamente ao profissional. Nenhum dado é repassado a terceiros sem consentimento prévio por escrito.
                 </p>
               </div>
 
@@ -89,7 +89,7 @@ export default function PrivacyModal() {
                   4. Cookies e Tecnologias de Rastreamento
                 </h4>
                 <p>
-                  Este site utiliza apenas cookies estritamente necessários para permitir a navegação e a correta funcionalidade dos recursos interativos (como manter as configurações de acessibilidade ou aceitação do banner de privacidade). Não utilizamos cookies de rastreamento comercial ou publicidade invasiva.
+                  Este site utiliza apenas recursos estritamente necessários para permitir a navegação e a correta funcionalidade dos recursos interativos (como manter as configurações de acessibilidade do site). Não utilizamos cookies de rastreamento comercial ou publicidade invasiva.
                 </p>
               </div>
             </div>
