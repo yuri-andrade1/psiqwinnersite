@@ -72,7 +72,7 @@ export default function Contact() {
                   <p className="font-sans text-[10px] text-[#8E8A83] mb-1">Parcerias e comunicações administrativas</p>
                   <a
                     href={`mailto:${DOCTOR_INFO.email}`}
-                    className="font-sans text-xs font-bold uppercase tracking-wider text-[#1A1A1A] hover:underline"
+                    className="font-sans text-xs font-bold text-[#1A1A1A] hover:underline break-all"
                   >
                     {DOCTOR_INFO.email}
                   </a>
