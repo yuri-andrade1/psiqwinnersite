@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, type Variants } from 'motion/react';
 import { MessageSquare, ShieldCheck, Globe, Laptop, Sparkles } from 'lucide-react';
 import { DOCTOR_INFO } from '../data';
+import mainProfileImage from '../assets/images/principalimage.jpeg';
 
 export default function Hero() {
   const handleWhatsAppClick = () => {
@@ -122,7 +123,7 @@ export default function Hero() {
               {/* Profile Image with fallback */}
               <img
                 id="hero-profile-image"
-                src="/src/assets/images/psicologo_profile.jpg"
+                src={mainProfileImage}
                 alt="Retrato profissional de Winner Furtado"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
