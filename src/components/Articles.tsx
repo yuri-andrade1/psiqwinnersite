@@ -118,7 +118,7 @@ export default function Articles() {
             <BookOpen className="w-8 h-8 mx-auto text-[#8E8A83] mb-4" />
             <h3 className="font-display font-bold text-[#1A1A1A] text-lg mb-2">Os artigos estarão disponíveis em breve</h3>
             <p className="font-sans text-xs text-[#2C3531] leading-relaxed max-w-md mx-auto mb-6">
-              O Dr. Winner Furtado está preparando conteúdos e reflexões especiais sobre saúde mental, psicologia baseada em evidências e relacionamentos. Acompanhe as redes sociais para as novidades!
+              O Psicólogo Winner Furtado está preparando conteúdos e reflexões especiais sobre saúde mental, psicologia baseada em evidências e relacionamentos. Acompanhe as redes sociais para as novidades!
             </p>
             <a
               href="https://instagram.com/psiwinner"
