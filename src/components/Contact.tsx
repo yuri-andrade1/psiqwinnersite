@@ -82,11 +82,11 @@ export default function Contact() {
               {/* Card Address */}
               <div className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow">
                 <div className="p-3 border border-[#1A1A1A] bg-[#F9F7F2] text-[#1A1A1A] shrink-0">
-                  <MapPin className="w-4 h-4" />
+                  <Laptop className="w-4 h-4" />
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-display font-bold text-[#1A1A1A] text-sm">Consultório Presencial</h4>
-                  <p className="font-sans text-[10px] text-[#8E8A83] mb-1">Excelente localização na Avenida Paulista</p>
+                  <h4 className="font-display font-bold text-[#1A1A1A] text-sm">Modalidade de Atendimento</h4>
+                  <p className="font-sans text-[10px] text-[#8E8A83] mb-1">Segurança e sigilo de forma digital</p>
                   <p className="font-sans text-xs text-[#2C3531] leading-relaxed max-w-xs font-semibold">
                     {DOCTOR_INFO.address}
                   </p>
@@ -95,18 +95,13 @@ export default function Contact() {
 
             </div>
 
-            {/* Google Maps Interactive Iframe */}
-            <div className="flex-1 min-h-[220px] rounded-none overflow-hidden border border-[#1A1A1A] bg-[#FDFCFB]">
-              <iframe
-                title="Localização do Consultório"
-                src={DOCTOR_INFO.googleMapsEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: 'grayscale(1) contrast(1.1) opacity(0.85)' }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+            {/* Online Therapy Info Card */}
+            <div className="flex-1 min-h-[220px] p-6 rounded-none border border-[#1A1A1A] bg-[#1A1A1A] text-[#FDFCFB] flex flex-col justify-center">
+              <Laptop className="w-6 h-6 text-[#FDFCFB] mb-3" />
+              <h4 className="font-display font-bold text-sm uppercase tracking-wider mb-2">Terapia Online</h4>
+              <p className="font-sans text-xs text-[#E5E1DA] leading-relaxed">
+                As sessões são realizadas por videochamadas criptografadas de ponta a ponta em uma plataforma de saúde segura (em total conformidade com a LGPD e regulamentada pelo CFP), garantindo a mesma eficácia científica e sigilo do atendimento presencial.
+              </p>
             </div>
           </div>
 
@@ -155,7 +150,6 @@ export default function Contact() {
                     className="w-full px-4 py-3 text-xs bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A]"
                   >
                     <option value="Consulta Online">Consulta de Terapia Online</option>
-                    <option value="Consulta Presencial">Consulta Presencial (Paulista)</option>
                     <option value="Dúvidas Gerais">Dúvidas sobre Terapia / Abordagem</option>
                     <option value="Palestras ou Parcerias">Palestras e Projetos Corporativos</option>
                   </select>
@@ -208,7 +202,7 @@ export default function Contact() {
             <span className="font-display font-bold text-[#1A1A1A] text-lg">
               psiwinner
             </span>
-            <span className="font-sans font-bold uppercase tracking-widest text-[9px] text-[#2C3531]">CRP 06/145892 | São Paulo - SP</span>
+            <span className="font-sans font-bold uppercase tracking-widest text-[9px] text-[#2C3531]">CRP 04/62611 | Atendimento Online</span>
           </div>
 
           <div className="flex space-x-6">

@@ -61,25 +61,18 @@ export default function App() {
     const schemaData = {
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
-      "name": "Dr. Psiwinner Psicologia Clínica",
-      "alternateName": "Psiwinner",
+      "name": "Winner Furtado Psicologia Clínica",
+      "alternateName": "Winner Furtado",
       "image": "https://psiqwinnersite.vercel.app/src/assets/images/psicologo_profile_1784330612743.jpg",
       "@id": "https://psiqwinnersite.vercel.app/#medicalbusiness",
       "url": "https://psiqwinnersite.vercel.app",
-      "telephone": "+5511999999999",
+      "telephone": "+5535984434572",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Av. Paulista, 1000 - Bela Vista",
-        "addressLocality": "São Paulo",
-        "addressRegion": "SP",
-        "postalCode": "01310-100",
+        "addressLocality": "Minas Gerais",
+        "addressRegion": "MG",
         "addressCountry": "BR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": -23.561349578800185,
-        "longitude": -46.65431322467009
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
@@ -100,10 +93,12 @@ export default function App() {
       "knowsAbout": [
         "Terapia Cognitivo-Comportamental",
         "Tratamento de Ansiedade",
-        "Tratamento de Burnout",
-        "Tratamento de Depressão",
+        "Dependência Emocional",
         "Autoestima e Autocuidado",
-        "Relacionamentos e Conflitos"
+        "Regulação Emocional",
+        "Desenvolvimento Pessoal",
+        "Emagrecimento e Hábitos",
+        "Transtornos Mentais"
       ]
     };
 

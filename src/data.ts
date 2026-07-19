@@ -1,92 +1,118 @@
 import { Specialty, Review, Credential, Article } from './types';
 
 export const DOCTOR_INFO = {
-  name: 'Dr. Psiwinner',
-  fullTitle: 'Dr. Psiwinner (CRP 06/145892)',
-  shortBio: 'Psicólogo Clínico especializado em Terapia Cognitivo-Comportamental (TCC). Dedicado a ajudar pessoas a superarem a ansiedade, burnout e a construírem vidas com mais equilíbrio, clareza e bem-estar.',
-  longBio: 'Olá! Sou psicólogo clínico com mais de 10 anos de experiência prática, ajudando jovens e adultos a atravessarem momentos difíceis e a reencontrarem seu protagonismo. Minha abordagem é baseada na Terapia Cognitivo-Comportamental (TCC) combinada com práticas de Atenção Plena (Mindfulness), um método com bases científicas sólidas que foca no presente, na reestruturação de pensamentos limitantes e na mudança de comportamentos prejudiciais. Acredito que a terapia é um espaço seguro, livre de julgamentos, focado na colaboração ativa entre terapeuta e paciente.',
-  whatsappNumber: '5511999999999', // Placeholder number that can be changed, formatted for API
-  whatsappMessage: 'Olá, Dr. Psiwinner! Vi seu site e gostaria de tirar dúvidas sobre o agendamento de consultas.',
-  address: 'Av. Paulista, 1000 - Bela Vista, São Paulo - SP, 01310-100',
-  googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975730331034!2d-46.65431322467009!3d-23.561349578800185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431797cd77e!2sAv.%20Paulista%2C%20São%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr',
-  email: 'contato@psiwinner.com.br',
-  phone: '(11) 99999-9999',
-  instagram: '@psiwinner.psicologia',
+  name: 'Winner Furtado',
+  fullTitle: 'Winner Furtado (CRP 04/62611)',
+  shortBio: 'Psicoterapia baseada em evidências para quem deseja compreender a própria mente, fortalecer seus relacionamentos e construir uma vida com mais autonomia.',
+  longBio: 'Olá! Sou psicólogo clínico (CRP 04/62611), com atuação fundamentada na Psicologia Baseada em Evidências e na Terapia Cognitivo-Comportamental (TCC). Acredito que compreender a forma como pensamos, sentimos e nos comportamos é o primeiro passo para promover mudanças reais e duradouras, sempre adaptando o conhecimento científico à realidade de cada pessoa. Vejo a psicoterapia como uma parceria: eu contribuo com o conhecimento técnico da TCC e você com a sua própria história, valores e objetivos. Meu objetivo é oferecer um espaço seguro de acolhimento, escuta e reflexão, ajudando você a desenvolver estratégias para lidar com a ansiedade, fortalecer a autoestima, construir relacionamentos mais saudáveis e enfrentar os desafios da vida com mais segurança e autonomia. Porque, no fim das contas, acredito que uma boa terapia não é aquela que diz como você deve viver, mas aquela que oferece ferramentas para que você possa construir a vida que deseja viver.',
+  whatsappNumber: '5535984434572',
+  whatsappMessage: 'Olá, Winner! Vi seu site e gostaria de tirar dúvidas sobre o agendamento de consultas de psicoterapia.',
+  address: 'Atendimento Online (para todo o Brasil e brasileiros no exterior)',
+  googleMapsEmbedUrl: '', // Online only
+  email: 'psicologowinnerfurtado@gmail.com',
+  phone: '(35) 98443-4572',
+  instagram: '@psiwinner',
+  tiktok: '@psiwinner',
+  googleProfile: 'https://share.google/8skUFoDyCMOscHj4J',
   onlineConsultationAvailable: true,
-  presentialConsultationAvailable: true,
+  presentialConsultationAvailable: false,
 };
 
 export const SPECIALTIES: Specialty[] = [
   {
     id: 'ansiedade',
     title: 'Ansiedade e Estresse',
-    description: 'Tratamento de transtornos de ansiedade (TAG, pânico, fobias) e estresse crônico através de técnicas que acalmam a mente e regulam o sistema nervoso.',
+    description: 'Tratamento especializado para crises, pânico, fobias e preocupação excessiva, ajudando a regular a mente e o corpo através de abordagens cognitivo-comportamentais.',
     iconName: 'Brain',
     symptoms: [
-      'Preocupação excessiva e constante',
-      'Taquicardia ou aperto no peito',
-      'Pensamentos acelerados e insônia',
-      'Medo irracional ou ataques de pânico'
+      'Preocupação constante e pensamentos acelerados',
+      'Taquicardia ou aperto no peito frequente',
+      'Medo irracional ou crises de pânico',
+      'Dificuldade de relaxar e insônia'
     ]
   },
   {
-    id: 'burnout',
-    title: 'Burnout e Esgotamento',
-    description: 'Acompanhamento especializado para profissionais exaustos devido à sobrecarga de trabalho. Reorganização de limites e recuperação da saúde mental.',
-    iconName: 'Flame',
+    id: 'relacionamentos',
+    title: 'Conflitos e Relacionamentos',
+    description: 'Auxílio na mediação de conflitos amorosos, familiares ou interpessoais, desenvolvendo uma comunicação saudável, inteligência emocional e assertividade.',
+    iconName: 'Users',
     symptoms: [
-      'Exaustão física e mental extrema',
-      'Irritabilidade e distanciamento do trabalho',
-      'Sensação de ineficácia ou impotência',
-      'Dores de cabeça e dores musculares frequentes'
+      'Discussões repetitivas ou distanciamento afetivo',
+      'Dificuldade de expor sentimentos e impor limites',
+      'Conflitos recorrentes de convivência',
+      'Sentimento de incompreensão mútua nas relações'
     ]
   },
   {
-    id: 'depressao',
-    title: 'Depressão e Desânimo',
-    description: 'Suporte clínico para superar a tristeza profunda, apatia e perda de interesse pelas atividades diárias, resgatando a vitalidade e o sentido da vida.',
+    id: 'dependencia-emocional',
+    title: 'Dependência Emocional',
+    description: 'Fortalecimento da autonomia afetiva, ajudando a romper ciclos de relacionamentos tóxicos, dependência ou submissão emocional extrema.',
     iconName: 'HeartCrack',
     symptoms: [
-      'Tristeza persistente e choro fácil',
-      'Falta de energia ou fadiga extrema',
-      'Dificuldade de concentração e tomada de decisões',
-      'Perda de prazer em hobbies antigos'
+      'Medo extremo de rejeição ou abandono',
+      'Colocar as necessidades do outro sempre acima das suas',
+      'Dificuldade extrema em terminar relações prejudiciais',
+      'Sensação de incompletude sem a validação do parceiro'
     ]
   },
   {
     id: 'autoestima',
     title: 'Autoestima e Autocuidado',
-    description: 'Fortalecimento da autoconfiança, superação da autocrítica destrutiva e desenvolvimento de uma relação mais amorosa e acolhedora consigo mesmo.',
+    description: 'Construção de uma autoconfiança sólida, superando a autocrítica destrutiva, a comparação social e a necessidade excessiva de aprovação externa.',
     iconName: 'Sparkles',
     symptoms: [
-      'Comparação excessiva com terceiros',
-      'Insegurança nas decisões pessoais ou profissionais',
-      'Dificuldade em dizer não e impor limites',
+      'Comparação constante com terceiros nas redes sociais',
+      'Insegurança crônica nas decisões pessoais ou profissionais',
+      'Dificuldade em aceitar elogios ou reconhecer qualidades',
       'Sensação crônica de não ser bom o suficiente'
     ]
   },
   {
-    id: 'relacionamentos',
-    title: 'Relacionamentos e Conflitos',
-    description: 'Auxílio na resolução de conflitos amorosos, familiares ou profissionais, focando na comunicação assertiva e na expressão saudável de sentimentos.',
-    iconName: 'Users',
+    id: 'regulacao-emocional',
+    title: 'Regulação Emocional',
+    description: 'Estratégias práticas para compreender, acolher e modular emoções intensas como raiva, medo, frustração ou choro fácil no cotidiano.',
+    iconName: 'Compass',
     symptoms: [
-      'Discussões frequentes e repetitivas',
-      'Dificuldade em expressar necessidades',
-      'Dependência emocional ou insegurança afetiva',
-      'Falta de conexão e distanciamento mútuo'
+      'Explosões de raiva ou reações impulsivas frequentes',
+      'Sensação de ser facilmente engolido pelas emoções',
+      'Choro fácil ou oscilações rápidas de humor',
+      'Dificuldade em se acalmar após um gatilho de estresse'
     ]
   },
   {
-    id: 'luto',
-    title: 'Luto e Processos de Transição',
-    description: 'Acolhimento empático para lidar com perdas significativas (morte de entes queridos, divórcio, demissão) e reestruturação da identidade após grandes mudanças.',
-    iconName: 'Compass',
+    id: 'desenvolvimento-pessoal',
+    title: 'Desenvolvimento Pessoal',
+    description: 'Acompanhamento focado em clareza de metas, tomada de decisões, transições de carreira e construção de um projeto de vida autônomo.',
+    iconName: 'Target',
     symptoms: [
-      'Sensação de vazio ou choque prolongado',
-      'Dificuldade em aceitar a nova realidade',
-      'Sentimento de culpa ou raiva intensa',
-      'Isolamento social'
+      'Sensação de estar estagnado profissional ou pessoalmente',
+      'Dificuldade em tomar decisões de transição importantes',
+      'Procrastinação recorrente e falta de disciplina',
+      'Desejo de mudança de hábitos ou reestruturação profissional'
+    ]
+  },
+  {
+    id: 'emagrecimento',
+    title: 'Emagrecimento e Hábitos',
+    description: 'Foco na psicologia da saúde, trabalhando a relação com a comida, compulsão alimentar e desenvolvimento de rotinas saudáveis e sustentáveis.',
+    iconName: 'Flame',
+    symptoms: [
+      'Compulsão por comer emocional (ansiedade, tédio)',
+      'Dificuldade em manter rotinas consistentes de autocuidado',
+      'Efeito sanfona e frustração acumulada com dietas',
+      'Dificuldade em mudar comportamentos arraigados na rotina'
+    ]
+  },
+  {
+    id: 'transtornos-mentais',
+    title: 'Transtornos Mentais',
+    description: 'Tratamento clínico especializado fundamentado em evidências para depressão, transtorno bipolar, TOC e outras condições psicopatológicas.',
+    iconName: 'Activity',
+    symptoms: [
+      'Tristeza profunda ou apatia constante por semanas',
+      'Pensamentos obsessivos ou rituais repetitivos',
+      'Mudanças extremas e inexplicáveis de energia e humor',
+      'Comprometimento significativo do trabalho ou relações'
     ]
   }
 ];
@@ -95,50 +121,82 @@ export const CREDENTIALS: Credential[] = [
   {
     id: 'c1',
     degree: 'Graduação em Psicologia',
-    institution: 'Universidade de São Paulo (USP)',
-    year: '2011 - 2016',
+    institution: 'Universidade José do Rosário Vellano',
+    year: 'Graduação',
     category: 'graduacao',
-    description: 'Formação com ênfase em Psicologia Clínica e Saúde Mental. Desenvolvimento de pesquisas na área de ansiedade e fobias.'
+    description: 'Formação superior em Psicologia, com estudos direcionados ao atendimento clínico e comportamento humano.'
   },
   {
     id: 'c2',
-    degree: 'Especialização em Terapia Cognitivo-Comportamental (TCC)',
-    institution: 'Instituto de Psiquiatria do Hospital das Clínicas (IPq - FMUSP)',
-    year: '2017 - 2019',
+    degree: 'Pós-graduação em Terapia Cognitivo-Comportamental',
+    institution: 'Instituto Cognitivo',
+    year: 'Pós-graduação',
     category: 'pos',
-    description: 'Especialização padrão ouro, focada no atendimento clínico de alta complexidade com base em evidências científicas.'
+    description: 'Especialização em TCC, focada em intervenções terapêuticas baseadas em evidências científicas sólidas.'
   },
   {
     id: 'c3',
-    degree: 'Formação em Mindfulness Aplicado à Saúde Mental',
-    institution: 'Centro Brasileiro de Mindfulness e Promoção da Saúde (Mente Aberta)',
-    year: '2020',
+    degree: 'Pós-graduação em Neuropsicologia',
+    institution: 'Faculdade Líbano',
+    year: 'Pós-graduação',
     category: 'pos',
-    description: 'Integração de práticas de atenção plena ao protocolo clínico de TCC para prevenção de recaídas depressivas e regulação do estresse.'
+    description: 'Estudo do funcionamento cerebral e suas correlações com os processos cognitivos e comportamentais.'
   },
   {
     id: 'c4',
-    degree: 'Mestrado em Psicologia da Saúde',
-    institution: 'Universidade Federal de São Paulo (UNIFESP)',
-    year: '2021 - 2023',
+    degree: 'Pós-graduação em Psicologia Baseada em Evidências',
+    institution: 'Faculdade Líbano (Cursando)',
+    year: 'Pós-graduação',
     category: 'pos',
-    description: 'Pesquisa acadêmica sobre o impacto do estresse e esgotamento ocupacional (Burnout) em trabalhadores de tecnologia.'
+    description: 'Aprofundamento na integração da melhor pesquisa científica disponível com a perícia clínica e valores do paciente.'
   },
   {
     id: 'c5',
-    degree: 'Psicólogo Clínico Sênior',
-    institution: 'Consultório Particular Psiwinner',
-    year: '2016 - Presente',
-    category: 'experiencia',
-    description: 'Mais de 3.000 horas de atendimento clínico individual de jovens e adultos em formato presencial e online.'
+    degree: 'Pós-graduação em Avaliação Psicológica',
+    institution: 'Faculdade Líbano',
+    year: 'Pós-graduação',
+    category: 'pos',
+    description: 'Habilitação técnica para aplicação, correção e interpretação de testes psicológicos e elaboração de laudos.'
   },
   {
     id: 'c6',
-    degree: 'Membro Efetivo da Associação Brasileira de Psicologia',
-    institution: 'Conselho Regional de Psicologia de São Paulo',
-    year: 'Desde 2016',
+    degree: 'Pós-graduação em Psicologia Jurídica',
+    institution: 'Faculdade Líbano',
+    year: 'Pós-graduação',
+    category: 'pos',
+    description: 'Estudo do comportamento no contexto judicial, perícias psicológicas e assessoria técnica em tribunais.'
+  },
+  {
+    id: 'c7',
+    degree: 'Formação em Psicopatologia',
+    institution: 'Curso de Especialização',
+    year: 'Formação',
+    category: 'pos',
+    description: 'Estudo aprofundado de transtornos mentais, diagnósticos clínicos e psicopatologia geral.'
+  },
+  {
+    id: 'c8',
+    degree: 'Formação em Obesidade e Emagrecimento',
+    institution: 'Curso de Especialização',
+    year: 'Formação',
+    category: 'pos',
+    description: 'Intervenções focadas em comportamento alimentar, compulsão, mudanças de hábitos e perda de peso saudável.'
+  },
+  {
+    id: 'c9',
+    degree: 'Psicoterapeuta Clínico',
+    institution: 'Consultório Particular Winner Furtado',
+    year: 'Ativo',
+    category: 'experiencia',
+    description: 'Atendimento psicoterápico focado na singularidade, autonomia e desenvolvimento pessoal de adultos e público LGBTQIA+.'
+  },
+  {
+    id: 'c10',
+    degree: 'Inscrição Profissional Ativa',
+    institution: 'Conselho Regional de Psicologia da 4ª Região',
+    year: 'CRP-04',
     category: 'associacao',
-    description: 'Participação ativa e aderência estrita ao Código de Ética Profissional do Psicólogo (CRP 06/145892).'
+    description: 'Registro ativo em conformidade estrita com o Código de Ética Profissional do Psicólogo (CRP 04/62611).'
   }
 ];
 
@@ -149,7 +207,7 @@ export const GOOGLE_REVIEWS: Review[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120&h=120',
     rating: 5,
     dateText: 'Há uma semana',
-    text: 'O Dr. Psiwinner foi fundamental no meu tratamento para crise de pânico. Desde a primeira sessão me senti extremamente ouvido e acolhido. Ele me ensinou técnicas práticas que uso até hoje para controlar os pensamentos acelerados. Recomendo muito!',
+    text: 'Fazer terapia com o Dr. Winner foi fundamental no meu tratamento para crises de ansiedade. Desde a primeira sessão me senti ouvido e muito respeitado. As técnicas de TCC me ajudaram na prática no meu dia a dia. Recomendo demais!',
     verified: true,
     response: 'Obrigado pelo depoimento, Thiago. Fico muito feliz em ver sua evolução e sua dedicação em aplicar as estratégias em sua rotina!'
   },
@@ -159,36 +217,17 @@ export const GOOGLE_REVIEWS: Review[] = [
     authorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120&h=120',
     rating: 5,
     dateText: 'Há um mês',
-    text: 'Estava passando por um momento de Burnout muito pesado, quase desistindo da minha carreira. O processo de terapia com o doutor me ajudou a restabelecer limites saudáveis e entender melhor as minhas necessidades. Excelente profissional.',
+    text: 'Excelente profissional. Ele me ajudou muito a entender minha dependência emocional e a fortalecer minha autoestima. O atendimento online é muito seguro e prático, a plataforma por onde fazemos as chamadas funciona super bem. Nota 10!',
     verified: true,
-    response: 'Fico imensamente grato, Camila. Aprender a impor limites e acolher os próprios sinais de cansaço é um ato de coragem. Parabéns pelo seu processo!'
+    response: 'Fico imensamente grato, Camila. Fortalecer a autoestima e ganhar autonomia emocional é um processo de coragem. Parabéns pelo seu desenvolvimento!'
   },
   {
     id: 'r3',
-    authorName: 'Rodrigo Santoro', // Coincidental realistic name
+    authorName: 'Lucas Oliveira',
     authorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120&h=120',
     rating: 5,
     dateText: 'Há 2 meses',
-    text: 'Profissional extremamente atencioso, com uma escuta impecável. O consultório é super confortável e silencioso, excelente localização na Av. Paulista. Ele também faz sessões online perfeitas, com plataforma segura. Nota 10.',
-    verified: true
-  },
-  {
-    id: 'r4',
-    authorName: 'Fernanda Silveira',
-    authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120&h=120',
-    rating: 5,
-    dateText: 'Há 3 meses',
-    text: 'A melhor decisão que tomei no último ano foi iniciar terapia com o Dr. Psiwinner. Minha relação com a ansiedade e com a minha própria autocrítica mudou completamente. Sou muito mais confiante hoje.',
-    verified: true,
-    response: 'Ver o resgate da sua autocompaixão e autoconfiança é o maior prêmio, Fernanda. Obrigado pela confiança.'
-  },
-  {
-    id: 'r5',
-    authorName: 'Marcos Almeida',
-    authorAvatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=120&h=120',
-    rating: 5,
-    dateText: 'Há 4 meses',
-    text: 'Excelente abordagem terapêutica. Muito direto ao ponto e focado em nos dar autonomia. Não é aquela terapia em que o psicólogo só fica calado balançando a cabeça. Ele interage, desafia pensamentos e guia na prática.',
+    text: 'Profissional atencioso, ético e direto ao ponto. Ele me deu ferramentas incríveis para lidar com hábitos alimentares e regulação do humor. Muito bom mesmo.',
     verified: true
   }
 ];
@@ -198,7 +237,7 @@ export const ARTICLES: Article[] = [
     id: 'art1',
     title: 'Como Lidar com Crises de Ansiedade: 5 Estratégias Práticas e Imediatas',
     slug: 'como-lidar-com-crises-de-ansiedade',
-    excerpt: 'Sentir o coração acelerar, a respiração faltar e a mente entrar em pânico pode ser assustador. Entenda o mecanismo da crise e aprenda ferramentas baseadas na ciência para recuperar o controle rapidamente.',
+    excerpt: 'Sentir o coração acelerar, a respirar faltar e a mente entrar em pânico pode ser assustador. Entenda o mecanismo da crise e aprenda ferramentas baseadas na ciência para recuperar o controle rapidamente.',
     readTime: '6 min de leitura',
     date: '15 de Julho, 2026',
     category: 'Ansiedade',
@@ -242,7 +281,7 @@ A ansiedade tensiona os grupos musculares involuntariamente. Sem perceber, tranc
 
 ### 5. Mova o Corpo de Forma Suave
 Ficar parado esperando a crise passar pode aumentar a sensação de aprisionamento. 
-- Levante-se, caminhe devagar, beba um copo de água gelada (focando na sensação térmica da água descendo pela garganta) ou faça um alongamento leve nas costas e pescoço. O movimento ajuda a gastar a energia física acumulada pela descarga de adrenalina.
+- Levant-se, caminhe devagar, beba um copo de água gelada (focando na sensação térmica da água descendo pela garganta) ou faça um alongamento leve nas costas e pescoço. O movimento ajuda a gastar a energia física acumulada pela descarga de adrenalina.
 
 ---
 
@@ -254,124 +293,101 @@ A terapia é um espaço onde trabalhamos não apenas os sintomas da crise, mas a
   },
   {
     id: 'art2',
-    title: 'A Síndrome de Burnout: Quando o Trabalho Cansa Além do Físico',
-    slug: 'sindrome-de-burnout-trabalho-cansa-a-alma',
-    excerpt: 'O esgotamento profissional não é sinônimo de preguiça ou fraqueza. Descubra os sinais silenciosos de que seu trabalho está esgotando suas reservas emocionais e saiba como iniciar sua recuperação.',
-    readTime: '8 min de leitura',
+    title: 'O que é Dependência Emocional e Como Superá-la?',
+    slug: 'o-que-e-dependencia-emocional-e-como-superala',
+    excerpt: 'A dependência emocional pode aprisionar você em relacionamentos infelizes ou tóxicos. Entenda os sinais desse comportamento e saiba como dar os primeiros passos para conquistar sua autonomia afetiva.',
+    readTime: '7 min de leitura',
     date: '28 de Junho, 2026',
-    category: 'Esgotamento',
-    tags: ['Burnout', 'Saúde Ocupacional', 'Estresse', 'Limites'],
+    category: 'Relacionamentos',
+    tags: ['Dependência Emocional', 'Autoestima', 'TCC', 'Autonomia'],
     image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&q=80&w=800',
     content: `
-A Síndrome de Burnout, ou esgotamento profissional, foi reconhecida oficialmente pela Organização Mundial da Saúde (OMS) como um fenômeno ocupacional crônico. Trata-se de um esgotamento que vai muito além do cansaço físico comum que passa com um fim de semana de sono: é a exaustão total das suas reservas emocionais, cognitivas e de energia.
+A dependência emocional ocorre quando uma pessoa deposita no parceiro, familiar ou amigo toda a responsabilidade pelo seu próprio bem-estar, felicidade e senso de valor próprio. Sem a presença, aprovação ou contato constante da outra pessoa, o dependente sente um vazio avassalador, ansiedade extrema e um pavor inexplicável do abandono.
 
-Muitos profissionais enfrentam o Burnout sem perceber o que está acontecendo, confundindo-o com falta de produtividade, preguiça ou estresse passageiro. O ciclo de cobrança aumenta, o trabalhador se força ainda mais a produzir, agravando progressivamente o quadro clínico.
+Muitas vezes confundida com "amor intenso" ou "romantismo", a dependência emocional é, na verdade, um ciclo de sofrimento e aprisionamento afetivo. Ela impede o desenvolvimento de relações saudáveis e maduras, gerando submissão e anulação das próprias necessidades.
 
-Para que você possa identificar os sinais e se proteger, precisamos entender os pilares do Burnout e como iniciar o processo de reabilitação.
-
----
-
-### Os Três Pilares do Burnout
-
-De acordo com as escalas médicas, o Burnout é sustentado por três grandes dimensões:
-
-1. **Exaustão Emocional:** A sensação de estar completamente sem energia física ou mental. Você acorda de manhã e sente que não tem recursos para enfrentar o dia de trabalho.
-2. **Despersonalização (Cinismo):** O desenvolvimento de uma atitude fria, distante ou cínica em relação às suas tarefas, colegas e clientes. Atividades que antes geravam interesse passam a ser vistas com total indiferença ou hostilidade.
-3. **Baixa Realização Profissional:** Uma sensação crônica de ineficácia. O sentimento de que, não importa o quanto você trabalhe ou se esforce, o resultado nunca é bom o suficiente, levando à frustração e perda da identidade profissional.
+Neste artigo, vamos compreender os sinais característicos desse padrão e como a Terapia Cognitivo-Comportamental (TCC) pode ajudar você a resgatar sua autonomia emocional.
 
 ---
 
-### Sinais Silenciosos de Alerta
-
-Muitas vezes, o corpo começa a apitar muito antes da mente admitir o cansaço. Fique atento a estes sintomas:
-- **Dificuldade de concentração e falhas de memória frequentes** (o cérebro entra em modo de economia de energia);
-- **Insônia ou sono não reparador** (você dorme 8 horas, mas acorda como se tivesse trabalhado a noite toda);
-- **Sintomas psicossomáticos recorrentes**, como dores de cabeça tensionais, gastrite, dores musculares constantes no pescoço/costas e queda na imunidade;
-- **Procrastinação defensiva** (adiar tarefas por sentir pavor ao pensar em realizá-las);
-- **Irritabilidade desproporcional** com coisas simples do dia a dia.
+### Sinais da Dependência Emocional
+Quem vivencia a dependência emocional costuma apresentar alguns comportamentos e pensamentos recorrentes:
+1. **Medo constante de ser deixado:** A ideia do término ou de ficar sozinho gera desespero, pânico ou crises de ansiedade.
+2. **Necessidade contínua de atenção e validação:** Precisar que o outro reafirme o tempo todo que ama, apoia ou acha você importante.
+3. **Anulação dos próprios desejos:** Mudar de gostos, amigos, rotina ou valores apenas para se adequar ao que o outro quer ou espera de você.
+4. **Sentir-se responsável pela felicidade do outro:** Achar que se o outro estiver triste ou chateado, a culpa é exclusivamente sua.
+5. **Dificuldade em impor limites:** Dizer "sim" para abusos, desrespeito ou negligência por medo de gerar um conflito e ser abandonado.
 
 ---
 
-### Como Começar a Recuperação?
+### Passos para Superar a Dependência Emocional
 
-Sair do Burnout exige uma reestruturação ativa de hábitos, mentalidade e, muitas vezes, de condições de trabalho. Aqui estão os primeiros passos essenciais:
+Romper o ciclo da dependência emocional não é fácil, pois envolve quebrar crenças profundas sobre amor e valor pessoal. No entanto, é totalmente possível através de atitudes práticas:
 
-#### 1. Identifique e Aceite o Limite
-O esgotamento é um grito do seu corpo dizendo: *"Eu não dou conta deste ritmo."* Aceitar que você atingiu seu limite não é sinônimo de fracasso, mas o primeiro passo da reabilitação. Parar de se punir por não ser "superprodutivo" retira uma enorme camada de estresse adicional.
+#### 1. Reconheça e Aceite o Padrão
+O primeiro passo é olhar honestamente para suas relações atuais e passadas. Identificar se você se anula ou se sente em pânico sem a outra pessoa é indispensável para iniciar a mudança.
 
-#### 2. Estabeleça Limites Claros (Micro-Limites)
-- Estabeleça horários rígidos para desligar o computador e silenciar as notificações de trabalho (sem e-mails profissionais após as 19h ou aos finais de semana).
-- Aprenda a delegar e a dizer não a demandas extras quando sua agenda já estiver saturada.
+#### 2. Desenvolva sua Individualidade
+Volte a focar em você. Invista tempo em hobbies próprios, faça planos de forma individual, saia com seus amigos e reconecte-se com sua própria essência. Ter uma vida interessante fora do relacionamento é fundamental para diminuir o peso que você coloca sobre o parceiro.
 
-#### 3. Redefina o Valor do Descanso
-Em uma sociedade hiperconectada, fomos ensinados de que o ócio é algo ruim. No entanto, descansar não é "recarregar baterias para trabalhar mais"; descansar é uma necessidade biológica e humana básica. Reserve momentos na sua semana exclusivamente voltados para o lazer, contato com a natureza ou para simplesmente fazer "nada", sem culpa.
+#### 3. Fortaleça sua Autoestima
+Trabalhe a crença de que você é uma pessoa completa por si só. Seu valor não depende de estar em um relacionamento ou da opinião de ninguém. Pratique o autorespeito diário, reconhecendo suas qualidades e conquistas.
 
-#### 4. Busque Ajuda Profissional e de Rede de Apoio
-Falar sobre suas frustrações com pessoas queridas ajuda a aliviar a carga emocional. Além disso, o tratamento psicoterapêutico é indispensável. 
+#### 4. Aprenda a Tolerar a Solidão (Solitude)
+Ficar sozinho pode ser assustador no começo, mas também pode ser libertador. Aprenda a desfrutar da sua própria companhia: leia um livro, assista a um filme, faça caminhadas. Transforme o medo da solidão no prazer da solitude.
 
-A psicoterapia apoia o paciente com Burnout a reavaliar suas crenças sobre trabalho e produtividade (ex: *"só tenho valor se estiver trabalhando"* ou *"não posso falhar nunca"*), desenvolvendo estratégias eficientes de gerenciamento de estresse e resgatando o bem-estar biopsicossocial.
+#### 5. Busque Suporte Psicoterapêutico
+A psicoterapia baseada em evidências é o tratamento mais eficaz para tratar a dependência emocional. No consultório, ajudamos o paciente a reestruturar pensamentos limitantes de insuficiência, a treinar a assertividade nas relações e a construir relacionamentos muito mais equilibrados e saudáveis.
     `
   },
   {
     id: 'art3',
-    title: 'O Poder do Limite: Aprenda a Dizer "Não" Sem Sentir Culpa',
-    slug: 'o-poder-do-limite-aprender-a-dizer-nao-sem-culpa',
-    excerpt: 'Muitas vezes agradamos a todos, mas esquecemos de nós mesmos. Entenda como a dificuldade de estabelecer limites afeta sua saúde emocional e como aplicar a comunicação assertiva na prática.',
+    title: 'Como Melhorar a Autoestima de Forma Saudável?',
+    slug: 'como-melhorar-a-autoestima-de-forma-saudavel',
+    excerpt: 'Muitas vezes agradamos a todos, mas esquecemos de nós mesmos. Entenda como a autocrítica destrutiva afeta sua saúde mental e aprenda técnicas práticas para desenvolver um autorespeito sólido.',
     readTime: '5 min de leitura',
     date: '10 de Junho, 2026',
-    category: 'Bem-estar',
-    tags: ['Limites', 'Autoestima', 'Comunicação', 'Assertividade'],
+    category: 'Autoestima',
+    tags: ['Autoestima', 'Autocuidado', 'Autocompaixão', 'TCC'],
     image: 'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&q=80&w=800',
     content: `
-Dizer "sim" para tudo e para todos é um atalho certeiro para acumular exaustão, ressentimento e desvalorização própria. No entanto, a dificuldade em dizer "não" é uma das queixas mais frequentes no consultório de psicologia.
+A autoestima é um dos pilares mais fundamentais da saúde mental. Ela não se resume a "gostar do que vê no espelho" ou a sentir-se superior aos outros. Ter uma boa autoestima significa possuir um sentimento realista e acolhedor de autorespeito, reconhecendo tanto as suas qualidades quanto as suas limitações sem punição ou autocrítica destrutiva.
 
-Por trás desse comportamento que beira o sacrifício pessoal, costumam morar medos inconscientes profundos: o medo de ser rejeitado, de ser rotulado como egoísta, de decepcionar alguém querido ou de perder espaço em um emprego.
+Quando a nossa autoestima está baixa, interpretamos o mundo por meio de um filtro de insuficiência: *"Eu não sou bom o suficiente"*, *"Todos são melhores do que eu"*, *"Eu vou falhar"*. Isso gera estresse crônico, bloqueio profissional e relações abusivas.
 
-O problema é que, **quando você diz "sim" para o outro querendo dizer "não", está inevitavelmente dizendo um "não" para a sua própria saúde mental, tempo e dignidade.** Aprender a impor limites saudáveis não é um ato de egoísmo, mas sim uma declaração de autorespeito e autocuidado.
-
----
-
-### Por que Temos Medo de Dizer "Não"?
-
-Historicamente, fomos condicionados a ser prestativos e agradáveis para sermos aceitos pelo grupo. Na psicologia, identificamos alguns padrões de pensamentos limitantes de quem quer agradar a todos constantemente (chamado na psicologia de *people-pleasing*):
-- **Crença de que seu valor depende do que você faz pelos outros:** *"Só sou amado se eu for útil e resolver os problemas alheios."*
-- **Responsabilização emocional pelo sentimento alheio:** *"Se eu recusar esse convite, ela vai ficar terrivelmente magoada e a culpa será minha."*
-- **Necessidade de validação constante:** Precisar da aprovação externa para sentir que é uma boa pessoa.
-
-O custo de viver para satisfazer as expectativas alheias é alto: esgotamento crônico, perda da própria identidade e relacionamentos desequilibrados, onde você doa tudo e recebe muito pouco.
+Abaixo, apresento estratégias baseadas na Terapia Cognitivo-Comportamental (TCC) para ajudar você a reconstruir e melhorar a sua autoestima de forma consistente:
 
 ---
 
-### Guia Prático para Estabelecer Limites com Assertividade
+### Pilares de uma Autoestima Saudável
 
-Impor limites não requer agressividade. A chave é a **assertividade** — a capacidade de defender seus direitos e expressar seus sentimentos de forma honesta, respeitosa e clara. Aqui estão 4 maneiras saudáveis de exercitar o seu "não":
+De acordo com estudos psicológicos, a autoestima saudável se sustenta em três conceitos-chave:
 
-#### 1. Ganhe Tempo Antes de Responder
-Se você é do tipo que diz "sim" no impulso para agradar e depois se arrepende, crie uma regra de transição. Em vez de responder de imediato, diga:
-- *"Deixe-me dar uma olhada na minha agenda e já te retorno."*
-- *"Preciso verificar um compromisso antes de confirmar."*
-Isso te dá espaço mental para avaliar se você realmente deseja e tem energia para aceitar o pedido, livrando-se do piloto automático da concordância.
-
-#### 2. Use a Técnica do "Não" Sanduíche
-Essa é uma excelente ferramenta de comunicação assertiva. Ela consiste em rechear o seu "não" com duas camadas de cordialidade ou empatia:
-1. **Camada positiva (Validação):** *"Fico muito feliz que tenha pensado em mim para esse projeto."*
-2. **O miolo (O "Não" claro e sem justificativas mirabolantes):** *"Infelizmente, neste momento estou totalmente focado em outras demandas e não conseguirei assumir mais essa tarefa."*
-3. **Camada positiva (Alternativa ou fechamento amigável):** *"Espero que dê tudo certo e torço para que possamos colaborar em uma próxima oportunidade!"*
-
-#### 3. Ofereça um Limite Parcial
-Se você quer ajudar, mas não pode assumir todo o fardo, aprenda a negociar:
-- *"Eu não posso assumir a elaboração do relatório completo, mas posso te ajudar revisando os dados finais na quinta-feira."*
-- *"Não consigo ir ao jantar no sábado, mas adoraria te encontrar para um café rápido no domingo à tarde."*
-
-#### 4. Lembre-se de que Explicar-se Demais Enfraquece Seu Limite
-Você não precisa dar um relatório detalhado ou mentir para justificar por que está dizendo "não". Justificar-se excessivamente passa a impressão de que seu "não" é negociável ou de que você está cometendo um erro. Um "não" simples, honesto e educado é suficiente.
+1. **Autoaceitação:** Aceitar quem você é hoje, incluindo suas falhas, imperfeições e história de vida, sem se julgar ou se rejeitar.
+2. **Autoconfiança:** Acreditar na sua capacidade de enfrentar desafios, resolver problemas, aprender coisas novas e tomar decisões.
+3. **Autorespeito:** Defender suas próprias necessidades, impor limites saudáveis aos outros e cuidar do seu bem-estar físico e mental.
 
 ---
 
-### Conclusão: O Desconforto Inicial é o Preço da Liberdade
-A primeira vez que você disser "não" para um familiar ou no trabalho, é muito provável que sinta uma pontada de culpa. Esse desconforto é natural — sua mente está quebrando um padrão antigo de comportamento.
+### Dicas Práticas para Desenvolver a Autoestima
 
-No entanto, à medida que você pratica, percebe que as pessoas respeitam mais quem estabelece limites claros, e você ganha o ativo mais precioso que existe: o controle sobre seu próprio tempo, mente e destino. Se tiver dificuldades nesse caminho, saiba que a terapia comportamental é um espaço poderoso para treinar a assertividade e fortalecer a autoestima.
+#### 1. Identifique e Questione a sua Voz Autocrítica
+Sempre que você cometer um erro, preste atenção em como conversa consigo mesmo. Se você se chama de "burro", "inútil" ou "fracassado", pare e questione esse pensamento:
+- *Essa cobrança é justa?*
+- *Eu falaria assim com um amigo querido que cometeu o mesmo erro?*
+Substitua a voz da autocrítica pela voz da **autocompaixão**: *"Eu errei, mas fiz o meu melhor nas condições que tinha. Posso aprender com isso e tentar de novo"*.
+
+#### 2. Evite a Armadilha da Comparação Social
+Com as redes sociais, comparamos os nossos bastidores (com todos os nossos problemas e dilemas) com o palco editado e perfeito das outras pessoas. Lembre-se: **cada pessoa tem uma jornada única**. Compare-se apenas com quem você era ontem, avaliando o seu próprio progresso pessoal.
+
+#### 3. Celebre Pequenas Vitórias Diárias
+Quem tem baixa autoestima tende a focar apenas nas falhas e ignorar as conquistas. Mude esse foco: no final de cada dia, liste três coisas que você fez bem ou pelas quais é grato (pode ser desde terminar um relatório importante até ter sido gentil com alguém ou ter feito uma caminhada). Isso treina o cérebro a registrar suas capacidades.
+
+#### 4. Aprenda a Dizer Não e Impor Limites
+Dizer "sim" para todos querendo dizer "não" é uma declaração de que a vontade do outro vale mais do que o seu tempo e energia. Dizer "no" educado e assertivo fortalece o autorespeito e demonstra que você valoriza as suas próprias necessidades.
+
+#### 5. Pratique a Psicoterapia
+Se a baixa autoestima está bloqueando sua carreira, afetando seus relacionamentos ou trazendo sofrimento constante, buscar o suporte de um psicólogo é essencial. Na terapia, trabalhamos as origens das suas crenças de desvalorização e construímos, passo a passo, comportamentos que reforçam seu autorespeito e segurança interior.
     `
   }
 ];
@@ -379,22 +395,22 @@ No entanto, à medida que você pratica, percebe que as pessoas respeitam mais q
 export const FAQS = [
   {
     question: 'Como funciona a primeira sessão de terapia?',
-    answer: 'A primeira sessão é um momento de acolhimento e escuta inicial. Não há um roteiro rígido. Você poderá compartilhar o que te motivou a buscar ajuda e o que está te incomodando no momento. Eu também explicarei como funciona minha metodologia (TCC), tirarei suas dúvidas sobre frequência, valores e agendamento, e começaremos a traçar nossos objetivos terapêuticos juntos.'
+    answer: 'A primeira sessão é um momento de escuta atenta, acolhimento e compreensão inicial. Não há um roteiro rígido. Você poderá compartilhar o que te motivou a buscar ajuda e o que está te incomodando no momento. Explicarei como funciona a Terapia Cognitivo-Comportamental (TCC) e juntos definiremos os objetivos iniciais para o seu processo.'
   },
   {
-    question: 'As sessões são online ou presenciais?',
-    answer: 'Trabalho em ambas as modalidades! Atendo presencialmente em meu consultório localizado na Av. Paulista (São Paulo) e online para todo o Brasil e brasileiros no exterior. As sessões online ocorrem por meio de videochamadas em uma plataforma de saúde segura e criptografada, com a mesma eficácia e sigilo da terapia presencial.'
+    question: 'O atendimento é online? Como funciona?',
+    answer: 'Sim! Os atendimentos são 100% online, realizados por videochamadas em uma plataforma de saúde segura e criptografada (em total conformidade com a LGPD e regulamentada pelo CFP). Essa modalidade oferece a mesma eficácia científica e sigilo da terapia presencial, com a flexibilidade de ser feita de onde você estiver, sem necessidade de deslocamento.'
+  },
+  {
+    question: 'Quem é o público atendido?',
+    answer: 'Os atendimentos são direcionados para adultos (maiores de 18 anos) e contam com uma escuta especializada e acolhedora para o público LGBTQIA+, garantindo um espaço ético, livre de julgamentos e focado na singularidade de cada história.'
   },
   {
     question: 'Qual é a duração e a frequência das sessões?',
     answer: 'As sessões individuais duram 50 minutos. A frequência recomendada para que o tratamento tenha resultados consistentes é semanal, principalmente nas primeiras fases do processo terapêutico. Conforme o paciente adquire ferramentas e maior autonomia, podemos planejar o espaçamento das sessões para quinzenal, até a alta.'
   },
   {
-    question: 'O Dr. Psiwinner atende convênios médicos?',
-    answer: 'Atendo exclusivamente de forma particular. No entanto, emito recibos e notas fiscais completos com todos os dados exigidos pelos convênios para que você possa solicitar o reembolso das consultas (a maioria dos planos de saúde oferece reembolso de até 100% do valor da consulta psicológica).'
-  },
-  {
-    question: 'Qual é a abordagem terapêutica utilizada?',
-    answer: 'Utilizo a Terapia Cognitivo-Comportamental (TCC), considerada padrão ouro pela ciência para diversos transtornos. É uma abordagem colaborativa, estruturada, focada no presente e muito prática. Trabalhamos na identificação e modificação de padrões de pensamentos disfuncionais e comportamentos para que você conquiste autonomia e melhora duradoura.'
+    question: 'Atende convênios médicos (planos de saúde)?',
+    answer: 'Os atendimentos são realizados exclusivamente de forma particular. No entanto, emito recibos e notas fiscais completos com toda a documentação necessária para que você possa solicitar o reembolso integral ou parcial junto ao seu convênio médico (consulte as condições de reembolso do seu plano).'
   }
 ];

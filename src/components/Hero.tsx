@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, type Variants } from 'motion/react';
-import { MessageSquare, ShieldCheck, MapPin, Laptop, Sparkles } from 'lucide-react';
+import { MessageSquare, ShieldCheck, Globe, Laptop, Sparkles } from 'lucide-react';
 import { DOCTOR_INFO } from '../data';
 
 export default function Hero() {
@@ -32,7 +32,7 @@ export default function Hero() {
         {/* Top Decorative Line / Date / Issue Info */}
         <div className="flex justify-between items-center border-b border-[#1A1A1A] pb-3 mb-10 text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83]">
           <span>Especialista em Saúde Mental</span>
-          <span className="hidden sm:inline">São Paulo — Presencial e Online</span>
+          <span className="hidden sm:inline">Atendimento 100% Online — Todo o Brasil e Exterior</span>
           <span>Edição de {new Date().getFullYear()}</span>
         </div>
 
@@ -66,7 +66,7 @@ export default function Hero() {
               variants={itemVariants}
               className="font-sans text-base text-[#2C3531] leading-relaxed max-w-2xl mb-8"
             >
-              {DOCTOR_INFO.shortBio} No consultório do <strong className="text-[#1A1A1A] font-semibold">{DOCTOR_INFO.name}</strong>, você encontrará um ambiente acolhedor, seguro e totalmente confidencial para trilhar a sua jornada de autotransformação.
+              {DOCTOR_INFO.shortBio} No consultório de <strong className="text-[#1A1A1A] font-semibold">{DOCTOR_INFO.name}</strong>, você encontrará um ambiente acolhedor, seguro e totalmente confidencial para trilhar a sua jornada de autotransformação.
             </motion.p>
 
             {/* CTAs */}
@@ -95,17 +95,17 @@ export default function Hero() {
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-sm text-[#1A1A1A] uppercase tracking-wider">Atendimento Online</h4>
-                  <p className="font-sans text-xs text-[#8E8A83] mt-0.5">Para brasileiros em qualquer lugar do mundo</p>
+                  <p className="font-sans text-xs text-[#8E8A83] mt-0.5">Para brasileiros em qualquer lugar do Brasil e no exterior</p>
                 </div>
               </div>
 
               <div className="flex items-start space-x-3.5">
                 <div className="p-2.5 bg-[#F9F7F2] border border-[#1A1A1A] text-[#1A1A1A] shrink-0">
-                  <MapPin className="w-4 h-4" />
+                  <Globe className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-sm text-[#1A1A1A] uppercase tracking-wider">Consultório na Paulista</h4>
-                  <p className="font-sans text-xs text-[#8E8A83] mt-0.5">Ambiente premium, seguro e acolhedor</p>
+                  <h4 className="font-display font-bold text-sm text-[#1A1A1A] uppercase tracking-wider">Público Atendido</h4>
+                  <p className="font-sans text-xs text-[#8E8A83] mt-0.5">Adultos maiores de 18 anos e público LGBTQIA+</p>
                 </div>
               </div>
             </motion.div>
@@ -123,7 +123,7 @@ export default function Hero() {
               <img
                 id="hero-profile-image"
                 src="/src/assets/images/psicologo_profile_1784330612743.jpg"
-                alt="Retrato profissional de Dr. Psiwinner"
+                alt="Retrato profissional de Winner Furtado"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
                 onError={(e) => {
@@ -150,4 +150,3 @@ export default function Hero() {
     </header>
   );
 }
-

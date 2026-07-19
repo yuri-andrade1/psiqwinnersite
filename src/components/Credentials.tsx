@@ -57,15 +57,15 @@ export default function Credentials() {
             {/* Quick stats board */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#1A1A1A]">
               <div className="text-center p-3 rounded-none bg-[#F9F7F2] border border-[#E5E1DA]">
-                <p className="font-display font-bold text-2xl text-[#1A1A1A]">10+</p>
-                <p className="font-sans text-[9px] text-[#8E8A83] uppercase tracking-wider font-bold mt-1">Anos de Prática</p>
+                <p className="font-display font-bold text-xl text-[#1A1A1A]">PBE</p>
+                <p className="font-sans text-[9px] text-[#8E8A83] uppercase tracking-wider font-bold mt-1">Ciência Clínica</p>
               </div>
               <div className="text-center p-3 rounded-none bg-[#F9F7F2] border border-[#E5E1DA]">
-                <p className="font-display font-bold text-2xl text-[#1A1A1A]">3k+</p>
-                <p className="font-sans text-[9px] text-[#8E8A83] uppercase tracking-wider font-bold mt-1">Atendimentos</p>
+                <p className="font-display font-bold text-xl text-[#1A1A1A]">Online</p>
+                <p className="font-sans text-[9px] text-[#8E8A83] uppercase tracking-wider font-bold mt-1">Sem Fronteiras</p>
               </div>
               <div className="text-center p-3 rounded-none bg-[#F9F7F2] border border-[#E5E1DA]">
-                <p className="font-display font-bold text-2xl text-[#1A1A1A]">100%</p>
+                <p className="font-display font-bold text-xl text-[#1A1A1A]">100%</p>
                 <p className="font-sans text-[9px] text-[#8E8A83] uppercase tracking-wider font-bold mt-1">Ética & Sigilo</p>
               </div>
             </div>
