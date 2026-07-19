@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, ArrowUp } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { DOCTOR_INFO } from './data';
 
@@ -29,7 +29,6 @@ function HomePage() {
 
 export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [showFloatBadge, setShowFloatBadge] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,14 +38,8 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Show floating WhatsApp help badge after 4 seconds
-    const badgeTimer = setTimeout(() => {
-      setShowFloatBadge(true);
-    }, 4000);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearTimeout(badgeTimer);
     };
   }, []);
 
@@ -111,10 +104,7 @@ export default function App() {
     };
   }, []);
 
-  const handleWhatsAppFloatClick = () => {
-    const url = `https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent(DOCTOR_INFO.whatsappMessage)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -135,59 +125,23 @@ export default function App() {
       <PrivacyModal />
 
       {/* Persistent Conversion Utilities (Floating Controls) */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end space-y-3">
+      <div className="fixed bottom-6 right-6 z-40">
         
-        {/* Delayed Floating WhatsApp Help Badge */}
+        {/* Scroll back to top circular key */}
         <AnimatePresence>
-          {showFloatBadge && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="hidden sm:flex items-center space-x-2 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl border border-slate-800"
+          {showScrollTop && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              onClick={scrollToTop}
+              className="p-3 bg-white hover:bg-slate-50 text-slate-600 rounded-full shadow-lg border border-slate-100 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-secondary/30"
+              aria-label="Voltar ao Topo"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span>Olá! Dúvidas? Fale comigo agora.</span>
-              <button 
-                onClick={() => setShowFloatBadge(false)}
-                className="ml-2 font-bold hover:text-red-400 focus:outline-none"
-              >
-                ✕
-              </button>
-            </motion.div>
+              <ArrowUp className="w-5 h-5" />
+            </motion.button>
           )}
         </AnimatePresence>
-
-        <div className="flex space-x-3 items-center">
-          {/* Scroll back to top circular key */}
-          <AnimatePresence>
-            {showScrollTop && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                onClick={scrollToTop}
-                className="p-3 bg-white hover:bg-slate-50 text-slate-600 rounded-full shadow-lg border border-slate-100 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-secondary/30"
-                aria-label="Voltar ao Topo"
-              >
-                <ArrowUp className="w-5 h-5" />
-              </motion.button>
-            )}
-          </AnimatePresence>
-
-          {/* Floating Therapeutic Pulsing WhatsApp Trigger */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleWhatsAppFloatClick}
-            className="p-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full shadow-2xl transition-all cursor-pointer relative group focus:outline-none focus:ring-4 focus:ring-emerald-500/20"
-            aria-label="Contato direto WhatsApp"
-          >
-            {/* Pulsing ring indicator */}
-            <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-25 group-hover:hidden" />
-            <MessageSquare className="w-6 h-6 relative z-10" />
-          </motion.button>
-        </div>
 
       </div>
     </div>

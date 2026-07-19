@@ -6,17 +6,12 @@ export default function Contact() {
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('Consulta Online');
   const [message, setMessage] = useState('');
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorWarning, setErrorWarning] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !message.trim()) {
       setErrorWarning('Por favor, preencha todos os campos obrigatórios.');
-      return;
-    }
-    if (!acceptedTerms) {
-      setErrorWarning('Por favor, aceite os Termos de Privacidade para prosseguir.');
       return;
     }
     setErrorWarning('');
@@ -173,28 +168,6 @@ export default function Contact() {
                     className="w-full px-4 py-3 text-xs bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A] resize-y min-h-[120px] max-h-[250px]"
                   />
                 </div>
-                <div className="flex items-start space-x-2.5 py-1">
-                  <input
-                    type="checkbox"
-                    id="lgpd-consent"
-                    required
-                    checked={acceptedTerms}
-                    onChange={(e) => setAcceptedTerms(e.target.checked)}
-                    className="mt-0.5 h-3.5 w-3.5 border border-[#E5E1DA] rounded-none text-[#1A1A1A] focus:ring-0 focus:ring-offset-0 bg-[#F9F7F2] cursor-pointer"
-                  />
-                  <label htmlFor="lgpd-consent" className="text-[10px] text-[#2C3531] leading-tight cursor-pointer font-sans select-none">
-                    Estou de acordo em fornecer meu nome e mensagem para fins de contato e agendamento de consulta, sob as diretrizes da{' '}
-                    <button
-                      type="button"
-                      onClick={() => window.dispatchEvent(new CustomEvent('open-privacy-modal'))}
-                      className="font-bold underline text-[#1A1A1A] hover:text-[#8E8A83] transition-colors focus:outline-none cursor-pointer"
-                    >
-                      LGPD e Termos de Privacidade
-                    </button>
-                    .
-                  </label>
-                </div>
-
                 <div className="pt-4">
                   <button
                     type="submit"
