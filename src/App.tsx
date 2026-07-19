@@ -15,6 +15,7 @@ import Specialties from './components/Specialties';
 import Credentials from './components/Credentials';
 import Reviews from './components/Reviews';
 import Articles from './components/Articles';
+import InstagramVideos from './components/InstagramVideos';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 
@@ -22,7 +23,7 @@ const ArticlesPage = React.lazy(() => import('./pages/ArticlesPage'));
 const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
 
 function HomePage() {
-  return <main><Hero /><Specialties /><Credentials /><Reviews /><Articles /><FAQ /><Contact /></main>;
+  return <main><Hero /><Specialties /><Credentials /><Reviews /><Articles /><InstagramVideos /><FAQ /><Contact /></main>;
 }
 
 export default function App() {
