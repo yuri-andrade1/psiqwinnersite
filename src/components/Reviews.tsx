@@ -58,7 +58,6 @@ export default function Reviews() {
                           />
                         ))}
                       </div>
-                      <span className="text-[9px] font-mono text-[#8E8A83] font-bold">{review.dateText}</span>
                     </div>
                   </div>
                 </div>
