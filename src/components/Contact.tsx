@@ -165,7 +165,7 @@ export default function Contact() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Escreva brevemente o que te traz por aqui ou quais sintomas gostaria de tratar..."
-                    className="w-full px-4 py-3 text-xs bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A]"
+                    className="w-full px-4 py-3 text-xs bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A] resize-y min-h-[120px] max-h-[250px]"
                   />
                 </div>
 
