@@ -18,6 +18,8 @@ import Articles from './components/Articles';
 import InstagramVideos from './components/InstagramVideos';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
+import PrivacyModal from './components/PrivacyModal';
+import CookieConsent from './components/CookieConsent';
 
 const ArticlesPage = React.lazy(() => import('./pages/ArticlesPage'));
 const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
@@ -130,6 +132,9 @@ export default function App() {
         <Route path="/artigos/:slug" element={<React.Suspense fallback={<RouteLoading />}><ArticlePage /></React.Suspense>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+
+      <PrivacyModal />
+      <CookieConsent />
 
       {/* Persistent Conversion Utilities (Floating Controls) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end space-y-3">

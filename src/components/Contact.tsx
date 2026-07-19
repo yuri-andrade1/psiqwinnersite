@@ -6,12 +6,17 @@ export default function Contact() {
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('Consulta Online');
   const [message, setMessage] = useState('');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorWarning, setErrorWarning] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !message.trim()) {
       setErrorWarning('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+    if (!acceptedTerms) {
+      setErrorWarning('Por favor, aceite os Termos de Privacidade para prosseguir.');
       return;
     }
     setErrorWarning('');
@@ -168,6 +173,27 @@ export default function Contact() {
                     className="w-full px-4 py-3 text-xs bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A] resize-y min-h-[120px] max-h-[250px]"
                   />
                 </div>
+                <div className="flex items-start space-x-2.5 py-1">
+                  <input
+                    type="checkbox"
+                    id="lgpd-consent"
+                    required
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                    className="mt-0.5 h-3.5 w-3.5 border border-[#E5E1DA] rounded-none text-[#1A1A1A] focus:ring-0 focus:ring-offset-0 bg-[#F9F7F2] cursor-pointer"
+                  />
+                  <label htmlFor="lgpd-consent" className="text-[10px] text-[#2C3531] leading-tight cursor-pointer font-sans select-none">
+                    Estou de acordo em fornecer meu nome e mensagem para fins de contato e agendamento de consulta, sob as diretrizes da{' '}
+                    <button
+                      type="button"
+                      onClick={() => window.dispatchEvent(new CustomEvent('open-privacy-modal'))}
+                      className="font-bold underline text-[#1A1A1A] hover:text-[#8E8A83] transition-colors focus:outline-none cursor-pointer"
+                    >
+                      LGPD e Termos de Privacidade
+                    </button>
+                    .
+                  </label>
+                </div>
 
                 <div className="pt-4">
                   <button
@@ -177,6 +203,9 @@ export default function Contact() {
                     <Send className="w-4 h-4 mr-2" />
                     Enviar Mensagem pelo WhatsApp
                   </button>
+                  <p className="text-[9px] text-[#8E8A83] leading-relaxed mt-3 text-center">
+                    <strong>Privacidade de dados:</strong> Seus dados preenchidos acima são utilizados exclusivamente para formatar a mensagem de redirecionamento do WhatsApp e não são gravados em nenhum banco de dados ou servidor deste site.
+                  </p>
                 </div>
               </form>
             </div>
@@ -236,11 +265,21 @@ export default function Contact() {
             </a>
           </div>
 
-          <p className="font-sans text-center sm:text-right leading-relaxed font-semibold">
-            &copy; {new Date().getFullYear()} Psiwinner Psicologia Clínica. Todos os direitos reservados.
-            <br />
-            <span className="text-[9px] text-[#8E8A83]">Criado profissionalmente para saúde mental.</span>
-          </p>
+          <div className="text-center sm:text-right">
+            <p className="font-sans leading-relaxed font-semibold">
+              &copy; {new Date().getFullYear()} Psiwinner Psicologia Clínica. Todos os direitos reservados.
+            </p>
+            <div className="mt-1 flex justify-center sm:justify-end space-x-3 text-[9px] font-bold">
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-privacy-modal'))}
+                className="underline hover:text-[#1A1A1A] transition-colors cursor-pointer focus:outline-none"
+              >
+                Termos & Privacidade
+              </button>
+              <span className="text-[#E5E1DA]">|</span>
+              <span className="text-[#8E8A83]">Em conformidade com a LGPD</span>
+            </div>
+          </div>
         </div>
 
       </div>
