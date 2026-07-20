@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {ArrowRight, BookOpen, Calendar} from 'lucide-react';
+import {ArrowRight, BookOpen, Calendar, Home} from 'lucide-react';
 import {Link} from 'react-router-dom';
 import {isSanityConfigured, POST_LIST_QUERY, sanityClient, sanityImageUrl, type SanityPost} from '../lib/sanity';
 
@@ -32,7 +32,11 @@ export default function ArticlesPage() {
   }, []);
 
   return <main className="min-h-screen bg-[#F9F7F2] pt-32 pb-24"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="border-b border-[#1A1A1A] pb-8 mb-12"><p className="font-sans text-xs uppercase tracking-widest text-[#8E8A83] mb-3">Artigos & Leituras</p><h1 className="font-display font-bold text-4xl sm:text-5xl text-[#1A1A1A] tracking-tight">Saúde mental, com informação e acolhimento</h1></div>
+    <Link to="/" className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-[#1A1A1A] hover:text-[#8E8A83] mb-6 transition-colors border border-[#1A1A1A] bg-[#FDFCFB] px-3.5 py-2">
+      <Home className="w-3.5 h-3.5 mr-2 text-[#1A1A1A]" />
+      Voltar ao Início
+    </Link>
+    <div className="border-b border-[#1A1A1A] pb-8 mb-12"><p className="font-sans text-xs uppercase tracking-widest text-[#8E8A83] mb-3">Artigos &amp; Leituras</p><h1 className="font-display font-bold text-4xl sm:text-5xl text-[#1A1A1A] tracking-tight">Saúde mental, com informação e acolhimento</h1></div>
     {loading && <p className="font-sans text-sm text-[#2C3531]">Carregando artigos...</p>}
     {!loading && !isSanityConfigured && <EmptyState title="Os artigos estarão disponíveis em breve." text="O espaço de publicações está sendo preparado." />}
     {!loading && error && <EmptyState title="Não foi possível carregar os artigos agora." text="Tente novamente em alguns instantes." />}

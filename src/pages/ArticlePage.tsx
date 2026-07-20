@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {PortableText, type PortableTextComponents} from '@portabletext/react';
-import {ArrowLeft, Calendar, UserRound, Tag} from 'lucide-react';
+import {ArrowLeft, Calendar, UserRound, Tag, Home} from 'lucide-react';
 import {Link, useParams} from 'react-router-dom';
 import {POST_BY_SLUG_QUERY, sanityClient, sanityImageUrl, type SanityPost} from '../lib/sanity';
 
@@ -145,10 +145,17 @@ export default function ArticlePage() {
   return (
     <main className="min-h-screen bg-[#FDFCFB] pt-28 pb-24">
       <article className="max-w-3xl mx-auto px-4 sm:px-6">
-        <Link to="/artigos" className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A] hover:text-[#8E8A83] mb-10">
-          <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
-          Todos os artigos
-        </Link>
+        <div className="flex items-center space-x-3 mb-10">
+          <Link to="/" className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A] hover:text-[#8E8A83] border border-[#1A1A1A] px-3 py-1.5 transition-colors">
+            <Home className="w-3.5 h-3.5 mr-1.5" />
+            Início
+          </Link>
+          <span className="text-[#8E8A83] text-xs">/</span>
+          <Link to="/artigos" className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A] hover:text-[#8E8A83]">
+            <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
+            Todos os artigos
+          </Link>
+        </div>
 
         {/* Metadata bar */}
         <div className="flex flex-wrap gap-4 border-b border-[#E5E1DA] pb-5 mb-6 text-[10px] font-mono font-bold text-[#8E8A83]">

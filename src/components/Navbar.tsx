@@ -15,6 +15,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
+    { name: 'Início', href: '/#inicio' },
     { name: 'Especialidades', href: '/#especialidades' },
     { name: 'Formação', href: '/#formacao' },
     { name: 'Avaliações', href: '/#avaliacoes' },

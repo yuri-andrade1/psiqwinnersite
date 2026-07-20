@@ -27,7 +27,7 @@ export default function Hero() {
   };
 
   return (
-    <header className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-[#FDFCFB] border-b border-[#1A1A1A]">
+    <header id="inicio" className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-[#FDFCFB] border-b border-[#1A1A1A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Decorative Line / Date / Issue Info */}
