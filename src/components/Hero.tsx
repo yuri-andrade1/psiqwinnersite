@@ -15,15 +15,23 @@ export default function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
         delayChildren: 0.05,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        damping: 24,
+        stiffness: 110,
+      },
+    },
   };
 
   return (
@@ -72,20 +80,24 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={handleWhatsAppClick}
                 className="inline-flex items-center justify-center px-8 py-4 text-xs font-bold uppercase tracking-widest text-white bg-[#1A1A1A] hover:bg-[#333] cursor-pointer transition-all duration-200 rounded-none border border-[#1A1A1A] editorial-shadow-dark"
               >
                 <MessageSquare className="w-4 h-4 mr-3 animate-pulse" />
                 Agendar por WhatsApp
-              </button>
+              </motion.button>
               
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 href="#especialidades"
                 className="inline-flex items-center justify-center px-8 py-4 text-xs font-bold uppercase tracking-widest text-[#1A1A1A] bg-[#FDFCFB] border border-[#1A1A1A] hover:bg-[#F9F7F2] transition-colors duration-200 rounded-none"
               >
                 Conhecer Especialidades
-              </a>
+              </motion.a>
             </motion.div>
 
             {/* Key Service Badges */}
@@ -115,10 +127,11 @@ export default function Hero() {
           {/* Photo Column */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-              className="relative w-full max-w-[400px] aspect-square lg:max-w-none lg:aspect-[4/5] overflow-hidden bg-[#F9F7F2] border border-[#1A1A1A] editorial-shadow-dark group"
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 100, delay: 0.15 }}
+              whileHover={{ y: -4 }}
+              className="relative w-full max-w-[400px] aspect-square lg:max-w-none lg:aspect-[4/5] overflow-hidden bg-[#F9F7F2] border border-[#1A1A1A] editorial-shadow-dark group transition-shadow duration-300"
             >
               {/* Profile Image with fallback */}
               <img
@@ -126,14 +139,19 @@ export default function Hero() {
                 src={mainProfileImage}
                 alt="Retrato profissional de Winner Furtado"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
                 onError={(e) => {
                   e.currentTarget.src = "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=800";
                 }}
               />
 
               {/* Verified Badge Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 p-4 bg-[#FDFCFB]/95 backdrop-blur-sm border border-[#1A1A1A] flex items-center justify-between">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="absolute bottom-4 left-4 right-4 p-4 bg-[#FDFCFB]/95 backdrop-blur-sm border border-[#1A1A1A] flex items-center justify-between"
+              >
                 <div>
                   <p className="font-display font-bold text-[#1A1A1A] text-base">{DOCTOR_INFO.name}</p>
                   <p className="font-sans text-[10px] font-bold uppercase tracking-wider text-[#8E8A83] mt-0.5">Psicólogo Clínico Sênior</p>
@@ -142,7 +160,7 @@ export default function Hero() {
                   <ShieldCheck className="w-3.5 h-3.5 text-[#1A1A1A] mr-0.5" />
                   <span>CRP Ativo</span>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
 

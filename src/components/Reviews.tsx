@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Star, CheckCircle, MessageCircle, User } from 'lucide-react';
 import { GOOGLE_REVIEWS, DOCTOR_INFO } from '../data';
 import { Review } from '../types';
@@ -23,9 +24,14 @@ export default function Reviews() {
 
         {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {GOOGLE_REVIEWS.map((review) => (
-            <div
+          {GOOGLE_REVIEWS.map((review, idx) => (
+            <motion.div
               key={review.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ type: 'spring', damping: 24, stiffness: 110, delay: idx * 0.08 }}
+              whileHover={{ y: -4 }}
               className="flex flex-col justify-between bg-[#F9F7F2] border border-[#E5E1DA] hover:border-[#1A1A1A] rounded-none p-6 transition-all duration-300 editorial-shadow"
               id={`review-card-${review.id}`}
             >
@@ -96,7 +102,7 @@ export default function Reviews() {
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

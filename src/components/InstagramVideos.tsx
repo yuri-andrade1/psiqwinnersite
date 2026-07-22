@@ -80,6 +80,7 @@ export default function InstagramVideos() {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -6 }}
+              whileTap={{ scale: 0.97 }}
               className="snap-start shrink-0 w-[240px] md:w-auto aspect-[9/16] relative bg-slate-900 border border-[#1A1A1A] overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
             >
               {/* Cover Image */}
@@ -118,7 +119,9 @@ export default function InstagramVideos() {
 
         {/* Footer CTA */}
         <div className="text-center mt-12">
-          <a
+          <motion.a
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
             href="https://instagram.com/psiwinner"
             target="_blank"
             rel="noopener noreferrer"
@@ -126,7 +129,7 @@ export default function InstagramVideos() {
           >
             <Instagram className="w-4 h-4 mr-2" />
             Seguir @psiwinner no Instagram
-          </a>
+          </motion.a>
         </div>
 
       </div>

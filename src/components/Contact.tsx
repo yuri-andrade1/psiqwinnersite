@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Send, Instagram, ArrowRight, ShieldCheck, Laptop } from 'lucide-react';
 import { DOCTOR_INFO } from '../data';
 
@@ -44,7 +45,14 @@ export default function Contact() {
             <div className="space-y-6 mb-8">
               
               {/* Card Phone */}
-              <div className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow">
+              <motion.div
+                initial={{ opacity: 0, x: -15 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ type: 'spring', damping: 24, stiffness: 110 }}
+                whileHover={{ y: -3 }}
+                className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow transition-shadow duration-300"
+              >
                 <div className="p-3 border border-[#1A1A1A] bg-[#F9F7F2] text-[#1A1A1A] shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
@@ -60,10 +68,17 @@ export default function Contact() {
                     {DOCTOR_INFO.phone}
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card Mail */}
-              <div className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow">
+              <motion.div
+                initial={{ opacity: 0, x: -15 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ type: 'spring', damping: 24, stiffness: 110, delay: 0.08 }}
+                whileHover={{ y: -3 }}
+                className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow transition-shadow duration-300"
+              >
                 <div className="p-3 border border-[#1A1A1A] bg-[#F9F7F2] text-[#1A1A1A] shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
@@ -77,10 +92,17 @@ export default function Contact() {
                     {DOCTOR_INFO.email}
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Card Address */}
-              <div className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow">
+              <motion.div
+                initial={{ opacity: 0, x: -15 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ type: 'spring', damping: 24, stiffness: 110, delay: 0.15 }}
+                whileHover={{ y: -3 }}
+                className="flex items-start p-5 rounded-none bg-[#FDFCFB] border border-[#1A1A1A] editorial-shadow transition-shadow duration-300"
+              >
                 <div className="p-3 border border-[#1A1A1A] bg-[#F9F7F2] text-[#1A1A1A] shrink-0">
                   <Laptop className="w-4 h-4" />
                 </div>
@@ -91,7 +113,7 @@ export default function Contact() {
                     {DOCTOR_INFO.address}
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
 
@@ -169,13 +191,15 @@ export default function Contact() {
                   />
                 </div>
                 <div className="pt-4">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.01, y: -1 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     className="w-full inline-flex items-center justify-center px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white bg-[#1A1A1A] hover:bg-[#333] transition-all duration-300 cursor-pointer rounded-none border border-[#1A1A1A]"
                   >
                     <Send className="w-4 h-4 mr-2" />
                     Enviar Mensagem pelo WhatsApp
-                  </button>
+                  </motion.button>
                   <p className="text-[9px] text-[#8E8A83] leading-relaxed mt-3 text-center">
                     <strong>Privacidade de dados:</strong> Seus dados preenchidos acima são utilizados exclusivamente para formatar a mensagem de redirecionamento do WhatsApp e não são gravados em nenhum banco de dados ou servidor deste site.
                   </p>

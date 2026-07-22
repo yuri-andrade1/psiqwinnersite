@@ -1,5 +1,6 @@
 import React from 'react';
-import { GraduationCap, Award, BookOpen, CheckCircle } from 'lucide-react';
+import { motion } from 'motion/react';
+import { GraduationCap, Award, BookOpen } from 'lucide-react';
 import { CREDENTIALS, DOCTOR_INFO } from '../data';
 
 export default function Credentials() {
@@ -15,7 +16,13 @@ export default function Credentials() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Left Column: Philosophical bio & credentials stats */}
-          <div className="lg:col-span-5">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 100 }}
+            className="lg:col-span-5"
+          >
             <h2 className="font-sans text-xs uppercase tracking-widest text-[#8E8A83] mb-3">Trajetória & Formação</h2>
             <h3 className="font-display font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight mb-6">
               Excelência acadêmica e compromisso com a ciência
@@ -45,13 +52,20 @@ export default function Credentials() {
                 <p className="font-sans text-[9px] text-[#8E8A83] uppercase tracking-wider font-bold mt-1">Ética & Sigilo</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Categorized credentials grid */}
           <div className="lg:col-span-7 space-y-8">
             
             {/* Category 1: Formação Principal & Pós-Graduações */}
-            <div className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]/80">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ type: 'spring', damping: 24, stiffness: 110, delay: 0.05 }}
+              whileHover={{ y: -4 }}
+              className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]"
+            >
               <div className="flex items-center space-x-3 mb-6 pb-3 border-b border-[#E5E1DA]">
                 <GraduationCap className="w-5 h-5 text-[#1A1A1A]" />
                 <h4 className="font-display font-bold text-sm uppercase tracking-wider text-[#1A1A1A]">Formação Acadêmica & Pós-Graduações</h4>
@@ -69,10 +83,17 @@ export default function Credentials() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Category 2: Formações Complementares */}
-            <div className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]/80">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ type: 'spring', damping: 24, stiffness: 110, delay: 0.12 }}
+              whileHover={{ y: -4 }}
+              className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]"
+            >
               <div className="flex items-center space-x-3 mb-6 pb-3 border-b border-[#E5E1DA]">
                 <BookOpen className="w-5 h-5 text-[#1A1A1A]" />
                 <h4 className="font-display font-bold text-sm uppercase tracking-wider text-[#1A1A1A]">Cursos de Formação Complementar</h4>
@@ -88,10 +109,17 @@ export default function Credentials() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Category 3: Registro & Atuação */}
-            <div className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]/80">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ type: 'spring', damping: 24, stiffness: 110, delay: 0.18 }}
+              whileHover={{ y: -4 }}
+              className="bg-[#F9F7F2] border border-[#1A1A1A] p-6 sm:p-8 rounded-none editorial-shadow transition-all duration-300 hover:border-[#1A1A1A]"
+            >
               <div className="flex items-center space-x-3 mb-6 pb-3 border-b border-[#E5E1DA]">
                 <Award className="w-5 h-5 text-[#1A1A1A]" />
                 <h4 className="font-display font-bold text-sm uppercase tracking-wider text-[#1A1A1A]">Registro Profissional & Atuação</h4>
@@ -107,7 +135,7 @@ export default function Credentials() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
           </div>
 

@@ -49,10 +49,11 @@ export default function Specialties() {
             return (
               <motion.div
                 key={spec.id}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ type: 'spring', damping: 24, stiffness: 110, delay: index * 0.06 }}
+                whileHover={{ y: -5 }}
                 className={`relative flex flex-col justify-between p-8 rounded-none border transition-all duration-300 ${
                   isExpanded 
                     ? 'bg-[#FDFCFB] border-[#1A1A1A] editorial-shadow-dark'
