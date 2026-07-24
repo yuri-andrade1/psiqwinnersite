@@ -69,8 +69,11 @@ export default function Articles() {
   }, [sanityPosts]);
 
   const activeArticles = useMemo(() => {
-    if (isSanityConfigured) {
-      return mappedSanityPosts;
+    if (isSanityConfigured && mappedSanityPosts.length > 0) {
+      if (mappedSanityPosts.length >= 3) return mappedSanityPosts;
+      const sanitySlugs = new Set(mappedSanityPosts.map((p) => p.slug));
+      const backfill = ARTICLES.filter((a) => !sanitySlugs.has(a.slug)).slice(0, 3 - mappedSanityPosts.length);
+      return [...mappedSanityPosts, ...backfill];
     }
     return ARTICLES;
   }, [isSanityConfigured, mappedSanityPosts]);
@@ -138,28 +141,24 @@ export default function Articles() {
               rel="noopener noreferrer"
               className="inline-flex items-center px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-[#1A1A1A] hover:bg-[#333] transition-colors rounded-none cursor-pointer"
             >
-              Seguir no Instagram
+              Ver no Instagram
             </a>
           </div>
         ) : (
           <>
-            {/* Filter and Search Bar Block */}
-            <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between bg-[#FDFCFB] border border-[#1A1A1A] p-4 mb-10">
+            {/* Filter and Search Bar */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#E5E1DA]">
               
-              {/* Category Tabs */}
-              <div className="flex flex-wrap gap-1.5 items-center">
-                <span className="text-[10px] font-bold font-sans text-[#1A1A1A] uppercase tracking-wider flex items-center mr-2">
-                  <Filter className="w-3 h-3 mr-1" />
-                  Filtrar por:
-                </span>
+              {/* Category Pills */}
+              <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
                 {categories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-none border transition-colors cursor-pointer ${
+                    className={`px-3.5 py-1.5 text-xs font-sans font-bold uppercase tracking-wider transition-colors duration-200 whitespace-nowrap rounded-none cursor-pointer ${
                       selectedCategory === cat
-                        ? 'bg-[#1A1A1A] text-[#FDFCFB] border-[#1A1A1A]'
-                        : 'text-[#1A1A1A] bg-[#F9F7F2] border-[#E5E1DA] hover:border-[#1A1A1A]'
+                        ? 'bg-[#1A1A1A] text-[#FDFCFB]'
+                        : 'bg-[#F9F7F2] text-[#8E8A83] hover:text-[#1A1A1A] border border-[#E5E1DA]'
                     }`}
                   >
                     {cat}
@@ -167,16 +166,14 @@ export default function Articles() {
                 ))}
               </div>
 
-              {/* Search Input field */}
-              <div className="relative w-full md:max-w-xs">
-                <span className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-[#1A1A1A]">
-                  <Search className="w-3.5 h-3.5" />
-                </span>
+              {/* Search Input */}
+              <div className="relative min-w-[240px]">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#8E8A83]" />
                 <input
                   type="text"
+                  placeholder="Buscar por tema ou palavra-chave..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Buscar por temas ou palavras..."
                   className="w-full pl-9 pr-4 py-2 text-xs font-sans bg-[#F9F7F2] border border-[#E5E1DA] rounded-none focus:outline-none focus:border-[#1A1A1A]"
                 />
               </div>
@@ -210,8 +207,8 @@ export default function Articles() {
                     className="flex flex-col bg-[#FDFCFB] border border-[#E5E1DA] hover:border-[#1A1A1A] rounded-none overflow-hidden transition-all duration-300 cursor-pointer group editorial-shadow"
                     id={`article-card-${art.id}`}
                   >
-                    {/* Cover Image */}
-                    {art.image && (
+                    {/* Cover Image or Editorial Header for No-Image Articles */}
+                    {art.image ? (
                       <div className="aspect-[16/10] overflow-hidden bg-[#F9F7F2] relative border-b border-[#E5E1DA]">
                         <img
                           src={art.image}
@@ -224,6 +221,18 @@ export default function Articles() {
                             {art.category}
                           </span>
                         </div>
+                      </div>
+                    ) : (
+                      <div className="aspect-[16/10] bg-[#1A1A1A] p-6 flex flex-col justify-between relative border-b border-[#E5E1DA] overflow-hidden group-hover:bg-[#2C3531] transition-colors duration-300">
+                        <div className="flex items-center justify-between relative z-10">
+                          <span className="inline-block text-[9px] font-bold text-[#1A1A1A] bg-[#FDFCFB] px-2.5 py-1 rounded-none uppercase tracking-widest">
+                            {art.category}
+                          </span>
+                          <BookOpen className="w-4 h-4 text-[#8E8A83]" />
+                        </div>
+                        <p className="font-display italic text-sm text-[#FDFCFB]/90 line-clamp-2 relative z-10 leading-snug">
+                          "{art.excerpt || art.title}"
+                        </p>
                       </div>
                     )}
 

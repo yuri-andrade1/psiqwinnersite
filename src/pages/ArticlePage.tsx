@@ -197,9 +197,21 @@ export default function ArticlePage() {
           </p>
         )}
 
-        {/* Cover Image */}
-        {imageUrl && (
+        {/* Cover Image or Editorial Header if no image */}
+        {imageUrl ? (
           <img src={imageUrl} alt={post.title} className="w-full aspect-[16/9] object-cover mb-10 border border-[#E5E1DA]" />
+        ) : (
+          <div className="w-full bg-[#1A1A1A] p-8 sm:p-10 mb-10 border border-[#E5E1DA] flex flex-col justify-between relative overflow-hidden">
+            <div className="flex items-center justify-between relative z-10 mb-4">
+              <span className="text-[10px] font-bold text-[#1A1A1A] bg-[#FDFCFB] px-3 py-1 uppercase tracking-widest">
+                {post.category || 'Leitura'}
+              </span>
+              <BookOpen className="w-5 h-5 text-[#8E8A83]" />
+            </div>
+            <p className="font-display text-xl sm:text-2xl italic text-[#FDFCFB]/90 relative z-10 leading-relaxed">
+              "{post.excerpt || post.title}"
+            </p>
+          </div>
         )}
 
         {/* Body content */}
