@@ -22,7 +22,7 @@ export interface Credential {
   degree: string;
   institution: string;
   year: string;
-  category: 'graduacao' | 'pos' | 'experiencia' | 'associacao';
+  category: 'graduacao' | 'pos' | 'formacao' | 'experiencia' | 'associacao';
   description?: string;
 }
 

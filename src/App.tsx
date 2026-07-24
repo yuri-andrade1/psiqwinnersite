@@ -23,6 +23,10 @@ import PrivacyModal from './components/PrivacyModal';
 const ArticlesPage = React.lazy(() => import('./pages/ArticlesPage'));
 const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
 
+function HomePage() {
+  return <main><Hero /><Specialties /><Credentials /><Reviews /><Articles /><InstagramVideos /><FAQ /><Contact /></main>;
+}
+
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; errorText: string}> {
   constructor(props: {children: React.ReactNode}) {
     super(props);

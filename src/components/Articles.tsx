@@ -44,7 +44,7 @@ export default function Articles() {
     if (!Array.isArray(sanityPosts)) return [];
     return sanityPosts.map((post) => {
       const title = post?.title || 'Sem título';
-      const slug = typeof post?.slug === 'string' ? post.slug : (post?.slug?.current || '');
+      const slug = typeof post?.slug === 'string' ? post.slug : ((post?.slug as any)?.current || '');
       const excerpt = post?.excerpt || '';
       const category = post?.category || 'Geral';
       const tags = Array.isArray(post?.tags) ? post.tags : [];

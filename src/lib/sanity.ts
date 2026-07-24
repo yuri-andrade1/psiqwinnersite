@@ -10,6 +10,8 @@ export const sanityClient = isSanityConfigured
   ? createClient({projectId, dataset, apiVersion: import.meta.env.VITE_SANITY_API_VERSION || '2025-06-01', useCdn: false, perspective: 'published'})
   : null;
 
+const imageBuilder = sanityClient ? imageUrlBuilder(sanityClient) : null;
+
 export const sanityImageUrl = (source: any) => {
   if (!imageBuilder || !source || typeof source !== 'object') return undefined;
   if (!source.asset && !source._ref) return undefined;
