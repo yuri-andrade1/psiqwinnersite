@@ -19,9 +19,9 @@ if (fs.existsSync(ENV_FILE_PATH)) {
   });
 }
 
-const projectId = process.env.VITE_SANITY_PROJECT_ID;
+const projectId = process.env.VITE_SANITY_PROJECT_ID || 'uzsdz3sl';
 const dataset = process.env.VITE_SANITY_DATASET || 'production';
-const domain = 'https://psiqwinnersite.vercel.app'; // Subdomain on Vercel
+const domain = 'https://www.psiwinner.com.br';
 
 if (!projectId) {
   console.warn('⚠️ VITE_SANITY_PROJECT_ID não definido. Gerando sitemap apenas com páginas estáticas...');
