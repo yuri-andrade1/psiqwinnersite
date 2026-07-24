@@ -145,7 +145,7 @@ export const CREDENTIALS: Credential[] = [
   {
     id: 'c4',
     degree: 'Pós-graduação em Psicologia Baseada em Evidências',
-    institution: 'Faculdade Líbano (Cursando)',
+    institution: 'Grupo PBE',
     year: 'Pós-graduação',
     category: 'pos',
     description: 'Aprofundamento na integração da melhor pesquisa científica disponível com a perícia clínica e valores do paciente.'
