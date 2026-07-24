@@ -41,22 +41,28 @@ export default function Articles() {
   };
 
   const mappedSanityPosts = useMemo(() => {
+    if (!Array.isArray(sanityPosts)) return [];
     return sanityPosts.map((post) => {
-      // Estimate read time: roughly 150 words per minute
-      const wordCount = post.excerpt ? post.excerpt.split(/\s+/).length : 0;
+      const title = post?.title || 'Sem título';
+      const slug = typeof post?.slug === 'string' ? post.slug : (post?.slug?.current || '');
+      const excerpt = post?.excerpt || '';
+      const category = post?.category || 'Geral';
+      const tags = Array.isArray(post?.tags) ? post.tags : [];
+      
+      const wordCount = excerpt ? excerpt.split(/\s+/).length : 0;
       const readTimeMinutes = Math.max(2, Math.ceil(wordCount / 150));
       
       return {
-        id: post._id,
-        title: post.title,
-        slug: post.slug,
-        excerpt: post.excerpt || '',
-        content: '', // not needed as it redirects to individual page
-        category: post.category || 'Geral',
+        id: post?._id || Math.random().toString(),
+        title,
+        slug,
+        excerpt,
+        content: '',
+        category,
         readTime: `${readTimeMinutes} min de leitura`,
-        date: formatDate(post.publishedAt),
-        image: sanityImageUrl(post.coverImage),
-        tags: post.tags || [],
+        date: formatDate(post?.publishedAt),
+        image: sanityImageUrl(post?.coverImage),
+        tags,
         isSanity: true
       };
     });
@@ -70,16 +76,22 @@ export default function Articles() {
   }, [isSanityConfigured, mappedSanityPosts]);
 
   const categories = useMemo(() => {
-    const list = new Set(activeArticles.map((art) => art.category));
+    const list = new Set(activeArticles.map((art) => art?.category || 'Geral'));
     return ['Todos', ...Array.from(list)];
   }, [activeArticles]);
 
   const filteredArticles = useMemo(() => {
+    const term = (searchTerm || '').toLowerCase();
     return activeArticles.filter((art) => {
+      if (!art) return false;
+      const titleStr = (art.title || '').toLowerCase();
+      const excerptStr = (art.excerpt || '').toLowerCase();
+      const tagsList = Array.isArray(art.tags) ? art.tags : [];
+      
       const matchesSearch =
-        art.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        art.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        art.tags.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase()));
+        titleStr.includes(term) ||
+        excerptStr.includes(term) ||
+        tagsList.some((t) => typeof t === 'string' && t.toLowerCase().includes(term));
       
       const matchesCategory =
         selectedCategory === 'Todos' || art.category === selectedCategory;
