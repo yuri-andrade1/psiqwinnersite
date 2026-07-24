@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Search, ArrowRight, BookOpen, Clock, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ARTICLES } from '../data';
 import { Article } from '../types';
 import ArticleReader from './ArticleReader';
 import { isSanityConfigured, POST_LIST_QUERY, sanityClient, sanityImageUrl, type SanityPost } from '../lib/sanity';
@@ -69,14 +68,8 @@ export default function Articles() {
   }, [sanityPosts]);
 
   const activeArticles = useMemo(() => {
-    if (isSanityConfigured && mappedSanityPosts.length > 0) {
-      if (mappedSanityPosts.length >= 3) return mappedSanityPosts;
-      const sanitySlugs = new Set(mappedSanityPosts.map((p) => p.slug));
-      const backfill = ARTICLES.filter((a) => !sanitySlugs.has(a.slug)).slice(0, 3 - mappedSanityPosts.length);
-      return [...mappedSanityPosts, ...backfill];
-    }
-    return ARTICLES;
-  }, [isSanityConfigured, mappedSanityPosts]);
+    return mappedSanityPosts;
+  }, [mappedSanityPosts]);
 
   const categories = useMemo(() => {
     const list = new Set(activeArticles.map((art) => art?.category || 'Geral'));
@@ -103,13 +96,9 @@ export default function Articles() {
     });
   }, [activeArticles, searchTerm, selectedCategory]);
 
-  // Display top 3 filtered articles on home page if using Sanity
   const displayedArticles = useMemo(() => {
-    if (isSanityConfigured && sanityPosts.length > 0) {
-      return filteredArticles.slice(0, 3);
-    }
-    return filteredArticles;
-  }, [filteredArticles, isSanityConfigured, sanityPosts]);
+    return filteredArticles.slice(0, 6);
+  }, [filteredArticles]);
 
   return (
     <section id="artigos" className="py-24 bg-[#F9F7F2] relative border-b border-[#1A1A1A]">

@@ -2,8 +2,8 @@ import {createClient} from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
 // Sanity configuration client
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID;
-const dataset = import.meta.env.VITE_SANITY_DATASET;
+const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || 'uzsdz3sl';
+const dataset = import.meta.env.VITE_SANITY_DATASET || 'production';
 
 export const isSanityConfigured = Boolean(projectId && dataset);
 export const sanityClient = isSanityConfigured
