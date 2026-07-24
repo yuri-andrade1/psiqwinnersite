@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {PortableText, type PortableTextComponents} from '@portabletext/react';
-import {ArrowLeft, Calendar, UserRound, Tag, Home} from 'lucide-react';
+import {ArrowLeft, Calendar, UserRound, Tag, Home, BookOpen} from 'lucide-react';
 import {Link, useParams} from 'react-router-dom';
 import {POST_BY_SLUG_QUERY, sanityClient, sanityImageUrl, type SanityPost} from '../lib/sanity';
 
