@@ -4,7 +4,16 @@ import {ArrowLeft, Calendar, UserRound, Tag, Home} from 'lucide-react';
 import {Link, useParams} from 'react-router-dom';
 import {POST_BY_SLUG_QUERY, sanityClient, sanityImageUrl, type SanityPost} from '../lib/sanity';
 
-const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', {dateStyle: 'long'}).format(new Date(date));
+const formatDate = (dateStr: string) => {
+  try {
+    if (!dateStr) return '';
+    const dateObj = new Date(dateStr);
+    if (isNaN(dateObj.getTime())) return dateStr || '';
+    return new Intl.DateTimeFormat('pt-BR', {dateStyle: 'long'}).format(dateObj);
+  } catch {
+    return dateStr || '';
+  }
+};
 
 const portableTextComponents: PortableTextComponents = {
   types: {

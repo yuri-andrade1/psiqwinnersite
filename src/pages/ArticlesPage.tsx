@@ -3,7 +3,16 @@ import {ArrowRight, BookOpen, Calendar, Home} from 'lucide-react';
 import {Link} from 'react-router-dom';
 import {isSanityConfigured, POST_LIST_QUERY, sanityClient, sanityImageUrl, type SanityPost} from '../lib/sanity';
 
-const formatDate = (date: string) => new Intl.DateTimeFormat('pt-BR', {dateStyle: 'long'}).format(new Date(date));
+const formatDate = (dateStr: string) => {
+  try {
+    if (!dateStr) return '';
+    const dateObj = new Date(dateStr);
+    if (isNaN(dateObj.getTime())) return dateStr || '';
+    return new Intl.DateTimeFormat('pt-BR', {dateStyle: 'long'}).format(dateObj);
+  } catch {
+    return dateStr || '';
+  }
+};
 
 export default function ArticlesPage() {
   const [posts, setPosts] = useState<SanityPost[]>([]);
