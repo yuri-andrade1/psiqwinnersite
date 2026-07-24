@@ -203,24 +203,28 @@ export default function ArticlePage() {
         )}
 
         {/* Body content */}
-        {post.body && (
+        {post.body && Array.isArray(post.body) && (
           <div className="font-sans text-base leading-relaxed text-[#2C3531]">
             <PortableText value={post.body} components={portableTextComponents} />
           </div>
         )}
 
         {/* Tags */}
-        {post.tags && post.tags.length > 0 && (
+        {post.tags && Array.isArray(post.tags) && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-8 mt-10 border-t border-[#E5E1DA]">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-[#2C3531] bg-[#F9F7F2] border border-[#E5E1DA] px-3 py-1"
-              >
-                <Tag className="w-3 h-3 mr-1 text-[#8E8A83]" />
-                {tag}
-              </span>
-            ))}
+            {post.tags.map((tag, tIdx) => {
+              const tagStr = typeof tag === 'string' ? tag : String(tag || '');
+              if (!tagStr) return null;
+              return (
+                <span
+                  key={tIdx}
+                  className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-[#2C3531] bg-[#F9F7F2] border border-[#E5E1DA] px-3 py-1"
+                >
+                  <Tag className="w-3 h-3 mr-1 text-[#8E8A83]" />
+                  {tagStr}
+                </span>
+              );
+            })}
           </div>
         )}
       </article>
