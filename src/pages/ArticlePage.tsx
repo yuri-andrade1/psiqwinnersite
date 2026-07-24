@@ -18,11 +18,12 @@ const formatDate = (dateStr: string) => {
 const portableTextComponents: PortableTextComponents = {
   types: {
     image: ({value}) => {
+      if (!value) return null;
       const imageUrl = sanityImageUrl(value);
       return imageUrl ? (
         <figure className="my-8">
-          <img src={imageUrl} alt={value.alt || ''} className="w-full rounded-none border border-[#E5E1DA]" />
-          {value.alt && <figcaption className="text-center text-[11px] font-sans text-[#8E8A83] mt-2 leading-relaxed">{value.alt}</figcaption>}
+          <img src={imageUrl} alt={value?.alt || ''} className="w-full rounded-none border border-[#E5E1DA]" />
+          {value?.alt && <figcaption className="text-center text-[11px] font-sans text-[#8E8A83] mt-2 leading-relaxed">{value.alt}</figcaption>}
         </figure>
       ) : null;
     }
