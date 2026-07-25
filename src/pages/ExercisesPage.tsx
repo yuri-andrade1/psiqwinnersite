@@ -1,22 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wind, Anchor, Brain, Moon, X, Check, ArrowRight, Heart, Sparkles, MessageSquare, Home } from 'lucide-react';
+import { Wind, Anchor, Brain, Moon, X, Check, ArrowRight, Heart, Home, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
 const EXERCISES = [
-  { id: 'desacelera', title: 'Desacelera', subtitle: 'Respiração Guiada 4-7-8', desc: 'Regule a ansiedade e o estresse agudo com a respiração diafragmática.', icon: Wind, badge: 'Ansiedade' },
-  { id: 'ancora', title: 'Âncora de Emergência', subtitle: 'Técnica 5-4-3-2-1', desc: 'Aterramento imediato para tirar a mente de crises ou pânico.', icon: Anchor, badge: 'Pânico' },
-  { id: 'tcc', title: 'Reorganizador TCC', subtitle: 'Descompressão Mental', desc: 'Reestruture pensamentos catastróficos com a Psicologia TCC.', icon: Brain, badge: 'Foco' },
-  { id: 'durmazen', title: 'Durmazen', subtitle: 'Relaxamento para o Sono', desc: 'Vença a insônia com a descompressão muscular progressiva.', icon: Moon, badge: 'Sono' },
+  {
+    id: 'desacelera',
+    title: 'Respiração Guiada',
+    subtitle: 'Ritmo 4-7-8',
+    desc: 'Uma pausa curta para acalmar a mente e desacelerar os batimentos quando tudo parecer muito acelerado.',
+    icon: Wind,
+    badge: 'Desacelerar',
+  },
+  {
+    id: 'ancora',
+    title: 'Aterramento no Presente',
+    subtitle: 'Conexão 5-4-3-2-1',
+    desc: 'Um exercício prático para trazer a atenção de volta ao aqui e agora durante momentos de tensão ou ansiedade.',
+    icon: Anchor,
+    badge: 'Acalmar',
+  },
+  {
+    id: 'tcc',
+    title: 'Organizando os Pensamentos',
+    subtitle: 'Clareza Mental',
+    desc: 'Um passo a passo simples para olhar para as suas preocupações com mais distanciamento e serenidade.',
+    icon: Brain,
+    badge: 'Clareza',
+  },
+  {
+    id: 'durmazen',
+    title: 'Relaxamento para Dormir',
+    subtitle: 'Descompressão Corporal',
+    desc: 'Solte gradualmente a tensão dos músculos e prepare o corpo para um descanso tranquilo.',
+    icon: Moon,
+    badge: 'Descanso',
+  },
 ];
 
 const GROUNDING = [
-  { count: 5, label: 'coisas que você pode VER ao seu redor' },
-  { count: 4, label: 'coisas que você pode TOCAR agora' },
-  { count: 3, label: 'sons que você consegue OUVIR' },
-  { count: 2, label: 'cheiros que você pode PERCEBER' },
-  { count: 1, label: 'coisa positiva sobre VOCÊ' },
+  { count: 5, label: 'coisas que você pode ver ao seu redor agora' },
+  { count: 4, label: 'coisas que você pode tocar perto de você' },
+  { count: 3, label: 'sons que você consegue ouvir no ambiente' },
+  { count: 2, label: 'cheiros ou sensações do ar' },
+  { count: 1, label: 'coisa boa sobre você neste momento' },
 ];
 
 export default function ExercisesPage() {
@@ -30,7 +58,7 @@ export default function ExercisesPage() {
 
   useEffect(() => {
     const originalTitle = document.title;
-    document.title = 'Exercícios e Ferramentas de Autorregulação | Psicólogo Winner Furtado';
+    document.title = 'Práticas de Acalmamento & Bem-Estar | Dr. Winner Furtado';
     return () => {
       document.title = originalTitle;
     };
@@ -51,27 +79,27 @@ export default function ExercisesPage() {
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
 
   return (
-    <main className="min-h-screen bg-[#1A1A1A] text-[#FDFCFB] pt-32 pb-24 border-b border-[#333]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation Breadcrumb */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-[#FDFCFB] hover:text-[#C5A059] transition-colors border border-[#444] bg-[#242424] px-3.5 py-2">
-            <Home className="w-3.5 h-3.5 mr-2 text-[#C5A059]" />
+          <Link to="/" className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-[#1A1A1A] hover:text-[#8E8A83] transition-colors border border-[#1A1A1A] px-3.5 py-1.5">
+            <Home className="w-3.5 h-3.5 mr-2 text-[#8E8A83]" />
             Voltar ao Início
           </Link>
         </div>
 
         {/* Section Header */}
-        <div className="border-b border-[#333] pb-8 mb-12">
-          <span className="inline-flex items-center text-[10px] font-sans font-bold uppercase tracking-widest text-[#C5A059] bg-[#C5A059]/10 px-3 py-1 border border-[#C5A059]/20 mb-3">
-            <Sparkles className="w-3 h-3 mr-1.5" /> Ferramentas Práticas de Autorregulação
+        <div className="border-b border-[#E5E1DA] pb-8 mb-12">
+          <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
+            Pausa &amp; Cuidado
           </span>
-          <h1 className="font-display font-bold text-4xl sm:text-5xl text-[#FDFCFB] tracking-tight mb-4">
-            Exercícios Guiados para Lidar com Emoções Difíceis
+          <h1 className="font-display font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight mb-3">
+            Práticas Guiadas para Momentos de Tensão
           </h1>
-          <p className="font-sans text-xs sm:text-sm text-[#8E8A83] max-w-3xl leading-relaxed">
-            Ferramentas interativas desenvolvidas para auxiliar na desaceleração da ansiedade, retoma de controle em momentos de agitação e regulação emocional baseada na Terapia Cognitivo-Comportamental.
+          <p className="font-sans text-xs sm:text-sm text-[#555] max-w-2xl leading-relaxed">
+            Pequenos exercícios práticos baseados na psicologia clínica para ajudar você a desacelerar, respirar fundo e recuperar o equilíbrio no seu próprio ritmo.
           </p>
         </div>
 
@@ -80,25 +108,25 @@ export default function ExercisesPage() {
           {EXERCISES.map((ex, idx) => {
             const Icon = ex.icon;
             return (
-              <div key={ex.id} className="bg-[#242424] border border-[#333] hover:border-[#C5A059] p-6 flex flex-col justify-between transition-colors group">
+              <div key={ex.id} className="bg-white border border-[#E5E1DA] hover:border-[#1A1A1A] p-6 flex flex-col justify-between transition-all group shadow-sm">
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="p-2.5 bg-[#1A1A1A] border border-[#333] group-hover:border-[#C5A059]">
-                      <Icon className="w-4 h-4 text-[#C5A059]" />
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="p-2.5 bg-[#F9F7F2] border border-[#E5E1DA]">
+                      <Icon className="w-4 h-4 text-[#1A1A1A]" />
                     </div>
-                    <span className="text-[9px] font-mono font-bold uppercase text-[#8E8A83] bg-[#1A1A1A] px-2 py-0.5 border border-[#333]">
+                    <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2.5 py-1 border border-[#E5E1DA]">
                       {ex.badge}
                     </span>
                   </div>
-                  <h2 className="font-display font-bold text-xl text-[#FDFCFB] mb-0.5">{ex.title}</h2>
-                  <p className="font-sans text-xs text-[#C5A059] font-semibold mb-2">{ex.subtitle}</p>
-                  <p className="font-sans text-xs text-[#8E8A83] leading-relaxed mb-6">{ex.desc}</p>
+                  <h2 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h2>
+                  <p className="font-sans text-xs text-[#8E8A83] font-semibold mb-3">{ex.subtitle}</p>
+                  <p className="font-sans text-xs text-[#555] leading-relaxed mb-6">{ex.desc}</p>
                 </div>
                 <button
                   onClick={() => openEx(idx)}
-                  className="w-full py-2.5 bg-[#1A1A1A] hover:bg-[#C5A059] hover:text-[#1A1A1A] border border-[#333] hover:border-[#C5A059] text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
+                  className="w-full py-2.5 bg-[#1A1A1A] text-white hover:bg-[#333] text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
                 >
-                  <span>Experimentar</span>
+                  <span>Iniciar Prática</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -111,77 +139,77 @@ export default function ExercisesPage() {
       {/* Modal */}
       <AnimatePresence>
         {activeIdx !== null && currEx && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#1A1A1A]/95 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="w-full max-w-xl bg-[#222] border border-[#333] p-6 sm:p-8 relative shadow-2xl my-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#1A1A1A]/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="w-full max-w-lg bg-[#FDFCFB] border border-[#E5E1DA] p-6 sm:p-8 relative shadow-xl my-auto text-[#1A1A1A]">
               
-              <button onClick={() => setActiveIdx(null)} className="absolute top-5 right-5 p-2 text-[#8E8A83] hover:text-white bg-[#1A1A1A] border border-[#333] cursor-pointer">
+              <button onClick={() => setActiveIdx(null)} className="absolute top-5 right-5 p-2 text-[#8E8A83] hover:text-[#1A1A1A] bg-[#F9F7F2] border border-[#E5E1DA] cursor-pointer">
                 <X className="w-4 h-4" />
               </button>
 
               {showCalm ? (
-                /* Calm Toast Screen */
+                /* Natural Feedback Screen */
                 <div className="text-center py-6">
-                  <div className="w-14 h-14 bg-[#C5A059]/10 border border-[#C5A059] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Heart className="w-6 h-6 text-[#C5A059]" />
+                  <div className="w-12 h-12 bg-[#F9F7F2] border border-[#E5E1DA] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Heart className="w-5 h-5 text-[#1A1A1A]" />
                   </div>
-                  <h3 className="font-display font-bold text-xl text-[#FDFCFB] mb-2">Conexão e Calma Restabelecidas!</h3>
-                  <p className="font-sans text-xs text-[#8E8A83] max-w-md mx-auto mb-6 leading-relaxed">
-                    O cuidado emocional é um hábito diário. Se desejar um acompanhamento terapêutico individualizado com o Psicólogo Winner Furtado, estamos prontos para acolher você.
+                  <h3 className="font-display font-bold text-xl text-[#1A1A1A] mb-2">Espero que você esteja se sentindo melhor</h3>
+                  <p className="font-sans text-xs text-[#555] max-w-sm mx-auto mb-6 leading-relaxed">
+                    Respeite o seu tempo. Se você sente que gostaria de conversar melhor sobre o que está passando, o atendimento psicológico pode ajudar.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <a
-                      href={`https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent('Olá, Dr. Winner! Fiz um exercício no seu site e gostaria de agendar uma consulta.')}`}
+                      href={`https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent('Olá, Dr. Winner! Estava no seu site e gostaria de saber sobre as consultas.')}`}
                       target="_blank" rel="noopener noreferrer"
-                      className="px-5 py-2.5 bg-[#C5A059] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider flex items-center justify-center"
+                      className="px-5 py-2.5 bg-[#1A1A1A] text-white hover:bg-[#333] font-bold text-xs uppercase tracking-wider flex items-center justify-center"
                     >
-                      <MessageSquare className="w-3.5 h-3.5 mr-1.5" /> Agendar Consulta
+                      <MessageSquare className="w-3.5 h-3.5 mr-1.5" /> Falar com Dr. Winner
                     </a>
-                    <button onClick={() => setActiveIdx(null)} className="px-5 py-2.5 bg-[#1A1A1A] text-white border border-[#444] font-bold text-xs uppercase cursor-pointer">
-                      Voltar ao Exercício
+                    <button onClick={() => setActiveIdx(null)} className="px-5 py-2.5 bg-white text-[#1A1A1A] border border-[#E5E1DA] font-bold text-xs uppercase cursor-pointer">
+                      Concluir
                     </button>
                   </div>
                 </div>
               ) : (
                 /* Main Exercise Content */
                 <div>
-                  <div className="text-center mb-6 border-b border-[#333] pb-4">
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#C5A059]">AUTORREGULAÇÃO</span>
-                    <h3 className="font-display font-bold text-2xl text-[#FDFCFB] mt-0.5">{currEx.title}</h3>
+                  <div className="text-center mb-6 border-b border-[#E5E1DA] pb-4">
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83]">PAUSA GUIADA</span>
+                    <h3 className="font-display font-bold text-2xl text-[#1A1A1A] mt-0.5">{currEx.title}</h3>
                     <p className="font-sans text-xs text-[#8E8A83]">{currEx.subtitle}</p>
                   </div>
 
                   {/* 1. Desacelera */}
                   {currEx.id === 'desacelera' && (
                     <div className="text-center py-2">
-                      <p className="font-sans text-xs text-[#8E8A83] mb-4">Sincronize a respiração com a animação:</p>
+                      <p className="font-sans text-xs text-[#555] mb-4">Acompanhe a respiração no seu tempo:</p>
                       
                       {/* Geometric Breathing Animation */}
-                      <div className="relative w-44 h-44 mx-auto mb-6 flex items-center justify-center">
+                      <div className="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
                         <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.3 : phase === 'hold' ? 1.3 : 1, rotate: phase === 'inspire' ? 45 : 0 }}
+                          animate={{ scale: phase === 'inspire' ? 1.25 : phase === 'hold' ? 1.25 : 1, rotate: phase === 'inspire' ? 45 : 0 }}
                           transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-0 border-2 border-[#C5A059]/40 rounded-2xl"
+                          className="absolute inset-0 border-2 border-[#1A1A1A]/30 rounded-2xl"
                         />
                         <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.15 : phase === 'hold' ? 1.15 : 0.9 }}
+                          animate={{ scale: phase === 'inspire' ? 1.12 : phase === 'hold' ? 1.12 : 0.9 }}
                           transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-4 border-2 border-[#FDFCFB]/20 rounded-xl"
+                          className="absolute inset-4 border border-[#8E8A83]/30 rounded-xl"
                         />
                         <motion.div
                           animate={{ scale: phase === 'inspire' ? 1.05 : phase === 'hold' ? 1.05 : 0.8 }}
                           transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-8 bg-[#C5A059]/20 border border-[#C5A059] rounded-lg flex items-center justify-center"
+                          className="absolute inset-8 bg-[#F9F7F2] border border-[#1A1A1A] rounded-lg flex items-center justify-center"
                         >
-                          <span className="font-display italic text-sm text-[#FDFCFB] font-bold">
-                            {phase === 'inspire' && 'INSPIRE'}
-                            {phase === 'hold' && 'SEGURE'}
-                            {phase === 'expire' && 'EXPIRE'}
+                          <span className="font-display italic text-sm text-[#1A1A1A] font-bold">
+                            {phase === 'inspire' && 'Inspire...'}
+                            {phase === 'hold' && 'Segure...'}
+                            {phase === 'expire' && 'Expire...'}
                           </span>
                         </motion.div>
                       </div>
 
                       <p className="font-sans text-xs text-[#8E8A83] mb-4">
-                        Tempo restante: <strong className="text-[#FDFCFB] font-mono">{seconds}s</strong>
+                        Tempo: <strong className="text-[#1A1A1A] font-mono">{seconds}s</strong>
                       </p>
                     </div>
                   )}
@@ -189,23 +217,23 @@ export default function ExercisesPage() {
                   {/* 2. Âncora */}
                   {currEx.id === 'ancora' && (
                     <div className="py-2 space-y-2 mb-6">
-                      <p className="font-sans text-xs text-[#8E8A83] text-center mb-3">Identifique o ambiente ao seu redor:</p>
+                      <p className="font-sans text-xs text-[#555] text-center mb-3">Observe o ambiente ao seu redor:</p>
                       {GROUNDING.map((step, sIdx) => {
                         const isDone = sIdx <= groundStep;
                         return (
                           <button
                             key={step.count} onClick={() => setGroundStep(sIdx)}
                             className={`w-full p-3 border text-left flex items-center justify-between transition-colors cursor-pointer ${
-                              isDone ? 'bg-[#C5A059]/10 border-[#C5A059] text-[#FDFCFB]' : 'bg-[#1A1A1A] border-[#333] text-[#8E8A83]'
+                              isDone ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A]' : 'bg-white border-[#E5E1DA] text-[#8E8A83]'
                             }`}
                           >
                             <div className="flex items-center space-x-2.5">
-                              <span className="w-6 h-6 rounded-full bg-[#1A1A1A] border border-[#444] flex items-center justify-center font-mono font-bold text-xs text-[#C5A059]">
+                              <span className="w-6 h-6 rounded-full bg-[#F9F7F2] border border-[#E5E1DA] flex items-center justify-center font-mono font-bold text-xs text-[#1A1A1A]">
                                 {step.count}
                               </span>
                               <span className="font-sans text-xs">{step.label}</span>
                             </div>
-                            {isDone && <Check className="w-4 h-4 text-[#C5A059]" />}
+                            {isDone && <Check className="w-4 h-4 text-[#1A1A1A]" />}
                           </button>
                         );
                       })}
@@ -217,32 +245,32 @@ export default function ExercisesPage() {
                     <div className="py-2 mb-6">
                       {thoughtStep === 0 ? (
                         <div className="space-y-3">
-                          <label className="block font-sans text-xs text-[#8E8A83]">Qual preocupação está incomodando você agora?</label>
+                          <label className="block font-sans text-xs text-[#555]">O que está preocupando você neste momento?</label>
                           <input
                             type="text" value={thought} onChange={(e) => setThought(e.target.value)}
-                            placeholder="Ex: Não vou conseguir dar conta..."
-                            className="w-full p-2.5 bg-[#1A1A1A] border border-[#444] text-xs font-sans text-[#FDFCFB] focus:outline-none focus:border-[#C5A059]"
+                            placeholder="Escreva brevemente o pensamento..."
+                            className="w-full p-2.5 bg-white border border-[#E5E1DA] text-xs font-sans text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
                           />
                           <button
                             disabled={!thought.trim()} onClick={() => setThoughtStep(1)}
-                            className="w-full py-2.5 bg-[#C5A059] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider disabled:opacity-50 cursor-pointer"
+                            className="w-full py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider disabled:opacity-50 cursor-pointer"
                           >
-                            Analisar com a TCC
+                            Continuar
                           </button>
                         </div>
                       ) : (
                         <div className="space-y-4">
-                          <div className="p-3 bg-[#1A1A1A] border-l-2 border-[#C5A059]">
+                          <div className="p-3 bg-[#F9F7F2] border-l-2 border-[#1A1A1A]">
                             <p className="font-sans text-[10px] text-[#8E8A83]">Seu pensamento:</p>
-                            <p className="font-display italic text-xs text-[#FDFCFB]">"{thought}"</p>
+                            <p className="font-display italic text-xs text-[#1A1A1A]">"{thought}"</p>
                           </div>
-                          <div className="space-y-1.5 text-xs font-sans text-[#8E8A83]">
-                            <p className="text-[#C5A059] font-bold uppercase text-[10px]">Perguntas de Reflexão TCC:</p>
-                            <p>• Quais são as evidências REAIS a favor e contra isso?</p>
-                            <p>• O que você diria a um grande amigo nessa mesma situação?</p>
+                          <div className="space-y-1.5 text-xs font-sans text-[#555]">
+                            <p className="text-[#1A1A1A] font-bold uppercase text-[10px]">Para refletir:</p>
+                            <p>• Quais são os fatos reais que confirmam isso agora?</p>
+                            <p>• O que você aconselharia a uma pessoa querida que estivesse com esse mesmo receio?</p>
                           </div>
-                          <button onClick={() => setShowCalm(true)} className="w-full py-2.5 bg-[#C5A059] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider cursor-pointer">
-                            Reestruturar Pensamento
+                          <button onClick={() => setShowCalm(true)} className="w-full py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
+                            Acalmar a Mente
                           </button>
                         </div>
                       )}
@@ -251,23 +279,23 @@ export default function ExercisesPage() {
 
                   {/* 4. Durmazen */}
                   {currEx.id === 'durmazen' && (
-                    <div className="py-4 text-center space-y-4 mb-6">
-                      <Moon className="w-10 h-10 text-[#C5A059] mx-auto animate-pulse" />
-                      <p className="font-display text-base italic text-[#FDFCFB]">
-                        "Solte os ombros, relaxe o travamento da mandíbula e sinta seu corpo afundar no colchão."
+                    <div className="py-4 text-center space-y-3 mb-6">
+                      <Moon className="w-8 h-8 text-[#8E8A83] mx-auto animate-pulse" />
+                      <p className="font-display text-base italic text-[#1A1A1A]">
+                        "Descanse os ombros, solte a mandíbula e deite confortavelmente."
                       </p>
-                      <p className="font-sans text-xs text-[#8E8A83] max-w-sm mx-auto leading-relaxed">
-                        Focalize em relaxar cada grupo muscular: pés, pernas, abdômen, ombros e os músculos do rosto.
+                      <p className="font-sans text-xs text-[#555] max-w-sm mx-auto leading-relaxed">
+                        Preste atenção na sensação de peso e relaxamento nos pés, pernas, costas e rosto.
                       </p>
                     </div>
                   )}
 
                   {/* Footer Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#333]">
-                    <button onClick={() => setShowCalm(true)} className="w-full sm:w-1/2 py-2.5 bg-[#C5A059] text-[#1A1A1A] font-bold text-xs uppercase tracking-wider cursor-pointer">
-                      Estou Mais Calmo
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#E5E1DA]">
+                    <button onClick={() => setShowCalm(true)} className="w-full sm:w-1/2 py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
+                      Estou Mais Tranquilo
                     </button>
-                    <button onClick={() => openEx((activeIdx + 1) % EXERCISES.length)} className="w-full sm:w-1/2 py-2.5 bg-[#1A1A1A] text-[#FDFCFB] border border-[#444] font-bold text-xs uppercase tracking-wider cursor-pointer flex items-center justify-center space-x-1">
+                    <button onClick={() => openEx((activeIdx + 1) % EXERCISES.length)} className="w-full sm:w-1/2 py-2.5 bg-[#F9F7F2] text-[#1A1A1A] border border-[#E5E1DA] font-bold text-xs uppercase tracking-wider cursor-pointer flex items-center justify-center space-x-1">
                       <span>Próximo Exercício</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
