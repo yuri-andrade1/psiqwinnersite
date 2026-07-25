@@ -68,6 +68,7 @@ async function generateDynamicSitemap() {
     
     // Add static pages
     xml += `  <url>\n    <loc>${domain}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
+    xml += `  <url>\n    <loc>${domain}/exercicios</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n`;
     xml += `  <url>\n    <loc>${domain}/artigos</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
     
     // Add dynamic articles

@@ -23,6 +23,7 @@ import InteractiveExercises from './components/InteractiveExercises';
 
 const ArticlesPage = React.lazy(() => import('./pages/ArticlesPage'));
 const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
+const ExercisesPage = React.lazy(() => import('./pages/ExercisesPage'));
 
 function HomePage() {
   return <main><Hero /><Specialties /><InteractiveExercises /><Credentials /><Reviews /><Articles /><InstagramVideos /><FAQ /><Contact /></main>;
@@ -34,29 +35,24 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
     this.state = { hasError: false, errorText: '' };
   }
 
-  static getDerivedStateFromError(error: any) {
-    return { hasError: true, errorText: String(error?.stack || error?.message || error) };
+  static getDerivedStateFromError(error: unknown) {
+    return { hasError: true, errorText: error instanceof Error ? error.message : String(error) };
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
-    console.error("Uncaught error caught by ErrorBoundary:", error, errorInfo);
+  componentDidCatch(error: unknown, errorInfo: React.ErrorInfo) {
+    console.error('Uncaught error caught by ErrorBoundary:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="py-12 bg-[#F9F7F2] text-center px-4">
-          <div className="max-w-md mx-auto p-6 bg-[#FDFCFB] border border-[#1A1A1A]">
-            <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-2">Ops! Ocorreu um problema ao carregar esta seção.</h3>
-            <p className="font-sans text-xs text-[#8E8A83] mb-4 break-words font-mono text-[10px]">
-              {this.state.errorText}
-            </p>
+        <div className="min-h-[50vh] flex flex-col items-center justify-center p-6 text-center bg-[#FDFCFB]">
+          <div className="max-w-md bg-white border border-[#E5E1DA] p-8 shadow-sm">
+            <h2 className="font-display text-xl font-bold text-[#1A1A1A] mb-2">Ops! Ocorreu um problema ao carregar esta seção.</h2>
+            <p className="font-sans text-xs text-[#8E8A83] mb-4 break-words">{this.state.errorText}</p>
             <button
-              onClick={() => {
-                this.setState({ hasError: false, errorText: '' });
-                window.location.reload();
-              }}
-              className="px-5 py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer border border-[#1A1A1A]"
+              onClick={() => { this.setState({ hasError: false, errorText: '' }); window.location.reload(); }}
+              className="px-4 py-2 bg-[#1A1A1A] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#333] transition-colors"
             >
               Tentar Novamente
             </button>
@@ -68,16 +64,25 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
   }
 }
 
+function RouteLoading() {
+  return <div className="min-h-[60vh] flex items-center justify-center font-sans text-sm text-[#8E8A83]">Carregando conteúdo...</div>;
+}
+
 export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       // Show back to top button after 500px scroll
       setShowScrollTop(window.scrollY > 500);
+
+      const totalScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const currentScroll = window.scrollY;
+      setScrollProgress(totalScroll > 0 ? (currentScroll / totalScroll) * 100 : 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -157,6 +162,7 @@ export default function App() {
       <ErrorBoundary>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/exercicios" element={<React.Suspense fallback={<RouteLoading />}><ExercisesPage /></React.Suspense>} />
           <Route path="/artigos" element={<React.Suspense fallback={<RouteLoading />}><ArticlesPage /></React.Suspense>} />
           <Route path="/artigos/:slug" element={<React.Suspense fallback={<RouteLoading />}><ArticlePage /></React.Suspense>} />
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -187,8 +193,4 @@ export default function App() {
       </div>
     </div>
   );
-}
-
-function RouteLoading() {
-  return <main className="min-h-screen pt-32 text-center font-sans text-sm text-[#2C3531]">Carregando...</main>;
 }
