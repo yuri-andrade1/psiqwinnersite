@@ -17,6 +17,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Início', href: '/#inicio' },
     { name: 'Especialidades', href: '/#especialidades' },
+    { name: 'Exercícios', href: '/#exercicios' },
     { name: 'Formação', href: '/#formacao' },
     { name: 'Avaliações', href: '/#avaliacoes' },
     { name: 'Artigos', href: '/artigos' },
