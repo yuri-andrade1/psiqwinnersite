@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const EXERCISES_PREVIEW = [
   { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', icon: Wind, badge: 'Desacelerar' },
   { title: 'Aterramento no Presente', subtitle: 'Conexão 5-4-3-2-1', icon: Anchor, badge: 'Acalmar' },
-  { title: 'Organizando os Pensamentos', subtitle: 'Clareza Mental', icon: Brain, badge: 'Clareza' },
+  { title: 'Pausa para a Mente', subtitle: 'Clareza & Leveza', icon: Brain, badge: 'Clareza' },
   { title: 'Relaxamento para Dormir', subtitle: 'Descompressão Corporal', icon: Moon, badge: 'Descanso' },
 ];
 

@@ -23,9 +23,9 @@ const EXERCISES = [
   },
   {
     id: 'tcc',
-    title: 'Organizando os Pensamentos',
-    subtitle: 'Clareza Mental',
-    desc: 'Um passo a passo simples para olhar para as suas preocupações com mais distanciamento e serenidade.',
+    title: 'Pausa para a Mente',
+    subtitle: 'Clareza & Leveza',
+    desc: 'Um exercício simples para aliviar a sobrecarga de preocupações e olhar para os pensamentos com mais serenidade.',
     icon: Brain,
     badge: 'Clareza',
   },
