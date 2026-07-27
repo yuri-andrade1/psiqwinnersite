@@ -107,6 +107,41 @@ export default function ExercisesPage() {
           <p className="font-sans text-xs sm:text-sm text-[#555] max-w-2xl leading-relaxed">
             Exercícios práticos desenhados para guiar você em momentos de tensão, ajudando a respirar fundo e recuperar o equilíbrio no seu próprio tempo.
           </p>
+
+          {/* Ambient Wave Animation */}
+          <div className="w-full h-12 overflow-hidden mt-6 opacity-40">
+            <svg viewBox="0 0 1200 80" preserveAspectRatio="none" className="w-full h-12">
+              <motion.path
+                d="M0,20 C300,60 600,-20 900,40 C1050,70 1150,10 1200,30 L1200,80 L0,80 Z"
+                fill="none"
+                stroke="#1A1A1A"
+                strokeWidth="1.5"
+                animate={{
+                  d: [
+                    "M0,20 C300,60 600,-20 900,40 C1050,70 1150,10 1200,30 L1200,80 L0,80 Z",
+                    "M0,40 C200,0 500,70 800,10 C1000,-10 1120,50 1200,20 L1200,80 L0,80 Z",
+                    "M0,20 C300,60 600,-20 900,40 C1050,70 1150,10 1200,30 L1200,80 L0,80 Z",
+                  ]
+                }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.path
+                d="M0,40 C250,-10 450,50 700,10 C950,-30 1100,50 1200,20 L1200,80 L0,80 Z"
+                fill="none"
+                stroke="#8E8A83"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+                animate={{
+                  d: [
+                    "M0,40 C250,-10 450,50 700,10 C950,-30 1100,50 1200,20 L1200,80 L0,80 Z",
+                    "M0,10 C180,50 380,-10 620,40 C860,80 1050,0 1200,30 L1200,80 L0,80 Z",
+                    "M0,40 C250,-10 450,50 700,10 C950,-30 1100,50 1200,20 L1200,80 L0,80 Z",
+                  ]
+                }}
+                transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </svg>
+          </div>
         </div>
 
         {/* Editorial Layout: Hero Feature (Left) + Side List (Right) */}
