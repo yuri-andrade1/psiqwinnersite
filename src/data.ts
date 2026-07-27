@@ -7,15 +7,15 @@ export const DOCTOR_INFO = {
   longBio: 'Olá! Sou psicólogo clínico (CRP 04/62611), com atuação fundamentada na Psicologia Baseada em Evidências e na Terapia Cognitivo-Comportamental (TCC). Acredito que compreender a forma como pensamos, sentimos e nos comportamos é o primeiro passo para promover mudanças reais e duradouras, sempre adaptando o conhecimento científico à realidade de cada pessoa. Vejo a psicoterapia como uma parceria: eu contribuo com o conhecimento técnico da TCC e você com a sua própria história, valores e objetivos. Meu objetivo é oferecer um espaço seguro de acolhimento, escuta e reflexão, ajudando você a desenvolver estratégias para lidar com a ansiedade, fortalecer a autoestima, construir relacionamentos mais saudáveis e enfrentar os desafios da vida com mais segurança e autonomia. Porque, no fim das contas, acredito que uma boa terapia não é aquela que diz como você deve viver, mas aquela que oferece ferramentas para que você possa construir a vida que deseja viver.',
   whatsappNumber: '5535984434572',
   whatsappMessage: 'Olá, Winner! Vi seu site e gostaria de tirar dúvidas sobre o agendamento de consultas de psicoterapia.',
-  address: 'Atendimento Online (para todo o Brasil e brasileiros no exterior)',
-  googleMapsEmbedUrl: '', // Online only
+  address: 'Rua Antônio Scodeler, 3475 - Bella Italia, Pouso Alegre - MG (Atendimento Online & Presencial)',
+  googleMapsEmbedUrl: '', // Online & Presencial
   email: 'psicologowinnerfurtado@gmail.com',
   phone: '(35) 98443-4572',
   instagram: '@psiwinner',
   tiktok: '@psiwinner',
   googleProfile: 'https://www.doctoralia.com.br/winner-furtado/psicologo/pouso-alegre#profile-reviews',
   onlineConsultationAvailable: true,
-  presentialConsultationAvailable: false,
+  presentialConsultationAvailable: true,
 };
 
 export const SPECIALTIES: Specialty[] = [
