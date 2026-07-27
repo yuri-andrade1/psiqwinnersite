@@ -176,24 +176,14 @@ export default function ExercisesPage() {
                 {mainExercise.desc}
               </p>
 
-              {/* Live Preview Pulse Visual */}
+              {/* Live Preview GIF Visual */}
               <div className="my-6 p-6 bg-[#242424] border border-[#333] flex items-center space-x-6">
-                <div className="relative w-16 h-16 flex items-center justify-center flex-shrink-0">
-                  <motion.div
-                    animate={{ scale: [1, 1.25, 1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute inset-0 border border-[#C5A059]/30 rounded-full"
-                  />
-                  <motion.div
-                    animate={{ scale: [1, 1.15, 1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute inset-2 border border-[#FDFCFB]/20 rounded-full"
-                  />
-                  <Heart className="w-5 h-5 text-[#C5A059] fill-[#C5A059]/20 relative z-10" />
+                <div className="relative w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/5 rounded-lg overflow-hidden border border-white/10 p-1">
+                  <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-full object-contain rounded" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Cardíaca</p>
-                  <p className="text-[11px] text-[#8E8A83]">Sincronia suave de 4s de inspiração, 2s de pausa e 4s de expiração.</p>
+                  <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Guiada</p>
+                  <p className="text-[11px] text-[#8E8A83]">Sincronia suave para desacelerar o ritmo e acalmar a mente.</p>
                 </div>
               </div>
             </div>
@@ -300,30 +290,14 @@ export default function ExercisesPage() {
                     <div className="text-center py-2">
                       <p className="font-sans text-xs text-[#555] mb-4">Acompanhe a respiração no seu tempo:</p>
                       
-                      {/* Heart Pulsating Breathing Visual */}
-                      <div className="relative w-44 h-44 mx-auto mb-6 flex items-center justify-center">
-                        <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.3 : phase === 'hold' ? 1.3 : 1 }}
-                          transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-0 border-2 border-[#1A1A1A]/20 rounded-full"
-                        />
-                        <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.18 : phase === 'hold' ? 1.18 : 0.9 }}
-                          transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-3 border border-[#8E8A83]/30 rounded-full"
-                        />
-                        <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.1 : phase === 'hold' ? 1.1 : 0.85 }}
-                          transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-6 bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-full flex flex-col items-center justify-center shadow-sm"
-                        >
-                          <Heart className="w-5 h-5 text-[#1A1A1A] fill-[#1A1A1A]/10 mb-1" />
-                          <span className="font-display italic text-xs text-[#1A1A1A] font-bold">
-                            {phase === 'inspire' && 'Inspire...'}
-                            {phase === 'hold' && 'Segure...'}
-                            {phase === 'expire' && 'Expire...'}
-                          </span>
-                        </motion.div>
+                      {/* Custom Breathing GIF Visual */}
+                      <div className="relative w-52 h-52 mx-auto mb-6 flex flex-col items-center justify-center bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-2xl p-3 shadow-sm overflow-hidden">
+                        <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-36 object-contain rounded-xl mb-2" />
+                        <span className="font-display italic text-xs text-[#1A1A1A] font-bold">
+                          {phase === 'inspire' && 'Inspire...'}
+                          {phase === 'hold' && 'Segure...'}
+                          {phase === 'expire' && 'Expire...'}
+                        </span>
                       </div>
 
                       <p className="font-sans text-xs text-[#8E8A83] mb-4">
