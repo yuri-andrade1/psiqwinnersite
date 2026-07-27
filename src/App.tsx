@@ -103,16 +103,18 @@ export default function App() {
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
       "name": "Winner Furtado Psicologia Clínica",
-      "alternateName": "Winner Furtado",
-      "image": "https://psiqwinnersite.vercel.app/src/assets/images/psicologo_profile_1784330612743.jpg",
-      "@id": "https://psiqwinnersite.vercel.app/#medicalbusiness",
-      "url": "https://psiqwinnersite.vercel.app",
+      "alternateName": "Dr. Winner Furtado",
+      "image": "https://www.psiwinner.com.br/assets/psicologo_profile-CDsojBIy.jpg",
+      "@id": "https://www.psiwinner.com.br/#medicalbusiness",
+      "url": "https://www.psiwinner.com.br",
       "telephone": "+5535984434572",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Minas Gerais",
+        "streetAddress": "Rua Antônio Scodeler, 3475 - Bella Italia",
+        "addressLocality": "Pouso Alegre",
         "addressRegion": "MG",
+        "postalCode": "37550-000",
         "addressCountry": "BR"
       },
       "openingHoursSpecification": {

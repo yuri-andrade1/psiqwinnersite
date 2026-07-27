@@ -16,7 +16,7 @@ export default function Specialties() {
   const [activeSpecialty, setActiveSpecialty] = useState<string | null>(null);
 
   const handleWhatsAppInquiry = (specialtyTitle: string) => {
-    const customMessage = `Olá, Dr. Psiwinner! Estive vendo o seu site e gostaria de saber mais sobre o atendimento para: ${specialtyTitle}.`;
+    const customMessage = `Olá, Dr. Winner! Estive vendo o seu site e gostaria de saber mais sobre o atendimento para: ${specialtyTitle}.`;
     const url = `https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent(customMessage)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };

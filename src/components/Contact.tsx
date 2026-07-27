@@ -17,7 +17,7 @@ export default function Contact() {
     }
     setErrorWarning('');
 
-    const formattedText = `Olá, Dr. Psiwinner!\n\nMeu nome é *${name.trim()}*.\nEstou entrando em contato através do site sobre *${subject}*:\n\n"${message.trim()}"`;
+    const formattedText = `Olá, Dr. Winner!\n\nMeu nome é *${name.trim()}*.\nEstou entrando em contato através do site sobre *${subject}*:\n\n"${message.trim()}"`;
     const url = `https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent(formattedText)}`;
     
     window.open(url, '_blank', 'noopener,noreferrer');

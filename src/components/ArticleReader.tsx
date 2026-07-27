@@ -21,7 +21,7 @@ export default function ArticleReader({ article, onClose }: ArticleReaderProps) 
   }, []);
 
   const handleWhatsAppContact = () => {
-    const customMessage = `Olá, Dr. Psiwinner! Li seu artigo "${article.title}" e me identifiquei muito com o conteúdo. Gostaria de entender mais sobre como funciona o acompanhamento terapêutico.`;
+    const customMessage = `Olá, Dr. Winner! Li seu artigo "${article.title}" e me identifiquei muito com o conteúdo. Gostaria de entender mais sobre como funciona o acompanhamento terapêutico.`;
     const url = `https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent(customMessage)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };

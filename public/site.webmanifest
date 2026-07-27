@@ -1,0 +1,17 @@
+{
+  "name": "Dr. Winner Furtado | Psicologia Clínica",
+  "short_name": "Dr. Winner",
+  "description": "Psicologia clínica com atendimento online e presencial. Terapia Cognitivo-Comportamental para ansiedade, burnout e autoestima.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFCFB",
+  "theme_color": "#1A1A1A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
