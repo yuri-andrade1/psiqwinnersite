@@ -291,12 +291,10 @@ export default function ExercisesPage() {
                       <p className="font-sans text-xs text-[#555] mb-4">Acompanhe a respiração no seu tempo:</p>
                       
                       {/* Custom Breathing GIF Visual */}
-                      <div className="relative w-52 h-52 mx-auto mb-6 flex flex-col items-center justify-center bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-2xl p-3 shadow-sm overflow-hidden">
-                        <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-36 object-contain rounded-xl mb-2" />
-                        <span className="font-display italic text-xs text-[#1A1A1A] font-bold">
-                          {phase === 'inspire' && 'Inspire...'}
-                          {phase === 'hold' && 'Segure...'}
-                          {phase === 'expire' && 'Expire...'}
+                      <div className="relative w-56 h-56 mx-auto mb-6 flex flex-col items-center justify-center bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-2xl p-4 shadow-sm overflow-hidden">
+                        <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-40 object-contain rounded-xl mb-3" />
+                        <span className="font-sans text-[11px] text-[#1A1A1A] font-bold tracking-wide uppercase">
+                          Inspire ao expandir • Expire ao contrair
                         </span>
                       </div>
 
