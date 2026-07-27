@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wind, Anchor, Brain, Moon, X, Check, ArrowRight, Heart, Home, MessageSquare, Clock, Play } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, X, Check, ArrowRight, Home, MessageSquare, Clock, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -24,22 +24,22 @@ const EXERCISES = [
     badge: 'Acalmar',
   },
   {
-    id: 'tcc',
-    title: 'Pausa para a Mente',
-    subtitle: 'Clareza & Leveza',
-    desc: 'Um exercício simples para aliviar a sobrecarga de preocupações e olhar para os pensamentos com mais serenidade.',
+    id: 'checkin',
+    title: 'Check-in Emocional',
+    subtitle: 'Consciência & Acolhimento',
+    desc: 'Uma pausa gentil para reconhecer o que você está sentindo neste momento, sem cobranças ou julgamentos.',
     duration: '2 minutos',
-    icon: Brain,
-    badge: 'Clareza',
+    icon: Smile,
+    badge: 'Autocuidado',
   },
   {
-    id: 'durmazen',
-    title: 'Relaxamento para Dormir',
-    subtitle: 'Descompressão Corporal',
-    desc: 'Solte gradualmente a tensão dos músculos e prepare o corpo para um descanso tranquilo e reparador.',
-    duration: '4 minutos',
-    icon: Moon,
-    badge: 'Descanso',
+    id: 'seguranca',
+    title: 'Resgate de Segurança',
+    subtitle: 'Autoestima & Firmeza',
+    desc: 'Um exercício de fortalecimento pessoal para momentos de dúvida, insegurança ou autocrítica excessiva.',
+    duration: '3 minutos',
+    icon: ShieldCheck,
+    badge: 'Fortalecer',
   },
 ];
 
@@ -51,13 +51,27 @@ const GROUNDING = [
   { count: 1, label: 'coisa boa sobre você neste momento' },
 ];
 
+const EMOTIONS = [
+  { id: 'tensao', label: 'Tensão ou Agitação', message: 'É natural sentir o corpo tenso quando a mente carrega muitas exigências. Solte os ombros por um instante.' },
+  { id: 'cansaco', label: 'Cansaço Mental', message: 'Sua mente precisa de pausas curtas para recompor as energias. Permita-se apenas respirar agora.' },
+  { id: 'preocupacao', label: 'Preocupação com o Futuro', message: 'O futuro é construído um passo de cada vez. Concentre sua atenção apenas no próximo passo viável.' },
+  { id: 'inseguranca', label: 'Dúvida ou Insegurança', message: 'Lembre-se de que você tem recursos internos construídos ao longo da sua história para lidar com os desafios.' },
+];
+
+const STRENGTHS = [
+  'Superação de momentos difíceis no passado',
+  'Cuidado e empatia com as pessoas queridas',
+  'Dedicação e capacidade de aprendizado contínuo',
+  'Busca por evolução e autoconhecimento',
+];
+
 export default function ExercisesPage() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const [phase, setPhase] = useState<'inspire' | 'hold' | 'expire'>('inspire');
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
-  const [thought, setThought] = useState('');
-  const [thoughtStep, setThoughtStep] = useState(0);
+  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+  const [selectedStrength, setSelectedStrength] = useState<number | null>(null);
   const [showCalm, setShowCalm] = useState(false);
 
   useEffect(() => {
@@ -77,16 +91,16 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setThoughtStep(0); setThought('');
+    setGroundStep(0); setSelectedEmotion(null); setSelectedStrength(null);
   };
 
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
-  const mainExercise = EXERCISES[0]; // Hero feature (Respiração)
-  const sideExercises = EXERCISES.slice(1); // Other 3 exercises
+  const mainExercise = EXERCISES[0];
+  const sideExercises = EXERCISES.slice(1);
 
   return (
     <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA] relative overflow-hidden">
-      {/* Subtle Ambient Wind Breeze Lines */}
+      {/* Ambient Wind Breeze Lines Background */}
       <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
         <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="none">
           <motion.path
@@ -174,19 +188,19 @@ export default function ExercisesPage() {
               <div className="my-6 p-6 bg-[#242424] border border-[#333] flex items-center space-x-6">
                 <div className="relative w-16 h-16 flex items-center justify-center flex-shrink-0">
                   <motion.div
-                    animate={{ scale: [1, 1.3, 1], rotate: [0, 45, 0] }}
+                    animate={{ scale: [1, 1.25, 1] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute inset-0 border-2 border-[#C5A059]/40 rounded-xl"
+                    className="absolute inset-0 border border-[#C5A059]/30 rounded-full"
                   />
                   <motion.div
                     animate={{ scale: [1, 1.15, 1] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute inset-3 border border-[#FDFCFB]/20 rounded-lg"
+                    className="absolute inset-2 border border-[#FDFCFB]/20 rounded-full"
                   />
                   <Heart className="w-5 h-5 text-[#C5A059] fill-[#C5A059]/20 relative z-10" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Guiada</p>
+                  <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Cardíaca</p>
                   <p className="text-[11px] text-[#8E8A83]">Sincronia suave de 4s de inspiração, 2s de pausa e 4s de expiração.</p>
                 </div>
               </div>
@@ -356,53 +370,67 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 3. Reorganizador TCC */}
-                  {currEx.id === 'tcc' && (
-                    <div className="py-2 mb-6">
-                      {thoughtStep === 0 ? (
-                        <div className="space-y-3">
-                          <label className="block font-sans text-xs text-[#555]">O que está preocupando você neste momento?</label>
-                          <input
-                            type="text" value={thought} onChange={(e) => setThought(e.target.value)}
-                            placeholder="Escreva brevemente o pensamento..."
-                            className="w-full p-2.5 bg-white border border-[#E5E1DA] text-xs font-sans text-[#1A1A1A] focus:outline-none focus:border-[#1A1A1A]"
-                          />
-                          <button
-                            disabled={!thought.trim()} onClick={() => setThoughtStep(1)}
-                            className="w-full py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider disabled:opacity-50 cursor-pointer"
-                          >
-                            Continuar
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          <div className="p-3 bg-[#F9F7F2] border-l-2 border-[#1A1A1A]">
-                            <p className="font-sans text-[10px] text-[#8E8A83]">Seu pensamento:</p>
-                            <p className="font-display italic text-xs text-[#1A1A1A]">"{thought}"</p>
-                          </div>
-                          <div className="space-y-1.5 text-xs font-sans text-[#555]">
-                            <p className="text-[#1A1A1A] font-bold uppercase text-[10px]">Para refletir:</p>
-                            <p>• Quais são os fatos reais que confirmam isso agora?</p>
-                            <p>• O que você aconselharia a uma pessoa querida que estivesse com esse mesmo receio?</p>
-                          </div>
-                          <button onClick={() => setShowCalm(true)} className="w-full py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
-                            Acalmar a Mente
-                          </button>
-                        </div>
+                  {/* 3. Check-in Emocional */}
+                  {currEx.id === 'checkin' && (
+                    <div className="py-2 mb-6 space-y-4">
+                      <p className="font-sans text-xs text-[#555] text-center mb-2">Como você descreveria o que está sentindo agora?</p>
+                      <div className="space-y-2">
+                        {EMOTIONS.map((emo) => {
+                          const isSelected = selectedEmotion === emo.id;
+                          return (
+                            <button
+                              key={emo.id}
+                              onClick={() => setSelectedEmotion(emo.id)}
+                              className={`w-full p-3 border text-left font-sans text-xs transition-colors cursor-pointer flex items-center justify-between ${
+                                isSelected ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-bold' : 'bg-white border-[#E5E1DA] text-[#555]'
+                              }`}
+                            >
+                              <span>{emo.label}</span>
+                              {isSelected && <Check className="w-4 h-4 text-[#1A1A1A]" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {selectedEmotion && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-4 bg-[#F9F7F2] border-l-2 border-[#1A1A1A] mt-4">
+                          <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
+                            {EMOTIONS.find((e) => e.id === selectedEmotion)?.message}
+                          </p>
+                        </motion.div>
                       )}
                     </div>
                   )}
 
-                  {/* 4. Durmazen */}
-                  {currEx.id === 'durmazen' && (
-                    <div className="py-4 text-center space-y-3 mb-6">
-                      <Moon className="w-8 h-8 text-[#8E8A83] mx-auto animate-pulse" />
-                      <p className="font-display text-base italic text-[#1A1A1A]">
-                        "Descanse os ombros, solte a mandíbula e deite confortavelmente."
-                      </p>
-                      <p className="font-sans text-xs text-[#555] max-w-sm mx-auto leading-relaxed">
-                        Preste atenção na sensação de peso e relaxamento nos pés, pernas, costas e rosto.
-                      </p>
+                  {/* 4. Resgate de Segurança */}
+                  {currEx.id === 'seguranca' && (
+                    <div className="py-2 mb-6 space-y-4">
+                      <p className="font-sans text-xs text-[#555] text-center mb-2">Selecione uma lembrança ou âncora pessoal para fortalecer você agora:</p>
+                      <div className="space-y-2">
+                        {STRENGTHS.map((str, sIdx) => {
+                          const isSelected = selectedStrength === sIdx;
+                          return (
+                            <button
+                              key={sIdx}
+                              onClick={() => setSelectedStrength(sIdx)}
+                              className={`w-full p-3 border text-left font-sans text-xs transition-colors cursor-pointer flex items-center justify-between ${
+                                isSelected ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-bold' : 'bg-white border-[#E5E1DA] text-[#555]'
+                              }`}
+                            >
+                              <span>{str}</span>
+                              {isSelected && <Check className="w-4 h-4 text-[#1A1A1A]" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {selectedStrength !== null && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-4 bg-[#F9F7F2] border-l-2 border-[#1A1A1A] mt-4">
+                          <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
+                            Sua capacidade de atravessar momentos difíceis é real e comprovada pela sua própria trajetória. Respire fundo e confie nos seus recursos.
+                          </p>
+                        </motion.div>
+                      )}
                     </div>
                   )}
 
