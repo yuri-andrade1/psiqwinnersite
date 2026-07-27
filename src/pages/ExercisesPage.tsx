@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, X, Check, ArrowRight, Home, MessageSquare, Clock, Play } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, X, Check, ArrowRight, Home, MessageSquare, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -10,7 +10,6 @@ const EXERCISES = [
     title: 'Respiração Guiada',
     subtitle: 'Ritmo 4-7-8',
     desc: 'Uma pausa simples e eficaz para desacelerar os batimentos e acalmar a mente nos momentos em que tudo parecer muito acelerado.',
-    duration: '3 minutos',
     icon: Heart,
     badge: 'Destaque',
   },
@@ -19,7 +18,6 @@ const EXERCISES = [
     title: 'Aterramento no Presente',
     subtitle: 'Conexão 5-4-3-2-1',
     desc: 'Um exercício prático para trazer a atenção de volta ao aqui e agora durante momentos de tensão ou ansiedade.',
-    duration: '3 minutos',
     icon: Anchor,
     badge: 'Acalmar',
   },
@@ -28,7 +26,6 @@ const EXERCISES = [
     title: 'Check-in Emocional',
     subtitle: 'Consciência & Acolhimento',
     desc: 'Uma pausa gentil para reconhecer o que você está sentindo neste momento, sem cobranças ou julgamentos.',
-    duration: '2 minutos',
     icon: Smile,
     badge: 'Autocuidado',
   },
@@ -37,7 +34,6 @@ const EXERCISES = [
     title: 'Resgate de Segurança',
     subtitle: 'Autoestima & Firmeza',
     desc: 'Um exercício de fortalecimento pessoal para momentos de dúvida, insegurança ou autocrítica excessiva.',
-    duration: '3 minutos',
     icon: ShieldCheck,
     badge: 'Fortalecer',
   },
@@ -167,10 +163,6 @@ export default function ExercisesPage() {
                 <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#1A1A1A] bg-[#C5A059] px-3 py-1">
                   EXERCÍCIO PRINCIPAL
                 </span>
-                <span className="inline-flex items-center text-xs text-[#8E8A83] font-mono">
-                  <Clock className="w-3.5 h-3.5 mr-1 text-[#C5A059]" />
-                  {mainExercise.duration}
-                </span>
               </div>
 
               {/* Title & Subtitle */}
@@ -238,10 +230,6 @@ export default function ExercisesPage() {
                           {ex.badge}
                         </span>
                       </div>
-                      <span className="inline-flex items-center text-[11px] font-mono text-[#8E8A83]">
-                        <Clock className="w-3 h-3 mr-1 text-[#8E8A83]" />
-                        {ex.duration}
-                      </span>
                     </div>
 
                     <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h3>

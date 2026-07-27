@@ -3,10 +3,10 @@ import { Heart, Anchor, Smile, ShieldCheck, ArrowRight, Play } from 'lucide-reac
 import { Link } from 'react-router-dom';
 
 const EXERCISES_PREVIEW = [
-  { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', duration: '3 min', icon: Heart, badge: 'Destaque' },
-  { title: 'Aterramento no Presente', subtitle: 'Conexão 5-4-3-2-1', duration: '3 min', icon: Anchor, badge: 'Acalmar' },
-  { title: 'Check-in Emocional', subtitle: 'Consciência & Acolhimento', duration: '2 min', icon: Smile, badge: 'Autocuidado' },
-  { title: 'Resgate de Segurança', subtitle: 'Autoestima & Firmeza', duration: '3 min', icon: ShieldCheck, badge: 'Fortalecer' },
+  { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', icon: Heart, badge: 'Destaque' },
+  { title: 'Aterramento no Presente', subtitle: 'Conexão 5-4-3-2-1', icon: Anchor, badge: 'Acalmar' },
+  { title: 'Check-in Emocional', subtitle: 'Consciência & Acolhimento', icon: Smile, badge: 'Autocuidado' },
+  { title: 'Resgate de Segurança', subtitle: 'Autoestima & Firmeza', icon: ShieldCheck, badge: 'Fortalecer' },
 ];
 
 export default function InteractiveExercises() {
@@ -50,8 +50,8 @@ export default function InteractiveExercises() {
                     <div className="p-2.5 bg-[#F9F7F2] border border-[#E5E1DA]">
                       <Icon className="w-4 h-4 text-[#1A1A1A]" />
                     </div>
-                    <span className="text-[9px] font-mono text-[#8E8A83]">
-                      {ex.duration}
+                    <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2 py-0.5 border border-[#E5E1DA]">
+                      {ex.badge}
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h3>
