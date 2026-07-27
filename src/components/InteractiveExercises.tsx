@@ -1,12 +1,12 @@
 import React from 'react';
-import { Wind, Anchor, Brain, Moon, ArrowRight } from 'lucide-react';
+import { Wind, Anchor, Brain, Moon, ArrowRight, Play, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const EXERCISES_PREVIEW = [
-  { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', icon: Wind, badge: 'Desacelerar' },
-  { title: 'Aterramento no Presente', subtitle: 'Conexão 5-4-3-2-1', icon: Anchor, badge: 'Acalmar' },
-  { title: 'Pausa para a Mente', subtitle: 'Clareza & Leveza', icon: Brain, badge: 'Clareza' },
-  { title: 'Relaxamento para Dormir', subtitle: 'Descompressão Corporal', icon: Moon, badge: 'Descanso' },
+  { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', duration: '3 min', icon: Wind, badge: 'Destaque' },
+  { title: 'Aterramento no Presente', subtitle: 'Conexão 5-4-3-2-1', duration: '3 min', icon: Anchor, badge: 'Acalmar' },
+  { title: 'Pausa para a Mente', subtitle: 'Clareza & Leveza', duration: '2 min', icon: Brain, badge: 'Clareza' },
+  { title: 'Relaxamento para Dormir', subtitle: 'Descompressão Corporal', duration: '4 min', icon: Moon, badge: 'Descanso' },
 ];
 
 export default function InteractiveExercises() {
@@ -18,7 +18,7 @@ export default function InteractiveExercises() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 border-b border-[#E5E1DA] pb-6">
           <div className="max-w-xl">
             <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
-              Pausa &amp; Cuidado
+              PAUSA &amp; CUIDADO
             </span>
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight">
               Práticas Guiadas para Momentos de Tensão
@@ -29,7 +29,7 @@ export default function InteractiveExercises() {
               to="/exercicios"
               className="inline-flex items-center px-5 py-2.5 bg-[#1A1A1A] hover:bg-[#333] text-white font-bold text-xs uppercase tracking-wider transition-colors"
             >
-              <span>Acessar Exercícios Guiados</span>
+              <span>Acessar Espaço de Exercícios</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>
@@ -50,8 +50,8 @@ export default function InteractiveExercises() {
                     <div className="p-2.5 bg-[#F9F7F2] border border-[#E5E1DA]">
                       <Icon className="w-4 h-4 text-[#1A1A1A]" />
                     </div>
-                    <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2.5 py-1 border border-[#E5E1DA]">
-                      {ex.badge}
+                    <span className="text-[9px] font-mono text-[#8E8A83]">
+                      {ex.duration}
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h3>
@@ -60,7 +60,7 @@ export default function InteractiveExercises() {
 
                 <div className="pt-3 border-t border-[#E5E1DA] flex items-center justify-between text-[11px] font-bold text-[#8E8A83] group-hover:text-[#1A1A1A] transition-colors">
                   <span>Iniciar Prática</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#1A1A1A]" />
+                  <Play className="w-3 h-3 text-[#1A1A1A] fill-current" />
                 </div>
               </Link>
             );

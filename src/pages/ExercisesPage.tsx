@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Wind, Anchor, Brain, Moon, X, Check, ArrowRight, Heart, Home, MessageSquare } from 'lucide-react';
+import { Wind, Anchor, Brain, Moon, X, Check, ArrowRight, Heart, Home, MessageSquare, Clock, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -9,15 +9,17 @@ const EXERCISES = [
     id: 'desacelera',
     title: 'Respiração Guiada',
     subtitle: 'Ritmo 4-7-8',
-    desc: 'Uma pausa curta para acalmar a mente e desacelerar os batimentos quando tudo parecer muito acelerado.',
+    desc: 'Uma pausa simples e eficaz para desacelerar os batimentos e acalmar a mente nos momentos em que tudo parecer muito acelerado.',
+    duration: '3 minutos',
     icon: Wind,
-    badge: 'Desacelerar',
+    badge: 'Destaque',
   },
   {
     id: 'ancora',
     title: 'Aterramento no Presente',
     subtitle: 'Conexão 5-4-3-2-1',
     desc: 'Um exercício prático para trazer a atenção de volta ao aqui e agora durante momentos de tensão ou ansiedade.',
+    duration: '3 minutos',
     icon: Anchor,
     badge: 'Acalmar',
   },
@@ -26,6 +28,7 @@ const EXERCISES = [
     title: 'Pausa para a Mente',
     subtitle: 'Clareza & Leveza',
     desc: 'Um exercício simples para aliviar a sobrecarga de preocupações e olhar para os pensamentos com mais serenidade.',
+    duration: '2 minutos',
     icon: Brain,
     badge: 'Clareza',
   },
@@ -33,7 +36,8 @@ const EXERCISES = [
     id: 'durmazen',
     title: 'Relaxamento para Dormir',
     subtitle: 'Descompressão Corporal',
-    desc: 'Solte gradualmente a tensão dos músculos e prepare o corpo para um descanso tranquilo.',
+    desc: 'Solte gradualmente a tensão dos músculos e prepare o corpo para um descanso tranquilo e reparador.',
+    duration: '4 minutos',
     icon: Moon,
     badge: 'Descanso',
   },
@@ -58,7 +62,7 @@ export default function ExercisesPage() {
 
   useEffect(() => {
     const originalTitle = document.title;
-    document.title = 'Práticas de Acalmamento & Bem-Estar | Dr. Winner Furtado';
+    document.title = 'Práticas Guiadas & Autorregulação | Dr. Winner Furtado';
     return () => {
       document.title = originalTitle;
     };
@@ -77,6 +81,8 @@ export default function ExercisesPage() {
   };
 
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
+  const mainExercise = EXERCISES[0]; // Hero feature (Respiração)
+  const sideExercises = EXERCISES.slice(1); // Other 3 exercises
 
   return (
     <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA]">
@@ -93,45 +99,121 @@ export default function ExercisesPage() {
         {/* Section Header */}
         <div className="border-b border-[#E5E1DA] pb-8 mb-12">
           <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
-            Pausa &amp; Cuidado
+            PAUSA &amp; CUIDADO
           </span>
-          <h1 className="font-display font-bold text-3xl sm:text-4xl text-[#1A1A1A] tracking-tight mb-3">
-            Práticas Guiadas para Momentos de Tensão
+          <h1 className="font-display font-bold text-3xl sm:text-5xl text-[#1A1A1A] tracking-tight mb-3">
+            Um espaço para desacelerar e recuperar a presença.
           </h1>
           <p className="font-sans text-xs sm:text-sm text-[#555] max-w-2xl leading-relaxed">
-            Pequenos exercícios práticos baseados na psicologia clínica para ajudar você a desacelerar, respirar fundo e recuperar o equilíbrio no seu próprio ritmo.
+            Exercícios práticos desenhados para guiar você em momentos de tensão, ajudando a respirar fundo e recuperar o equilíbrio no seu próprio tempo.
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {EXERCISES.map((ex, idx) => {
-            const Icon = ex.icon;
-            return (
-              <div key={ex.id} className="bg-white border border-[#E5E1DA] hover:border-[#1A1A1A] p-6 flex flex-col justify-between transition-all group shadow-sm">
-                <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="p-2.5 bg-[#F9F7F2] border border-[#E5E1DA]">
-                      <Icon className="w-4 h-4 text-[#1A1A1A]" />
-                    </div>
-                    <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2.5 py-1 border border-[#E5E1DA]">
-                      {ex.badge}
-                    </span>
-                  </div>
-                  <h2 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h2>
-                  <p className="font-sans text-xs text-[#8E8A83] font-semibold mb-3">{ex.subtitle}</p>
-                  <p className="font-sans text-xs text-[#555] leading-relaxed mb-6">{ex.desc}</p>
-                </div>
-                <button
-                  onClick={() => openEx(idx)}
-                  className="w-full py-2.5 bg-[#1A1A1A] text-white hover:bg-[#333] text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
-                >
-                  <span>Iniciar Prática</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+        {/* Editorial Layout: Hero Feature (Left) + Side List (Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* LEFT COL: Large Hero Feature Card (Respiração Guiada) */}
+          <div className="lg:col-span-7 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-md">
+            <div>
+              {/* Header Badges */}
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#1A1A1A] bg-[#C5A059] px-3 py-1">
+                  EXERCÍCIO PRINCIPAL
+                </span>
+                <span className="inline-flex items-center text-xs text-[#8E8A83] font-mono">
+                  <Clock className="w-3.5 h-3.5 mr-1 text-[#C5A059]" />
+                  {mainExercise.duration}
+                </span>
               </div>
-            );
-          })}
+
+              {/* Title & Subtitle */}
+              <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#FDFCFB] mb-2">
+                {mainExercise.title}
+              </h2>
+              <p className="font-sans text-xs text-[#C5A059] font-bold uppercase tracking-wider mb-6">
+                {mainExercise.subtitle}
+              </p>
+              <p className="font-sans text-xs sm:text-sm text-[#8E8A83] leading-relaxed mb-8 max-w-lg">
+                {mainExercise.desc}
+              </p>
+
+              {/* Live Preview Pulse Visual */}
+              <div className="my-6 p-6 bg-[#242424] border border-[#333] flex items-center space-x-6">
+                <div className="relative w-16 h-16 flex items-center justify-center flex-shrink-0">
+                  <motion.div
+                    animate={{ scale: [1, 1.3, 1], rotate: [0, 45, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute inset-0 border-2 border-[#C5A059]/40 rounded-xl"
+                  />
+                  <motion.div
+                    animate={{ scale: [1, 1.15, 1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute inset-3 border border-[#FDFCFB]/20 rounded-lg"
+                  />
+                  <Wind className="w-5 h-5 text-[#C5A059] relative z-10" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Guiada</p>
+                  <p className="text-[11px] text-[#8E8A83]">Sincronia suave de 4s de inspiração, 2s de pausa e 4s de expiração.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-6 border-t border-[#333]">
+              <button
+                onClick={() => openEx(0)}
+                className="w-full py-4 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center space-x-2 cursor-pointer"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                <span>Iniciar Respiração Guiada</span>
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT COL: Side List of Other 3 Exercises */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
+            {sideExercises.map((ex, sIdx) => {
+              const originalIdx = sIdx + 1;
+              const Icon = ex.icon;
+              return (
+                <div
+                  key={ex.id}
+                  className="bg-white border border-[#E5E1DA] hover:border-[#1A1A1A] p-6 transition-all shadow-sm flex flex-col justify-between flex-1 group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center space-x-2">
+                        <div className="p-2 bg-[#F9F7F2] border border-[#E5E1DA]">
+                          <Icon className="w-4 h-4 text-[#1A1A1A]" />
+                        </div>
+                        <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2 py-0.5 border border-[#E5E1DA]">
+                          {ex.badge}
+                        </span>
+                      </div>
+                      <span className="inline-flex items-center text-[11px] font-mono text-[#8E8A83]">
+                        <Clock className="w-3 h-3 mr-1 text-[#8E8A83]" />
+                        {ex.duration}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h3>
+                    <p className="font-sans text-[11px] text-[#8E8A83] font-semibold mb-2">{ex.subtitle}</p>
+                    <p className="font-sans text-xs text-[#555] leading-relaxed mb-4">{ex.desc}</p>
+                  </div>
+
+                  <button
+                    onClick={() => openEx(originalIdx)}
+                    className="w-full py-2.5 bg-[#F9F7F2] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white border border-[#E5E1DA] hover:border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
+                  >
+                    <span>Iniciar Prática</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
 
       </div>
