@@ -93,7 +93,7 @@ export default function Hero() {
               <motion.a
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                href="#especialidades"
+                href="/#especialidades"
                 className="inline-flex items-center justify-center px-8 py-4 text-xs font-bold uppercase tracking-widest text-[#1A1A1A] bg-[#FDFCFB] border border-[#1A1A1A] hover:bg-[#F9F7F2] transition-colors duration-200 rounded-none"
               >
                 Conhecer Especialidades
