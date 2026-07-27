@@ -4,12 +4,24 @@ import { X, Shield, Lock, FileText, CheckCircle } from 'lucide-react';
 
 export default function PrivacyModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showCookieBanner, setShowCookieBanner] = useState(false);
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
     window.addEventListener('open-privacy-modal', handleOpen);
+
+    const hasAcceptedCookies = localStorage.getItem('lgpd_accepted');
+    if (!hasAcceptedCookies) {
+      setShowCookieBanner(true);
+    }
+
     return () => window.removeEventListener('open-privacy-modal', handleOpen);
   }, []);
+
+  const acceptCookies = () => {
+    localStorage.setItem('lgpd_accepted', 'true');
+    setShowCookieBanner(false);
+  };
 
   return (
     <AnimatePresence>
@@ -44,7 +56,7 @@ export default function PrivacyModal() {
             <div className="flex items-center space-x-3 mb-6 pb-4 border-b border-[#E5E1DA]">
               <Shield className="w-6 h-6 text-[#1A1A1A]" />
               <div>
-                <h3 className="font-display font-bold text-xl text-[#1A1A1A]">Termos & Privacidade</h3>
+                <h3 className="font-display font-bold text-xl text-[#1A1A1A]">Termos &amp; Privacidade</h3>
                 <p className="text-[10px] text-[#8E8A83] uppercase tracking-wider font-bold">Conformidade com a LGPD e o Código de Ética do CFP</p>
               </div>
             </div>
@@ -97,7 +109,7 @@ export default function PrivacyModal() {
             {/* Footer button */}
             <div className="mt-8 pt-4 border-t border-[#E5E1DA] flex justify-end">
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => { acceptCookies(); setIsOpen(false); }}
                 className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-[#FDFCFB] bg-[#1A1A1A] hover:bg-[#333] transition-colors rounded-none cursor-pointer"
               >
                 Entendi e Aceito
@@ -106,6 +118,40 @@ export default function PrivacyModal() {
 
           </motion.div>
         </div>
+      )}
+
+      {/* Non-intrusive LGPD Cookie Banner */}
+      {showCookieBanner && !isOpen && (
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 50, opacity: 0 }}
+          className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-40 bg-[#1A1A1A] text-[#FDFCFB] border border-[#333] p-4 shadow-xl font-sans"
+        >
+          <div className="flex items-start space-x-3">
+            <Shield className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
+            <div className="flex-1 text-xs">
+              <p className="font-bold mb-1">Privacidade &amp; Cookies Essenciais</p>
+              <p className="text-[#8E8A83] text-[11px] leading-relaxed mb-3">
+                Utilizamos cookies essenciais para segurança e funcionalidade, em conformidade com a LGPD.
+              </p>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={acceptCookies}
+                  className="px-4 py-1.5 bg-[#C5A059] text-[#1A1A1A] font-bold uppercase text-[10px] tracking-wider transition-colors cursor-pointer"
+                >
+                  Aceitar e Continuar
+                </button>
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="text-[10px] text-[#8E8A83] underline hover:text-[#FDFCFB] transition-colors cursor-pointer"
+                >
+                  Ler Termos
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
