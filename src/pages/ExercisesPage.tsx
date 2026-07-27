@@ -85,8 +85,41 @@ export default function ExercisesPage() {
   const sideExercises = EXERCISES.slice(1); // Other 3 exercises
 
   return (
-    <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA] relative overflow-hidden">
+      {/* Subtle Ambient Wind Breeze Lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
+        <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="none">
+          <motion.path
+            d="M -200,120 Q 300,80 600,140 T 1400,100"
+            fill="none"
+            stroke="#8E8A83"
+            strokeWidth="1.5"
+            strokeDasharray="140 220"
+            animate={{ strokeDashoffset: [-360, 360] }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.path
+            d="M -200,320 Q 400,380 750,300 T 1400,350"
+            fill="none"
+            stroke="#1A1A1A"
+            strokeWidth="1"
+            strokeDasharray="100 250"
+            animate={{ strokeDashoffset: [-450, 250] }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.path
+            d="M -200,550 Q 250,500 650,580 T 1400,520"
+            fill="none"
+            stroke="#C5A059"
+            strokeWidth="1.5"
+            strokeDasharray="180 300"
+            animate={{ strokeDashoffset: [-400, 400] }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+          />
+        </svg>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Navigation Breadcrumb */}
         <div className="mb-8">
@@ -97,7 +130,7 @@ export default function ExercisesPage() {
         </div>
 
         {/* Section Header */}
-        <div className="border-b border-[#E5E1DA] pb-8 mb-12">
+        <div className="border-b border-[#E5E1DA] pb-8 mb-12 relative z-10">
           <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
             PAUSA &amp; CUIDADO
           </span>
@@ -107,41 +140,6 @@ export default function ExercisesPage() {
           <p className="font-sans text-xs sm:text-sm text-[#555] max-w-2xl leading-relaxed">
             Exercícios práticos desenhados para guiar você em momentos de tensão, ajudando a respirar fundo e recuperar o equilíbrio no seu próprio tempo.
           </p>
-
-          {/* Ambient Wave Animation */}
-          <div className="w-full h-12 overflow-hidden mt-6 opacity-40">
-            <svg viewBox="0 0 1200 80" preserveAspectRatio="none" className="w-full h-12">
-              <motion.path
-                d="M0,20 C300,60 600,-20 900,40 C1050,70 1150,10 1200,30 L1200,80 L0,80 Z"
-                fill="none"
-                stroke="#1A1A1A"
-                strokeWidth="1.5"
-                animate={{
-                  d: [
-                    "M0,20 C300,60 600,-20 900,40 C1050,70 1150,10 1200,30 L1200,80 L0,80 Z",
-                    "M0,40 C200,0 500,70 800,10 C1000,-10 1120,50 1200,20 L1200,80 L0,80 Z",
-                    "M0,20 C300,60 600,-20 900,40 C1050,70 1150,10 1200,30 L1200,80 L0,80 Z",
-                  ]
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.path
-                d="M0,40 C250,-10 450,50 700,10 C950,-30 1100,50 1200,20 L1200,80 L0,80 Z"
-                fill="none"
-                stroke="#8E8A83"
-                strokeWidth="1"
-                strokeDasharray="4 4"
-                animate={{
-                  d: [
-                    "M0,40 C250,-10 450,50 700,10 C950,-30 1100,50 1200,20 L1200,80 L0,80 Z",
-                    "M0,10 C180,50 380,-10 620,40 C860,80 1050,0 1200,30 L1200,80 L0,80 Z",
-                    "M0,40 C250,-10 450,50 700,10 C950,-30 1100,50 1200,20 L1200,80 L0,80 Z",
-                  ]
-                }}
-                transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </svg>
-          </div>
         </div>
 
         {/* Editorial Layout: Hero Feature (Left) + Side List (Right) */}
