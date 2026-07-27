@@ -11,7 +11,7 @@ const EXERCISES = [
     subtitle: 'Ritmo 4-7-8',
     desc: 'Uma pausa simples e eficaz para desacelerar os batimentos e acalmar a mente nos momentos em que tudo parecer muito acelerado.',
     duration: '3 minutos',
-    icon: Wind,
+    icon: Heart,
     badge: 'Destaque',
   },
   {
@@ -150,7 +150,7 @@ export default function ExercisesPage() {
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     className="absolute inset-3 border border-[#FDFCFB]/20 rounded-lg"
                   />
-                  <Wind className="w-5 h-5 text-[#C5A059] relative z-10" />
+                  <Heart className="w-5 h-5 text-[#C5A059] fill-[#C5A059]/20 relative z-10" />
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Guiada</p>
@@ -265,24 +265,25 @@ export default function ExercisesPage() {
                     <div className="text-center py-2">
                       <p className="font-sans text-xs text-[#555] mb-4">Acompanhe a respiração no seu tempo:</p>
                       
-                      {/* Geometric Breathing Animation */}
-                      <div className="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center">
+                      {/* Heart Pulsating Breathing Visual */}
+                      <div className="relative w-44 h-44 mx-auto mb-6 flex items-center justify-center">
                         <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.25 : phase === 'hold' ? 1.25 : 1, rotate: phase === 'inspire' ? 45 : 0 }}
+                          animate={{ scale: phase === 'inspire' ? 1.3 : phase === 'hold' ? 1.3 : 1 }}
                           transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-0 border-2 border-[#1A1A1A]/30 rounded-2xl"
+                          className="absolute inset-0 border-2 border-[#1A1A1A]/20 rounded-full"
                         />
                         <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.12 : phase === 'hold' ? 1.12 : 0.9 }}
+                          animate={{ scale: phase === 'inspire' ? 1.18 : phase === 'hold' ? 1.18 : 0.9 }}
                           transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-4 border border-[#8E8A83]/30 rounded-xl"
+                          className="absolute inset-3 border border-[#8E8A83]/30 rounded-full"
                         />
                         <motion.div
-                          animate={{ scale: phase === 'inspire' ? 1.05 : phase === 'hold' ? 1.05 : 0.8 }}
+                          animate={{ scale: phase === 'inspire' ? 1.1 : phase === 'hold' ? 1.1 : 0.85 }}
                           transition={{ duration: 4, ease: 'easeInOut' }}
-                          className="absolute inset-8 bg-[#F9F7F2] border border-[#1A1A1A] rounded-lg flex items-center justify-center"
+                          className="absolute inset-6 bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-full flex flex-col items-center justify-center shadow-sm"
                         >
-                          <span className="font-display italic text-sm text-[#1A1A1A] font-bold">
+                          <Heart className="w-5 h-5 text-[#1A1A1A] fill-[#1A1A1A]/10 mb-1" />
+                          <span className="font-display italic text-xs text-[#1A1A1A] font-bold">
                             {phase === 'inspire' && 'Inspire...'}
                             {phase === 'hold' && 'Segure...'}
                             {phase === 'expire' && 'Expire...'}

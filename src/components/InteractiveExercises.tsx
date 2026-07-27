@@ -1,9 +1,9 @@
 import React from 'react';
-import { Wind, Anchor, Brain, Moon, ArrowRight, Play, Clock } from 'lucide-react';
+import { Heart, Anchor, Brain, Moon, ArrowRight, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const EXERCISES_PREVIEW = [
-  { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', duration: '3 min', icon: Wind, badge: 'Destaque' },
+  { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', duration: '3 min', icon: Heart, badge: 'Destaque' },
   { title: 'Aterramento no Presente', subtitle: 'Conexão 5-4-3-2-1', duration: '3 min', icon: Anchor, badge: 'Acalmar' },
   { title: 'Pausa para a Mente', subtitle: 'Clareza & Leveza', duration: '2 min', icon: Brain, badge: 'Clareza' },
   { title: 'Relaxamento para Dormir', subtitle: 'Descompressão Corporal', duration: '4 min', icon: Moon, badge: 'Descanso' },
