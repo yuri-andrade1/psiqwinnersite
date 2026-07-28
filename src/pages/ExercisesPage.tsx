@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, X, Check, ArrowRight, Home, MessageSquare, Play } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -69,6 +69,7 @@ export default function ExercisesPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [selectedStrength, setSelectedStrength] = useState<number | null>(null);
   const [showCalm, setShowCalm] = useState(false);
+  const [isTriageOpen, setIsTriageOpen] = useState(false);
 
   useEffect(() => {
     const originalTitle = document.title;
@@ -88,6 +89,11 @@ export default function ExercisesPage() {
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
     setGroundStep(0); setSelectedEmotion(null); setSelectedStrength(null);
+  };
+
+  const handleTriageSelect = (targetExIdx: number) => {
+    setIsTriageOpen(false);
+    openEx(targetExIdx);
   };
 
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
@@ -141,15 +147,30 @@ export default function ExercisesPage() {
 
         {/* Section Header */}
         <div className="border-b border-[#E5E1DA] pb-8 mb-12 relative z-10">
-          <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
-            PAUSA &amp; CUIDADO
-          </span>
-          <h1 className="font-display font-bold text-3xl sm:text-5xl text-[#1A1A1A] tracking-tight mb-3">
-            Um espaço para desacelerar e recuperar a presença.
-          </h1>
-          <p className="font-sans text-xs sm:text-sm text-[#555] max-w-2xl leading-relaxed">
-            Exercícios práticos desenhados para guiar você em momentos de tensão, ajudando a respirar fundo e recuperar o equilíbrio no seu próprio tempo.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
+                PAUSA &amp; CUIDADO
+              </span>
+              <h1 className="font-display font-bold text-3xl sm:text-5xl text-[#1A1A1A] tracking-tight mb-3">
+                Um espaço para desacelerar e recuperar a presença.
+              </h1>
+              <p className="font-sans text-xs sm:text-sm text-[#555] leading-relaxed">
+                Exercícios práticos desenhados para guiar você em momentos de tensão, ajudando a respirar fundo e recuperar o equilíbrio no seu próprio tempo.
+              </p>
+            </div>
+
+            {/* Triage Trigger Button */}
+            <div className="shrink-0">
+              <button
+                onClick={() => setIsTriageOpen(true)}
+                className="inline-flex items-center space-x-2 px-4 py-3 bg-[#F9F7F2] hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+              >
+                <Compass className="w-4 h-4 text-[#C5A059]" />
+                <span>Não sei qual escolher? Triagem Rápida</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Editorial Layout: Hero Feature (Left) + Side List (Right) */}
@@ -243,7 +264,56 @@ export default function ExercisesPage() {
 
       </div>
 
-      {/* Modal */}
+      {/* Triage Modal */}
+      <AnimatePresence>
+        {isTriageOpen && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#1A1A1A]/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="w-full max-w-lg bg-[#FDFCFB] border border-[#E5E1DA] p-6 sm:p-8 relative shadow-xl my-auto text-[#1A1A1A]">
+              <button onClick={() => setIsTriageOpen(false)} className="absolute top-5 right-5 p-2 text-[#8E8A83] hover:text-[#1A1A1A] bg-[#F9F7F2] border border-[#E5E1DA] cursor-pointer">
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="text-center mb-6 border-b border-[#E5E1DA] pb-4">
+                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#C5A059] flex items-center justify-center gap-1.5 mb-1">
+                  <Compass className="w-3.5 h-3.5" /> TRIAGEM RÁPIDA DE AUTORREGULAÇÃO
+                </span>
+                <h3 className="font-display font-bold text-2xl text-[#1A1A1A]">Como você está se sentindo agora?</h3>
+                <p className="font-sans text-xs text-[#8E8A83] mt-1">Selecione o sintoma mais forte no momento para receber a recomendação ideal:</p>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {[
+                  { idx: 0, title: '🫀 Coração acelerado, falta de ar ou agitação física', desc: 'Recomendação: Respiração Guiada (Ritmo 4-7-8)' },
+                  { idx: 1, title: '🌀 Pensamentos acelerados, crises ou desconexão do ambiente', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
+                  { idx: 2, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
+                  { idx: 3, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
+                ].map((option) => (
+                  <button
+                    key={option.idx}
+                    onClick={() => handleTriageSelect(option.idx)}
+                    className="w-full p-4 bg-white hover:bg-[#F9F7F2] border border-[#E5E1DA] hover:border-[#1A1A1A] text-left transition-all group cursor-pointer shadow-sm"
+                  >
+                    <p className="font-sans text-xs font-bold text-[#1A1A1A] mb-1 group-hover:text-[#C5A059] transition-colors">
+                      {option.title}
+                    </p>
+                    <p className="font-sans text-[11px] text-[#8E8A83] font-semibold">
+                      → {option.desc}
+                    </p>
+                  </button>
+                ))}
+              </div>
+
+              <div className="text-center pt-2">
+                <button onClick={() => setIsTriageOpen(false)} className="text-xs text-[#8E8A83] hover:text-[#1A1A1A] underline cursor-pointer">
+                  Fechar e navegar livremente pelos exercícios
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Exercise Modal */}
       <AnimatePresence>
         {activeIdx !== null && currEx && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#1A1A1A]/80 backdrop-blur-sm flex items-center justify-center p-4">
