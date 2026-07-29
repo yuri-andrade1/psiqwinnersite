@@ -23,7 +23,7 @@ const EXERCISES = [
   },
   {
     id: 'preocupacoes',
-    title: 'Organizando as Preocupações',
+    title: 'Organizando a Mente',
     subtitle: 'Resolução de Problemas TCC',
     desc: 'Nem toda preocupação precisa ser resolvida agora. Vamos descobrir qual delas merece sua energia neste momento.',
     icon: Brain,
@@ -137,6 +137,7 @@ export default function ExercisesPage() {
   const [phase, setPhase] = useState<'inspire' | 'hold' | 'expire'>('inspire');
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
+  const [worryStep, setWorryStep] = useState(0);
   const [worryAnswers, setWorryAnswers] = useState<Record<number, boolean>>({});
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [selectedStrength, setSelectedStrength] = useState<number | null>(null);
@@ -160,7 +161,7 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setWorryAnswers({}); setSelectedEmotion(null); setSelectedStrength(null);
+    setGroundStep(0); setWorryAnswers({}); setWorryStep(0); setSelectedEmotion(null); setSelectedStrength(null);
   };
 
   const handleTriageSelect = (targetExIdx: number) => {
@@ -358,7 +359,7 @@ export default function ExercisesPage() {
                 {[
                   { idx: 0, title: '🫀 Coração acelerado, falta de ar ou agitação física', desc: 'Recomendação: Respiração Guiada (Ritmo 4-7-8)' },
                   { idx: 1, title: '🌀 Crises, pensamento acelerado ou sensação de desconexão', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
-                  { idx: 2, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando as Preocupações (TCC)' },
+                  { idx: 2, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando a Mente (TCC)' },
                   { idx: 3, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
                   { idx: 4, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
                 ].map((option) => (
@@ -482,44 +483,82 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 3. Organizando as Preocupações (NOVO) */}
+                  {/* 3. Organizando a Mente (Uma Pergunta por Vez) */}
                   {currEx.id === 'preocupacoes' && (
                     <div className="py-2 mb-6 space-y-4">
-                      <p className="font-sans text-xs text-[#555] text-center mb-3">
-                        Antes de tentar resolver isso, faça uma pausa e responda às perguntas abaixo:
-                      </p>
+                      {/* Step Indicator & Progress Bar */}
+                      {!isWorryFinished && (
+                        <div>
+                          <div className="flex items-center justify-between text-[11px] text-[#8E8A83] mb-1.5 font-mono">
+                            <span>Pergunta {worryStep + 1} de {WORRY_QUESTIONS.length}</span>
+                            <span>{Math.round(((worryStep + 1) / WORRY_QUESTIONS.length) * 100)}%</span>
+                          </div>
+                          <div className="w-full bg-[#E5E1DA] h-1.5 rounded-full overflow-hidden mb-4">
+                            <div
+                              className="bg-[#1A1A1A] h-full transition-all duration-300"
+                              style={{ width: `${((worryStep + 1) / WORRY_QUESTIONS.length) * 100}%` }}
+                            />
+                          </div>
+                          <p className="font-sans text-xs text-[#555] text-center mb-3">
+                            Antes de tentar resolver isso, faça uma pausa e responda à pergunta abaixo:
+                          </p>
+                        </div>
+                      )}
 
-                      <div className="space-y-4">
-                        {WORRY_QUESTIONS.map((q) => {
-                          const currentAnswer = worryAnswers[q.id];
-                          return (
-                            <div key={q.id} className="p-3.5 bg-white border border-[#E5E1DA] rounded-none">
-                              <p className="font-sans text-xs font-bold text-[#1A1A1A] mb-2.5">{q.question}</p>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                {q.options.map((opt, oIdx) => {
-                                  const isSelected = currentAnswer === opt.isUnproductive;
-                                  return (
-                                    <button
-                                      key={oIdx}
-                                      onClick={() => setWorryAnswers((prev) => ({ ...prev, [q.id]: opt.isUnproductive }))}
-                                      className={`p-2.5 border text-left font-sans text-xs transition-colors cursor-pointer flex items-center justify-between ${
-                                        isSelected ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-bold' : 'bg-white border-[#E5E1DA] text-[#555]'
-                                      }`}
-                                    >
-                                      <span>☐ {opt.text}</span>
-                                      {isSelected && <Check className="w-3.5 h-3.5 text-[#1A1A1A]" />}
-                                    </button>
-                                  );
-                                })}
-                              </div>
+                      {/* Active Question Box */}
+                      {!isWorryFinished && WORRY_QUESTIONS[worryStep] && (
+                        <motion.div
+                          key={worryStep}
+                          initial={{ opacity: 0, x: 15 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -15 }}
+                          className="p-4 sm:p-5 bg-white border border-[#E5E1DA] shadow-sm space-y-4"
+                        >
+                          <p className="font-sans text-xs sm:text-sm font-bold text-[#1A1A1A] leading-relaxed">
+                            {WORRY_QUESTIONS[worryStep].question}
+                          </p>
+
+                          <div className="space-y-2">
+                            {WORRY_QUESTIONS[worryStep].options.map((opt, oIdx) => {
+                              const isSelected = worryAnswers[WORRY_QUESTIONS[worryStep].id] === opt.isUnproductive;
+                              return (
+                                <button
+                                  key={oIdx}
+                                  onClick={() => {
+                                    setWorryAnswers((prev) => ({ ...prev, [WORRY_QUESTIONS[worryStep].id]: opt.isUnproductive }));
+                                    if (worryStep < WORRY_QUESTIONS.length - 1) {
+                                      setWorryStep((prev) => prev + 1);
+                                    }
+                                  }}
+                                  className={`w-full p-3 border text-left font-sans text-xs transition-all cursor-pointer flex items-center justify-between group ${
+                                    isSelected
+                                      ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold'
+                                      : 'bg-white border-[#E5E1DA] text-[#1A1A1A] hover:bg-[#F9F7F2] hover:border-[#1A1A1A]'
+                                  }`}
+                                >
+                                  <span>☐ {opt.text}</span>
+                                  {isSelected && <Check className="w-4 h-4 text-white" />}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          {worryStep > 0 && (
+                            <div className="pt-2 text-left">
+                              <button
+                                onClick={() => setWorryStep((prev) => prev - 1)}
+                                className="text-[11px] text-[#8E8A83] hover:text-[#1A1A1A] underline cursor-pointer"
+                              >
+                                ← Voltar para a pergunta anterior
+                              </button>
                             </div>
-                          );
-                        })}
-                      </div>
+                          )}
+                        </motion.div>
+                      )}
 
-                      {/* Result Box after All Questions Answered */}
+                      {/* Result Box after All 5 Questions Answered */}
                       {isWorryFinished && (
-                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#1A1A1A] mt-6 space-y-4">
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#1A1A1A] mt-2 space-y-4">
                           {isWorryUnproductive ? (
                             <div>
                               <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO IMPRODUTIVA IDENTIFICADA</p>
