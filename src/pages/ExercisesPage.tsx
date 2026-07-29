@@ -138,7 +138,8 @@ export default function ExercisesPage() {
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
   const [worryStep, setWorryStep] = useState(0);
-  const [worryAnswers, setWorryAnswers] = useState<Record<number, boolean>>({});
+  const [isStoppedUnproductive, setIsStoppedUnproductive] = useState(false);
+  const [isAllProductive, setIsAllProductive] = useState(false);
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [selectedStrength, setSelectedStrength] = useState<number | null>(null);
   const [showCalm, setShowCalm] = useState(false);
@@ -161,7 +162,8 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setWorryAnswers({}); setWorryStep(0); setSelectedEmotion(null); setSelectedStrength(null);
+    setGroundStep(0); setWorryStep(0); setIsStoppedUnproductive(false); setIsAllProductive(false);
+    setSelectedEmotion(null); setSelectedStrength(null);
   };
 
   const handleTriageSelect = (targetExIdx: number) => {
@@ -169,12 +171,21 @@ export default function ExercisesPage() {
     openEx(targetExIdx);
   };
 
+  const handleWorryAnswer = (opt: { text: string; isUnproductive: boolean }) => {
+    if (opt.isUnproductive) {
+      setIsStoppedUnproductive(true);
+    } else {
+      if (worryStep < WORRY_QUESTIONS.length - 1) {
+        setWorryStep((prev) => prev + 1);
+      } else {
+        setIsAllProductive(true);
+      }
+    }
+  };
+
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
   const mainExercise = EXERCISES[0];
   const sideExercises = EXERCISES.slice(1);
-
-  const isWorryFinished = Object.keys(worryAnswers).length === WORRY_QUESTIONS.length;
-  const isWorryUnproductive = Object.values(worryAnswers).some((val) => val === true);
 
   return (
     <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA] relative overflow-hidden">
@@ -483,14 +494,15 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 3. Organizando a Mente (Uma Pergunta por Vez) */}
+                  {/* 3. Organizando a Mente (Decisão Curto-Circuito por Aba) */}
                   {currEx.id === 'preocupacoes' && (
                     <div className="py-2 mb-6 space-y-4">
-                      {/* Step Indicator & Progress Bar */}
-                      {!isWorryFinished && (
+                      
+                      {/* Step Indicator & Progress Bar (only while answering questions) */}
+                      {!isStoppedUnproductive && !isAllProductive && (
                         <div>
                           <div className="flex items-center justify-between text-[11px] text-[#8E8A83] mb-1.5 font-mono">
-                            <span>Pergunta {worryStep + 1} de {WORRY_QUESTIONS.length}</span>
+                            <span>Etapa {worryStep + 1} de {WORRY_QUESTIONS.length}</span>
                             <span>{Math.round(((worryStep + 1) / WORRY_QUESTIONS.length) * 100)}%</span>
                           </div>
                           <div className="w-full bg-[#E5E1DA] h-1.5 rounded-full overflow-hidden mb-4">
@@ -505,8 +517,8 @@ export default function ExercisesPage() {
                         </div>
                       )}
 
-                      {/* Active Question Box */}
-                      {!isWorryFinished && WORRY_QUESTIONS[worryStep] && (
+                      {/* Question Card (Active Tab) */}
+                      {!isStoppedUnproductive && !isAllProductive && WORRY_QUESTIONS[worryStep] && (
                         <motion.div
                           key={worryStep}
                           initial={{ opacity: 0, x: 15 }}
@@ -518,29 +530,17 @@ export default function ExercisesPage() {
                             {WORRY_QUESTIONS[worryStep].question}
                           </p>
 
-                          <div className="space-y-2">
-                            {WORRY_QUESTIONS[worryStep].options.map((opt, oIdx) => {
-                              const isSelected = worryAnswers[WORRY_QUESTIONS[worryStep].id] === opt.isUnproductive;
-                              return (
-                                <button
-                                  key={oIdx}
-                                  onClick={() => {
-                                    setWorryAnswers((prev) => ({ ...prev, [WORRY_QUESTIONS[worryStep].id]: opt.isUnproductive }));
-                                    if (worryStep < WORRY_QUESTIONS.length - 1) {
-                                      setWorryStep((prev) => prev + 1);
-                                    }
-                                  }}
-                                  className={`w-full p-3 border text-left font-sans text-xs transition-all cursor-pointer flex items-center justify-between group ${
-                                    isSelected
-                                      ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold'
-                                      : 'bg-white border-[#E5E1DA] text-[#1A1A1A] hover:bg-[#F9F7F2] hover:border-[#1A1A1A]'
-                                  }`}
-                                >
-                                  <span>☐ {opt.text}</span>
-                                  {isSelected && <Check className="w-4 h-4 text-white" />}
-                                </button>
-                              );
-                            })}
+                          <div className="space-y-2.5">
+                            {WORRY_QUESTIONS[worryStep].options.map((opt, oIdx) => (
+                              <button
+                                key={oIdx}
+                                onClick={() => handleWorryAnswer(opt)}
+                                className="w-full p-3.5 border border-[#E5E1DA] hover:border-[#1A1A1A] hover:bg-[#F9F7F2] text-left font-sans text-xs text-[#1A1A1A] transition-all cursor-pointer flex items-center justify-between group shadow-sm"
+                              >
+                                <span>☐ {opt.text}</span>
+                                <ArrowRight className="w-3.5 h-3.5 text-[#8E8A83] group-hover:text-[#1A1A1A] transition-colors" />
+                              </button>
+                            ))}
                           </div>
 
                           {worryStep > 0 && (
@@ -556,38 +556,41 @@ export default function ExercisesPage() {
                         </motion.div>
                       )}
 
-                      {/* Result Box after All 5 Questions Answered */}
-                      {isWorryFinished && (
+                      {/* UNPRODUCTIVE RESULT (Stopped Immediately on Unproductive Choice) */}
+                      {isStoppedUnproductive && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#1A1A1A] mt-2 space-y-4">
-                          {isWorryUnproductive ? (
-                            <div>
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO IMPRODUTIVA IDENTIFICADA</p>
-                              <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed mb-4">
-                                Essa preocupação provavelmente não precisa ser resolvida agora. Ela parece estar tentando prever o futuro ou encontrar certezas que ninguém possui. Você pode anotá-la e reservar um horário específico do dia para voltar a pensar nela. Até lá, permita que sua atenção retorne ao momento presente.
-                              </p>
-                              <button
-                                onClick={() => openEx(1)}
-                                className="w-full py-3 bg-[#1A1A1A] text-white hover:bg-[#333] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
-                              >
-                                <span>Voltar ao Presente (Aterramento 5-4-3-2-1)</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          ) : (
-                            <div>
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO PRODUTIVA IDENTIFICADA</p>
-                              <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed mb-4">
-                                Existe algo que pode ser feito. Em vez de permanecer preso na preocupação, transforme-a em um pequeno plano de ação. Pergunte: qual é o menor passo que posso dar hoje?
-                              </p>
-                              <button
-                                onClick={() => setShowCalm(true)}
-                                className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
-                              >
-                                <span>Definir o Próximo Passo</span>
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          )}
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO IMPRODUTIVA IDENTIFICADA</p>
+                            <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed mb-4">
+                              Essa preocupação provavelmente não precisa ser resolvida agora. Ela parece estar tentando prever o futuro ou encontrar certezas que ninguém possui. Você pode anotá-la e reservar um horário específico do dia para voltar a pensar nela. Até lá, permita que sua atenção retorne ao momento presente.
+                            </p>
+                            <button
+                              onClick={() => openEx(1)}
+                              className="w-full py-3 bg-[#1A1A1A] text-white hover:bg-[#333] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+                            >
+                              <span>Voltar ao Presente (Aterramento 5-4-3-2-1)</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* PRODUCTIVE RESULT (Reached Only After Passing All 5 Questions) */}
+                      {isAllProductive && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-2 space-y-4">
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO PRODUTIVA IDENTIFICADA</p>
+                            <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed mb-4">
+                              Existe algo que pode ser feito. Em vez de permanecer preso na preocupação, transforme-a em um pequeno plano de ação. Pergunte: qual é o menor passo que posso dar hoje?
+                            </p>
+                            <button
+                              onClick={() => setShowCalm(true)}
+                              className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+                            >
+                              <span>Definir o Próximo Passo</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </motion.div>
                       )}
                     </div>
