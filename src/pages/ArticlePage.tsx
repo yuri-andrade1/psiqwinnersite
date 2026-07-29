@@ -201,7 +201,9 @@ export default function ArticlePage() {
 
         {/* Cover Image or Editorial Header if no image */}
         {imageUrl ? (
-          <img src={imageUrl} alt={post.title} className="w-full aspect-[16/9] object-cover mb-10 border border-[#E5E1DA]" />
+          <div className="w-full bg-[#F9F7F2] border border-[#E5E1DA] mb-10 overflow-hidden flex items-center justify-center p-2 sm:p-4 shadow-sm">
+            <img src={imageUrl} alt={post.title} className="max-h-[550px] w-auto max-w-full object-contain mx-auto" />
+          </div>
         ) : (
           <div className="w-full bg-[#1A1A1A] p-8 sm:p-10 mb-10 border border-[#E5E1DA] flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between relative z-10 mb-4">
