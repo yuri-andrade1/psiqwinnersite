@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, Brain, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -28,6 +28,14 @@ const EXERCISES = [
     desc: 'Nem toda preocupação precisa ser resolvida agora. Vamos descobrir qual delas merece sua energia neste momento.',
     icon: Brain,
     badge: 'Organizar a Mente',
+  },
+  {
+    id: 'resolucao_problemas',
+    title: 'Resolução de Problemas',
+    subtitle: 'Estratégia TCC em 6 Passos',
+    desc: 'Uma estratégia prática para transformar preocupações produtivas em um plano de ação claro, passo a passo.',
+    icon: Target,
+    badge: 'Ação & Foco',
   },
   {
     id: 'checkin',
@@ -118,6 +126,39 @@ const WORRY_QUESTIONS = [
   },
 ];
 
+const PROBLEM_STEPS = [
+  {
+    step: 1,
+    title: '1. Identifique o problema',
+    instruction: 'Descreva-o da forma mais específica possível.',
+  },
+  {
+    step: 2,
+    title: '2. Liste todas as soluções possíveis',
+    instruction: 'Liste todas as soluções que conseguir imaginar. Não se preocupe se algumas parecerem improváveis ou até um pouco estranhas.',
+  },
+  {
+    step: 3,
+    title: '3. Avalie vantagens e desvantagens',
+    instruction: 'Avalie as vantagens e desvantagens de cada alternativa com calma.',
+  },
+  {
+    step: 4,
+    title: '4. Escolha a melhor opção',
+    instruction: 'Escolha a opção que faz mais sentido para você neste momento.',
+  },
+  {
+    step: 5,
+    title: '5. Coloque seu plano em prática',
+    instruction: 'Coloque seu plano em prática. Comece pelo menor passo possível hoje.',
+  },
+  {
+    step: 6,
+    title: '6. Avalie o resultado',
+    instruction: 'Avalie o resultado. Se necessário, ajuste a estratégia ou experimente outra alternativa.',
+  },
+];
+
 const EMOTIONS = [
   { id: 'tensao', label: 'Tensão ou Agitação', message: 'É natural sentir o corpo tenso quando a mente carrega muitas exigências. Solte os ombros por um instante.' },
   { id: 'cansaco', label: 'Cansaço Mental', message: 'Sua mente precisa de pausas curtas para recompor as energias. Permita-se apenas respirar agora.' },
@@ -137,6 +178,7 @@ export default function ExercisesPage() {
   const [phase, setPhase] = useState<'inspire' | 'hold' | 'expire'>('inspire');
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
+  const [problemStep, setProblemStep] = useState(0);
   const [worryStep, setWorryStep] = useState(0);
   const [isStoppedUnproductive, setIsStoppedUnproductive] = useState(false);
   const [isAllProductive, setIsAllProductive] = useState(false);
@@ -162,7 +204,8 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setWorryStep(0); setIsStoppedUnproductive(false); setIsAllProductive(false);
+    setGroundStep(0); setProblemStep(0); setWorryStep(0);
+    setIsStoppedUnproductive(false); setIsAllProductive(false);
     setSelectedEmotion(null); setSelectedStrength(null);
   };
 
@@ -264,7 +307,7 @@ export default function ExercisesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* LEFT COL: Large Hero Feature Card (Respiração Guiada) */}
-          <div className="lg:col-span-6 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-md">
+          <div className="lg:col-span-5 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-md">
             <div>
               {/* Header Badges */}
               <div className="flex items-center justify-between mb-8">
@@ -308,8 +351,8 @@ export default function ExercisesPage() {
             </div>
           </div>
 
-          {/* RIGHT COL: Side Grid of Other 4 Exercises */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* RIGHT COL: Side Grid of Other 5 Exercises */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {sideExercises.map((ex, sIdx) => {
               const originalIdx = sIdx + 1;
               const Icon = ex.icon;
@@ -371,8 +414,9 @@ export default function ExercisesPage() {
                   { idx: 0, title: '🫀 Coração acelerado, falta de ar ou agitação física', desc: 'Recomendação: Respiração Guiada (Ritmo 4-7-8)' },
                   { idx: 1, title: '🌀 Crises, pensamento acelerado ou sensação de desconexão', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
                   { idx: 2, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando a Mente (TCC)' },
-                  { idx: 3, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
-                  { idx: 4, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
+                  { idx: 3, title: '🎯 Preciso agir e criar um plano prático para um problema real', desc: 'Recomendação: Resolução de Problemas TCC' },
+                  { idx: 4, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
+                  { idx: 5, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
                 ].map((option) => (
                   <button
                     key={option.idx}
@@ -498,7 +542,7 @@ export default function ExercisesPage() {
                   {currEx.id === 'preocupacoes' && (
                     <div className="py-2 mb-6 space-y-4">
                       
-                      {/* Step Indicator & Progress Bar (only while answering questions) */}
+                      {/* Step Indicator & Progress Bar */}
                       {!isStoppedUnproductive && !isAllProductive && (
                         <div>
                           <div className="flex items-center justify-between text-[11px] text-[#8E8A83] mb-1.5 font-mono">
@@ -556,7 +600,7 @@ export default function ExercisesPage() {
                         </motion.div>
                       )}
 
-                      {/* UNPRODUCTIVE RESULT (Stopped Immediately on Unproductive Choice) */}
+                      {/* UNPRODUCTIVE RESULT (Routes to Grounding 5-4-3-2-1 -> openEx(1)) */}
                       {isStoppedUnproductive && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#1A1A1A] mt-2 space-y-4">
                           <div>
@@ -575,7 +619,7 @@ export default function ExercisesPage() {
                         </motion.div>
                       )}
 
-                      {/* PRODUCTIVE RESULT (Reached Only After Passing All 5 Questions) */}
+                      {/* PRODUCTIVE RESULT (Routes to Problem Solving -> openEx(3)) */}
                       {isAllProductive && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-2 space-y-4">
                           <div>
@@ -584,10 +628,10 @@ export default function ExercisesPage() {
                               Existe algo que pode ser feito. Em vez de permanecer preso na preocupação, transforme-a em um pequeno plano de ação. Pergunte: qual é o menor passo que posso dar hoje?
                             </p>
                             <button
-                              onClick={() => setShowCalm(true)}
-                              className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+                              onClick={() => openEx(3)}
+                              className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shadow-sm"
                             >
-                              <span>Definir o Próximo Passo</span>
+                              <span>DEFINIR O PRÓXIMO PASSO (Estratégia de Resolução)</span>
                               <ArrowRight className="w-3.5 h-3.5" />
                             </button>
                           </div>
@@ -596,7 +640,53 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 4. Check-in Emocional */}
+                  {/* 4. Resolução de Problemas TCC (NOVO EXERCÍCIO ENCAMINHADO) */}
+                  {currEx.id === 'resolucao_problemas' && (
+                    <div className="py-2 mb-6 space-y-4">
+                      <p className="font-sans text-xs text-[#555] text-center mb-3">
+                        Siga este passo a passo prático para transformar sua preocupação em um plano de ação viável:
+                      </p>
+
+                      <div className="space-y-2.5">
+                        {PROBLEM_STEPS.map((stepItem, pIdx) => {
+                          const isSelected = problemStep === pIdx;
+                          return (
+                            <div key={stepItem.step} className="space-y-1.5">
+                              <button
+                                onClick={() => setProblemStep(pIdx)}
+                                className={`w-full p-3 border text-left flex items-center justify-between transition-colors cursor-pointer ${
+                                  isSelected ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-bold' : 'bg-white border-[#E5E1DA] text-[#555]'
+                                }`}
+                              >
+                                <div className="flex items-center space-x-2.5">
+                                  <span className="w-6 h-6 rounded-full bg-[#F9F7F2] border border-[#E5E1DA] flex items-center justify-center font-mono font-bold text-xs text-[#1A1A1A]">
+                                    {stepItem.step}
+                                  </span>
+                                  <span className="font-sans text-xs">{stepItem.title}</span>
+                                </div>
+                                {isSelected && <Check className="w-4 h-4 text-[#1A1A1A]" />}
+                              </button>
+
+                              {isSelected && (
+                                <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="p-4 bg-[#F9F7F2] border-l-2 border-[#1A1A1A] text-xs text-[#1A1A1A] leading-relaxed">
+                                  {stepItem.instruction}
+                                </motion.div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Doctor's Final Reflection Box */}
+                      <div className="p-4 bg-[#F9F7F2] border-l-2 border-[#C5A059] text-xs text-[#1A1A1A] leading-relaxed mt-4">
+                        <p className="font-sans italic">
+                          "Nem toda solução funciona na primeira tentativa. Resolver problemas também envolve testar, aprender e ajustar o caminho quando necessário."
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 5. Check-in Emocional */}
                   {currEx.id === 'checkin' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Como você descreveria o que está sentindo agora?</p>
@@ -628,7 +718,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 5. Resgate de Segurança */}
+                  {/* 6. Resgate de Segurança */}
                   {currEx.id === 'seguranca' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Selecione uma lembrança ou âncora pessoal para fortalecer você agora:</p>
@@ -663,7 +753,17 @@ export default function ExercisesPage() {
                   {/* Footer Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#E5E1DA]">
                     <button onClick={() => setShowCalm(true)} className="w-full sm:w-1/2 py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
-                      {currEx.id === 'desacelera' ? 'Estou Mais Calmo' : currEx.id === 'ancora' ? 'Estou Mais Presente' : currEx.id === 'checkin' ? 'Reconheci Minhas Emoções' : currEx.id === 'preocupacoes' ? 'Organizei Minha Mente' : 'Reencontrei Meus Recursos'}
+                      {currEx.id === 'desacelera'
+                        ? 'Estou Mais Calmo'
+                        : currEx.id === 'ancora'
+                        ? 'Estou Mais Presente'
+                        : currEx.id === 'checkin'
+                        ? 'Reconheci Minhas Emoções'
+                        : currEx.id === 'preocupacoes'
+                        ? 'Organizei Minha Mente'
+                        : currEx.id === 'resolucao_problemas'
+                        ? 'Plano Definido'
+                        : 'Reencontrei Meus Recursos'}
                     </button>
                     <button onClick={() => openEx((activeIdx + 1) % EXERCISES.length)} className="w-full sm:w-1/2 py-2.5 bg-[#F9F7F2] text-[#1A1A1A] border border-[#E5E1DA] font-bold text-xs uppercase tracking-wider cursor-pointer flex items-center justify-center space-x-1">
                       <span>Próximo Exercício</span>
