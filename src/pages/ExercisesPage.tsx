@@ -572,7 +572,7 @@ export default function ExercisesPage() {
                   {currEx.id === 'sono' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-3">
-                        Para dormir melhor, vá marcando os hábitos de higiene do sono que você colocou em prática hoje:
+                        A intenção aqui é um check-in simples com o protocolo de higiene do sono. Vá marcando os hábitos que você colocou em prática hoje:
                       </p>
 
                       <div className="space-y-2.5">
@@ -602,22 +602,32 @@ export default function ExercisesPage() {
                       </div>
 
                       {/* Score Evaluation & Feedback Box */}
-                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-6 space-y-3">
+                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-6 space-y-4">
                         <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
                           Parabéns por reservar alguns minutos para cuidar do seu sono. Lembre-se: mudanças consistentes costumam trazer mais resultados do que mudanças perfeitas.
                         </p>
 
-                        <div className="pt-2 border-t border-[#E5E1DA] space-y-1.5">
-                          <p className="text-[11px] font-bold text-[#8E8A83] uppercase tracking-wider">
-                            Você marcou <strong className="text-[#1A1A1A]">{checkedSleepCount} de {SLEEP_ITEMS.length}</strong> itens hoje:
+                        <div className="pt-3 border-t border-[#E5E1DA] space-y-2">
+                          <p className="text-xs font-bold text-[#1A1A1A]">
+                            Você marcou <span className="underline decoration-[#C5A059] decoration-2 font-mono text-sm">{checkedSleepCount}</span> {checkedSleepCount === 1 ? 'item' : 'itens'} hoje:
                           </p>
-                          <p className="font-sans text-xs font-bold text-[#1A1A1A]">
-                            {checkedSleepCount <= 3
-                              ? '🌱 0-3: Todo começo conta. Escolha um hábito para praticar amanhã.'
-                              : checkedSleepCount <= 7
-                              ? '🌿 4-7: Você já está construindo uma boa rotina.'
-                              : '🌳 8-11: Excelente! A consistência costuma ser a chave para um sono de melhor qualidade.'}
-                          </p>
+                          <div className="space-y-2 pt-1">
+                            <div className={`p-3 border text-xs font-sans transition-all ${
+                              checkedSleepCount <= 3 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
+                            }`}>
+                              🌱 0-3: Todo começo conta. Escolha um hábito para praticar amanhã.
+                            </div>
+                            <div className={`p-3 border text-xs font-sans transition-all ${
+                              checkedSleepCount >= 4 && checkedSleepCount <= 7 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
+                            }`}>
+                              🌿 4-7: Você já está construindo uma boa rotina.
+                            </div>
+                            <div className={`p-3 border text-xs font-sans transition-all ${
+                              checkedSleepCount >= 8 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
+                            }`}>
+                              🌳 8-11: Excelente! A consistência costuma ser a chave para um sono de melhor qualidade.
+                            </div>
+                          </div>
                         </div>
                       </motion.div>
                     </div>
