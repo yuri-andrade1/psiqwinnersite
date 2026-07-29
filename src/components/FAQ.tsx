@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HelpCircle, ChevronDown, MessageSquare } from 'lucide-react';
 import { FAQS, DOCTOR_INFO } from '../data';
+import AmbientBreezeBackground from './AmbientBreezeBackground';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -12,9 +13,9 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-[#FDFCFB] relative border-b border-[#1A1A1A]">
-      
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-24 bg-[#FDFCFB] relative border-b border-[#1A1A1A] overflow-hidden">
+      <AmbientBreezeBackground />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Title Header */}
         <div className="text-center mb-16 border-b border-[#E5E1DA] pb-8">

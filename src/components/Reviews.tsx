@@ -3,12 +3,14 @@ import { motion } from 'motion/react';
 import { Star, CheckCircle, MessageCircle, User } from 'lucide-react';
 import { GOOGLE_REVIEWS, DOCTOR_INFO } from '../data';
 import { Review } from '../types';
+import AmbientBreezeBackground from './AmbientBreezeBackground';
 
 export default function Reviews() {
 
   return (
-    <section id="avaliacoes" className="py-24 bg-[#FDFCFB] relative border-b border-[#1A1A1A]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="avaliacoes" className="py-24 bg-[#FDFCFB] relative border-b border-[#1A1A1A] overflow-hidden">
+      <AmbientBreezeBackground />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-16">
