@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, Brain, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -20,6 +20,14 @@ const EXERCISES = [
     desc: 'Um exercício prático para trazer a atenção de volta ao aqui e agora durante momentos de tensão ou ansiedade.',
     icon: Anchor,
     badge: 'Acalmar',
+  },
+  {
+    id: 'preocupacoes',
+    title: 'Organizando as Preocupações',
+    subtitle: 'Resolução de Problemas TCC',
+    desc: 'Nem toda preocupação precisa ser resolvida agora. Vamos descobrir qual delas merece sua energia neste momento.',
+    icon: Brain,
+    badge: 'Organizar a Mente',
   },
   {
     id: 'checkin',
@@ -67,6 +75,49 @@ const GROUNDING = [
   },
 ];
 
+const WORRY_QUESTIONS = [
+  {
+    id: 1,
+    question: '1. Existe alguma ação concreta que eu possa fazer hoje sobre essa preocupação?',
+    options: [
+      { text: 'Sim', isUnproductive: false },
+      { text: 'Não (preocupação improdutiva)', isUnproductive: true },
+    ]
+  },
+  {
+    id: 2,
+    question: '2. Essa preocupação depende principalmente de mim?',
+    options: [
+      { text: 'Sim', isUnproductive: false },
+      { text: 'Não (preocupação improdutiva)', isUnproductive: true },
+    ]
+  },
+  {
+    id: 3,
+    question: '3. Estou pensando em possibilidades futuras ou em um problema que já está acontecendo?',
+    options: [
+      { text: 'Possibilidades futuras (preocupação improdutiva)', isUnproductive: true },
+      { text: 'Problema atual', isUnproductive: false },
+    ]
+  },
+  {
+    id: 4,
+    question: '4. Pensar nisso agora está me ajudando a resolver ou apenas me deixando mais ansioso?',
+    options: [
+      { text: 'Está ajudando', isUnproductive: false },
+      { text: 'Está me deixando mais ansioso (preocupação improdutiva)', isUnproductive: true },
+    ]
+  },
+  {
+    id: 5,
+    question: '5. Se eu continuar pensando nisso pelos próximos 30 minutos, algo realmente mudará?',
+    options: [
+      { text: 'Sim', isUnproductive: false },
+      { text: 'Não (preocupação improdutiva)', isUnproductive: true },
+    ]
+  },
+];
+
 const EMOTIONS = [
   { id: 'tensao', label: 'Tensão ou Agitação', message: 'É natural sentir o corpo tenso quando a mente carrega muitas exigências. Solte os ombros por um instante.' },
   { id: 'cansaco', label: 'Cansaço Mental', message: 'Sua mente precisa de pausas curtas para recompor as energias. Permita-se apenas respirar agora.' },
@@ -86,6 +137,7 @@ export default function ExercisesPage() {
   const [phase, setPhase] = useState<'inspire' | 'hold' | 'expire'>('inspire');
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
+  const [worryAnswers, setWorryAnswers] = useState<Record<number, boolean>>({});
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [selectedStrength, setSelectedStrength] = useState<number | null>(null);
   const [showCalm, setShowCalm] = useState(false);
@@ -108,7 +160,7 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setSelectedEmotion(null); setSelectedStrength(null);
+    setGroundStep(0); setWorryAnswers({}); setSelectedEmotion(null); setSelectedStrength(null);
   };
 
   const handleTriageSelect = (targetExIdx: number) => {
@@ -119,6 +171,9 @@ export default function ExercisesPage() {
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
   const mainExercise = EXERCISES[0];
   const sideExercises = EXERCISES.slice(1);
+
+  const isWorryFinished = Object.keys(worryAnswers).length === WORRY_QUESTIONS.length;
+  const isWorryUnproductive = Object.values(worryAnswers).some((val) => val === true);
 
   return (
     <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA] relative overflow-hidden">
@@ -181,23 +236,23 @@ export default function ExercisesPage() {
             </div>
 
             {/* Triage Trigger Button */}
-            <div className="shrink-0">
+            <div className="w-full sm:w-auto shrink-0">
               <button
                 onClick={() => setIsTriageOpen(true)}
-                className="inline-flex items-center space-x-2 px-4 py-3 bg-[#F9F7F2] hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-4 py-3 bg-[#F9F7F2] hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer text-center"
               >
-                <Compass className="w-4 h-4 text-[#C5A059]" />
+                <Compass className="w-4 h-4 text-[#C5A059] shrink-0" />
                 <span>Não sei qual escolher? Triagem Rápida</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Editorial Layout: Hero Feature (Left) + Side List (Right) */}
+        {/* Editorial Layout: Hero Feature (Left) + Side Grid (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* LEFT COL: Large Hero Feature Card (Respiração Guiada) */}
-          <div className="lg:col-span-7 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-md">
+          <div className="lg:col-span-6 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-md">
             <div>
               {/* Header Badges */}
               <div className="flex items-center justify-between mb-8">
@@ -241,39 +296,37 @@ export default function ExercisesPage() {
             </div>
           </div>
 
-          {/* RIGHT COL: Side List of Other 3 Exercises */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
+          {/* RIGHT COL: Side Grid of Other 4 Exercises */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {sideExercises.map((ex, sIdx) => {
               const originalIdx = sIdx + 1;
               const Icon = ex.icon;
               return (
                 <div
                   key={ex.id}
-                  className="bg-white border border-[#E5E1DA] hover:border-[#1A1A1A] p-6 transition-all shadow-sm flex flex-col justify-between flex-1 group"
+                  className="bg-white border border-[#E5E1DA] hover:border-[#1A1A1A] p-5 transition-all shadow-sm flex flex-col justify-between group"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-2">
-                        <div className="p-2 bg-[#F9F7F2] border border-[#E5E1DA]">
-                          <Icon className="w-4 h-4 text-[#1A1A1A]" />
-                        </div>
-                        <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2 py-0.5 border border-[#E5E1DA]">
-                          {ex.badge}
-                        </span>
+                      <div className="p-2 bg-[#F9F7F2] border border-[#E5E1DA]">
+                        <Icon className="w-4 h-4 text-[#1A1A1A]" />
                       </div>
+                      <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2 py-0.5 border border-[#E5E1DA]">
+                        {ex.badge}
+                      </span>
                     </div>
 
-                    <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-0.5">{ex.title}</h3>
-                    <p className="font-sans text-[11px] text-[#8E8A83] font-semibold mb-2">{ex.subtitle}</p>
+                    <h3 className="font-display font-bold text-base text-[#1A1A1A] mb-0.5">{ex.title}</h3>
+                    <p className="font-sans text-[10px] text-[#8E8A83] font-semibold mb-2">{ex.subtitle}</p>
                     <p className="font-sans text-xs text-[#555] leading-relaxed mb-4">{ex.desc}</p>
                   </div>
 
                   <button
                     onClick={() => openEx(originalIdx)}
-                    className="w-full py-2.5 bg-[#F9F7F2] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white border border-[#E5E1DA] hover:border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
+                    className="w-full py-2 bg-[#F9F7F2] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white border border-[#E5E1DA] hover:border-[#1A1A1A] text-[11px] font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
                   >
                     <span>Iniciar Prática</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
               );
@@ -288,7 +341,7 @@ export default function ExercisesPage() {
       <AnimatePresence>
         {isTriageOpen && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#1A1A1A]/80 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-lg bg-[#FDFCFB] border border-[#E5E1DA] p-6 sm:p-8 relative shadow-xl my-auto text-[#1A1A1A]">
+            <div className="w-full max-w-lg bg-[#FDFCFB] border border-[#E5E1DA] p-6 sm:p-8 relative shadow-xl my-auto text-[#1A1A1A] max-h-[90vh] overflow-y-auto">
               <button onClick={() => setIsTriageOpen(false)} className="absolute top-5 right-5 p-2 text-[#8E8A83] hover:text-[#1A1A1A] bg-[#F9F7F2] border border-[#E5E1DA] cursor-pointer">
                 <X className="w-4 h-4" />
               </button>
@@ -298,20 +351,21 @@ export default function ExercisesPage() {
                   <Compass className="w-3.5 h-3.5" /> TRIAGEM RÁPIDA DE AUTORREGULAÇÃO
                 </span>
                 <h3 className="font-display font-bold text-2xl text-[#1A1A1A]">Como você está se sentindo agora?</h3>
-                <p className="font-sans text-xs text-[#8E8A83] mt-1">Selecione o sintoma mais forte no momento para receber a recomendação ideal:</p>
+                <p className="font-sans text-xs text-[#8E8A83] mt-1">Selecione a sensação mais forte no momento para receber a recomendação ideal:</p>
               </div>
 
               <div className="space-y-3 mb-6">
                 {[
                   { idx: 0, title: '🫀 Coração acelerado, falta de ar ou agitação física', desc: 'Recomendação: Respiração Guiada (Ritmo 4-7-8)' },
-                  { idx: 1, title: '🌀 Pensamentos acelerados, crises ou desconexão do ambiente', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
-                  { idx: 2, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
-                  { idx: 3, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
+                  { idx: 1, title: '🌀 Crises, pensamento acelerado ou sensação de desconexão', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
+                  { idx: 2, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando as Preocupações (TCC)' },
+                  { idx: 3, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
+                  { idx: 4, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
                 ].map((option) => (
                   <button
                     key={option.idx}
                     onClick={() => handleTriageSelect(option.idx)}
-                    className="w-full p-4 bg-white hover:bg-[#F9F7F2] border border-[#E5E1DA] hover:border-[#1A1A1A] text-left transition-all group cursor-pointer shadow-sm"
+                    className="w-full p-3.5 bg-white hover:bg-[#F9F7F2] border border-[#E5E1DA] hover:border-[#1A1A1A] text-left transition-all group cursor-pointer shadow-sm"
                   >
                     <p className="font-sans text-xs font-bold text-[#1A1A1A] mb-1 group-hover:text-[#C5A059] transition-colors">
                       {option.title}
@@ -337,7 +391,7 @@ export default function ExercisesPage() {
       <AnimatePresence>
         {activeIdx !== null && currEx && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-[#1A1A1A]/80 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-lg bg-[#FDFCFB] border border-[#E5E1DA] p-6 sm:p-8 relative shadow-xl my-auto text-[#1A1A1A]">
+            <div className="w-full max-w-lg bg-[#FDFCFB] border border-[#E5E1DA] p-6 sm:p-8 relative shadow-xl my-auto text-[#1A1A1A] max-h-[90vh] overflow-y-auto">
               
               <button onClick={() => setActiveIdx(null)} className="absolute top-5 right-5 p-2 text-[#8E8A83] hover:text-[#1A1A1A] bg-[#F9F7F2] border border-[#E5E1DA] cursor-pointer">
                 <X className="w-4 h-4" />
@@ -381,9 +435,9 @@ export default function ExercisesPage() {
                       <p className="font-sans text-xs text-[#555] mb-4">Acompanhe a respiração no seu tempo:</p>
                       
                       {/* Custom Breathing GIF Visual */}
-                      <div className="relative w-56 h-56 mx-auto mb-6 flex flex-col items-center justify-center bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-2xl p-4 shadow-sm overflow-hidden">
-                        <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-40 object-contain rounded-xl mb-3" />
-                        <span className="font-sans text-[11px] text-[#1A1A1A] font-bold tracking-wide uppercase">
+                      <div className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-6 flex flex-col items-center justify-center bg-[#F9F7F2] border-2 border-[#1A1A1A] rounded-2xl p-3 sm:p-4 shadow-sm overflow-hidden">
+                        <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-32 sm:h-40 object-contain rounded-xl mb-2 sm:mb-3" />
+                        <span className="font-sans text-[10px] sm:text-[11px] text-[#1A1A1A] font-bold tracking-wide uppercase text-center">
                           Inspire ao expandir • Expire ao contrair
                         </span>
                       </div>
@@ -428,7 +482,79 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 3. Check-in Emocional */}
+                  {/* 3. Organizando as Preocupações (NOVO) */}
+                  {currEx.id === 'preocupacoes' && (
+                    <div className="py-2 mb-6 space-y-4">
+                      <p className="font-sans text-xs text-[#555] text-center mb-3">
+                        Antes de tentar resolver isso, faça uma pausa e responda às perguntas abaixo:
+                      </p>
+
+                      <div className="space-y-4">
+                        {WORRY_QUESTIONS.map((q) => {
+                          const currentAnswer = worryAnswers[q.id];
+                          return (
+                            <div key={q.id} className="p-3.5 bg-white border border-[#E5E1DA] rounded-none">
+                              <p className="font-sans text-xs font-bold text-[#1A1A1A] mb-2.5">{q.question}</p>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                {q.options.map((opt, oIdx) => {
+                                  const isSelected = currentAnswer === opt.isUnproductive;
+                                  return (
+                                    <button
+                                      key={oIdx}
+                                      onClick={() => setWorryAnswers((prev) => ({ ...prev, [q.id]: opt.isUnproductive }))}
+                                      className={`p-2.5 border text-left font-sans text-xs transition-colors cursor-pointer flex items-center justify-between ${
+                                        isSelected ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-bold' : 'bg-white border-[#E5E1DA] text-[#555]'
+                                      }`}
+                                    >
+                                      <span>☐ {opt.text}</span>
+                                      {isSelected && <Check className="w-3.5 h-3.5 text-[#1A1A1A]" />}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Result Box after All Questions Answered */}
+                      {isWorryFinished && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#1A1A1A] mt-6 space-y-4">
+                          {isWorryUnproductive ? (
+                            <div>
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO IMPRODUTIVA IDENTIFICADA</p>
+                              <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed mb-4">
+                                Essa preocupação provavelmente não precisa ser resolvida agora. Ela parece estar tentando prever o futuro ou encontrar certezas que ninguém possui. Você pode anotá-la e reservar um horário específico do dia para voltar a pensar nela. Até lá, permita que sua atenção retorne ao momento presente.
+                              </p>
+                              <button
+                                onClick={() => openEx(1)}
+                                className="w-full py-3 bg-[#1A1A1A] text-white hover:bg-[#333] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+                              >
+                                <span>Voltar ao Presente (Aterramento 5-4-3-2-1)</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#1A1A1A] mb-2">PREOCUPAÇÃO PRODUTIVA IDENTIFICADA</p>
+                              <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed mb-4">
+                                Existe algo que pode ser feito. Em vez de permanecer preso na preocupação, transforme-a em um pequeno plano de ação. Pergunte: qual é o menor passo que posso dar hoje?
+                              </p>
+                              <button
+                                onClick={() => setShowCalm(true)}
+                                className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+                              >
+                                <span>Definir o Próximo Passo</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 4. Check-in Emocional */}
                   {currEx.id === 'checkin' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Como você descreveria o que está sentindo agora?</p>
@@ -460,7 +586,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 4. Resgate de Segurança */}
+                  {/* 5. Resgate de Segurança */}
                   {currEx.id === 'seguranca' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Selecione uma lembrança ou âncora pessoal para fortalecer você agora:</p>
@@ -495,7 +621,7 @@ export default function ExercisesPage() {
                   {/* Footer Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#E5E1DA]">
                     <button onClick={() => setShowCalm(true)} className="w-full sm:w-1/2 py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
-                      {currEx.id === 'desacelera' ? 'Estou Mais Calmo' : currEx.id === 'ancora' ? 'Estou Mais Presente' : currEx.id === 'checkin' ? 'Reconheci Minhas Emoções' : 'Reencontrei Meus Recursos'}
+                      {currEx.id === 'desacelera' ? 'Estou Mais Calmo' : currEx.id === 'ancora' ? 'Estou Mais Presente' : currEx.id === 'checkin' ? 'Reconheci Minhas Emoções' : currEx.id === 'preocupacoes' ? 'Organizei Minha Mente' : 'Reencontrei Meus Recursos'}
                     </button>
                     <button onClick={() => openEx((activeIdx + 1) % EXERCISES.length)} className="w-full sm:w-1/2 py-2.5 bg-[#F9F7F2] text-[#1A1A1A] border border-[#E5E1DA] font-bold text-xs uppercase tracking-wider cursor-pointer flex items-center justify-center space-x-1">
                       <span>Próximo Exercício</span>
