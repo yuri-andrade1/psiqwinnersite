@@ -20,13 +20,27 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import PrivacyModal from './components/PrivacyModal';
 import InteractiveExercises from './components/InteractiveExercises';
+import AmbientBreezeBackground from './components/AmbientBreezeBackground';
 
 const ArticlesPage = React.lazy(() => import('./pages/ArticlesPage'));
 const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
 const ExercisesPage = React.lazy(() => import('./pages/ExercisesPage'));
 
 function HomePage() {
-  return <main><Hero /><Specialties /><InteractiveExercises /><Credentials /><Reviews /><Articles /><InstagramVideos /><FAQ /><Contact /></main>;
+  return (
+    <main className="relative overflow-hidden">
+      <AmbientBreezeBackground />
+      <Hero />
+      <Specialties />
+      <InteractiveExercises />
+      <Credentials />
+      <Reviews />
+      <Articles />
+      <InstagramVideos />
+      <FAQ />
+      <Contact />
+    </main>
+  );
 }
 
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean; errorText: string}> {

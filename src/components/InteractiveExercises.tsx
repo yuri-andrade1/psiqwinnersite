@@ -29,7 +29,7 @@ export default function InteractiveExercises() {
               to="/exercicios"
               className="inline-flex items-center px-5 py-2.5 bg-[#1A1A1A] hover:bg-[#333] text-white font-bold text-xs uppercase tracking-wider transition-colors"
             >
-              <span>Acessar Espaço de Exercícios</span>
+              <span>Acessar Espaço de Ferramentas</span>
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>
