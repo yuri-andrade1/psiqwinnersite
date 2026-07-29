@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react';
 import {PortableText, type PortableTextComponents} from '@portabletext/react';
-import {ArrowLeft, Calendar, UserRound, Tag, Home, BookOpen} from 'lucide-react';
+import {ArrowLeft, Calendar, UserRound, Tag, Home, BookOpen, MessageSquare} from 'lucide-react';
 import {Link, useParams} from 'react-router-dom';
 import {POST_BY_SLUG_QUERY, sanityClient, sanityImageUrl, type SanityPost} from '../lib/sanity';
+import {DOCTOR_INFO} from '../data';
 
 const formatDate = (dateStr: string) => {
   try {
@@ -240,6 +241,24 @@ export default function ArticlePage() {
             })}
           </div>
         )}
+
+        {/* Automatic Contact CTA Box */}
+        <div className="mt-12 p-6 sm:p-8 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+          <div className="space-y-1 text-center sm:text-left">
+            <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#C5A059]">ATENDIMENTO PSICOLÓGICO</span>
+            <h3 className="font-display font-bold text-xl text-[#FDFCFB]">Gostou do artigo? Agende sua consulta</h3>
+            <p className="font-sans text-xs text-[#8E8A83]">Atendimento 100% online com o Dr. Winner Furtado para todo o Brasil e exterior.</p>
+          </div>
+          <a
+            href={`https://wa.me/${DOCTOR_INFO.whatsappNumber}?text=${encodeURIComponent(`Olá, Dr. Winner! Li o artigo "${post.title}" no seu site e gostaria de agendar uma consulta.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 px-6 py-3.5 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider transition-colors inline-flex items-center justify-center space-x-2"
+          >
+            <MessageSquare className="w-4 h-4 fill-current" />
+            <span>Falar no WhatsApp</span>
+          </a>
+        </div>
       </article>
     </main>
   );
