@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -20,6 +20,14 @@ const EXERCISES = [
     desc: 'Um exercício prático para trazer a atenção de volta ao aqui e agora durante momentos de tensão ou ansiedade.',
     icon: Anchor,
     badge: 'Acalmar',
+  },
+  {
+    id: 'sono',
+    title: 'Quero Dormir Melhor',
+    subtitle: 'Protocolo de Higiene do Sono',
+    desc: 'Um protocolo prático de higiene do sono para preparar o seu corpo e sua mente para um descanso profundo e reparador.',
+    icon: Moon,
+    badge: 'Sono & Descanso',
   },
   {
     id: 'preocupacoes',
@@ -81,6 +89,20 @@ const GROUNDING = [
     label: '1 coisa que você pode sentir o gosto (paladar)',
     instruction: 'Perceba um sabor presente neste momento. Pode ser o gosto que ficou na boca, um gole de água ou um alimento. Observe suas características: é doce, salgado, amargo, azedo ou neutro? Perceba como esse sabor muda à medida que você presta atenção nele.',
   },
+];
+
+const SLEEP_ITEMS = [
+  { id: 1, text: 'Evite consumir bebidas com cafeína após as 15h, especialmente se você costuma ter dificuldade para dormir.' },
+  { id: 2, text: 'Reserve a cama apenas para dormir e para atividades sexuais. Isso ajuda seu cérebro a associar esse ambiente ao sono.' },
+  { id: 3, text: 'Prefira refeições leves no período da noite. Alimentações muito volumosas podem dificultar o sono.' },
+  { id: 4, text: 'Procure se expor à luz natural por cerca de 20 a 30 minutos logo após acordar. Mesmo em dias nublados, a claridade natural já pode ajudar a regular seu relógio biológico.' },
+  { id: 5, text: 'Se você costuma ter dificuldade para dormir à noite, evite cochilos durante o dia.' },
+  { id: 6, text: 'Pratique atividade física regularmente, de preferência durante o dia ou no início da noite.' },
+  { id: 7, text: 'À noite, prefira uma iluminação mais suave e com tons quentes. Isso ajuda seu organismo a entender que está chegando a hora de descansar.' },
+  { id: 8, text: 'Evite usar telas com muito brilho antes de dormir. Se precisar utilizá-las, reduza o brilho e, se possível, ative o filtro de luz noturna.' },
+  { id: 9, text: 'Se acordar durante a noite, tente não olhar para o relógio. Saber as horas pode aumentar a ansiedade e dificultar que o sono volte naturalmente.' },
+  { id: 10, text: 'Nas 2 a 3 horas antes de dormir, procure evitar trabalho ou estudos intensos. Prefira atividades relaxantes e pouco estimulantes, como ler um livro ou ouvir uma música tranquila.' },
+  { id: 11, text: 'Sempre que possível, mantenha horários semelhantes para dormir e acordar, inclusive nos finais de semana.' },
 ];
 
 const WORRY_QUESTIONS = [
@@ -178,6 +200,7 @@ export default function ExercisesPage() {
   const [phase, setPhase] = useState<'inspire' | 'hold' | 'expire'>('inspire');
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
+  const [sleepChecks, setSleepChecks] = useState<Record<number, boolean>>({});
   const [problemStep, setProblemStep] = useState(0);
   const [worryStep, setWorryStep] = useState(0);
   const [isStoppedUnproductive, setIsStoppedUnproductive] = useState(false);
@@ -204,7 +227,7 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setProblemStep(0); setWorryStep(0);
+    setGroundStep(0); setSleepChecks({}); setProblemStep(0); setWorryStep(0);
     setIsStoppedUnproductive(false); setIsAllProductive(false);
     setSelectedEmotion(null); setSelectedStrength(null);
   };
@@ -212,6 +235,10 @@ export default function ExercisesPage() {
   const handleTriageSelect = (targetExIdx: number) => {
     setIsTriageOpen(false);
     openEx(targetExIdx);
+  };
+
+  const toggleSleepCheck = (id: number) => {
+    setSleepChecks((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const handleWorryAnswer = (opt: { text: string; isUnproductive: boolean }) => {
@@ -229,6 +256,8 @@ export default function ExercisesPage() {
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
   const mainExercise = EXERCISES[0];
   const sideExercises = EXERCISES.slice(1);
+
+  const checkedSleepCount = Object.values(sleepChecks).filter(Boolean).length;
 
   return (
     <main className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] pt-32 pb-24 border-b border-[#E5E1DA] relative overflow-hidden">
@@ -351,7 +380,7 @@ export default function ExercisesPage() {
             </div>
           </div>
 
-          {/* RIGHT COL: Side Grid of Other 5 Exercises */}
+          {/* RIGHT COL: Side Grid of Other 6 Exercises */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {sideExercises.map((ex, sIdx) => {
               const originalIdx = sIdx + 1;
@@ -413,10 +442,11 @@ export default function ExercisesPage() {
                 {[
                   { idx: 0, title: '🫀 Coração acelerado, falta de ar ou agitação física', desc: 'Recomendação: Respiração Guiada (Ritmo 4-7-8)' },
                   { idx: 1, title: '🌀 Crises, pensamento acelerado ou sensação de desconexão', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
-                  { idx: 2, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando a Mente (TCC)' },
-                  { idx: 3, title: '🎯 Preciso agir e criar um plano prático para um problema real', desc: 'Recomendação: Resolução de Problemas TCC' },
-                  { idx: 4, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
-                  { idx: 5, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
+                  { idx: 2, title: '🌙 Insônia, agitação noturna ou dificuldade para dormir', desc: 'Recomendação: Quero Dormir Melhor (Protocolo TCC)' },
+                  { idx: 3, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando a Mente (TCC)' },
+                  { idx: 4, title: '🎯 Preciso agir e criar um plano prático para um problema real', desc: 'Recomendação: Resolução de Problemas TCC' },
+                  { idx: 5, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
+                  { idx: 6, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
                 ].map((option) => (
                   <button
                     key={option.idx}
@@ -538,7 +568,62 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 3. Organizando a Mente (Decisão Curto-Circuito por Aba) */}
+                  {/* 3. Higiene do Sono (NOVO EXERCÍCIO COM CHECKBOXES & SCORE) */}
+                  {currEx.id === 'sono' && (
+                    <div className="py-2 mb-6 space-y-4">
+                      <p className="font-sans text-xs text-[#555] text-center mb-3">
+                        Para dormir melhor, vá marcando os hábitos de higiene do sono que você colocou em prática hoje:
+                      </p>
+
+                      <div className="space-y-2.5">
+                        {SLEEP_ITEMS.map((item) => {
+                          const isChecked = !!sleepChecks[item.id];
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() => toggleSleepCheck(item.id)}
+                              className={`w-full p-3.5 border text-left font-sans text-xs transition-all cursor-pointer flex items-start justify-between space-x-3 shadow-sm ${
+                                isChecked
+                                  ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-medium'
+                                  : 'bg-white border-[#E5E1DA] text-[#555] hover:border-[#1A1A1A]'
+                              }`}
+                            >
+                              <div className="flex items-start space-x-3">
+                                <div className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                                  isChecked ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white' : 'border-[#8E8A83] bg-white'
+                                }`}>
+                                  {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                                </div>
+                                <span className="leading-relaxed">{item.text}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Score Evaluation & Feedback Box */}
+                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-6 space-y-3">
+                        <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
+                          Parabéns por reservar alguns minutos para cuidar do seu sono. Lembre-se: mudanças consistentes costumam trazer mais resultados do que mudanças perfeitas.
+                        </p>
+
+                        <div className="pt-2 border-t border-[#E5E1DA] space-y-1.5">
+                          <p className="text-[11px] font-bold text-[#8E8A83] uppercase tracking-wider">
+                            Você marcou <strong className="text-[#1A1A1A]">{checkedSleepCount} de {SLEEP_ITEMS.length}</strong> itens hoje:
+                          </p>
+                          <p className="font-sans text-xs font-bold text-[#1A1A1A]">
+                            {checkedSleepCount <= 3
+                              ? '🌱 0-3: Todo começo conta. Escolha um hábito para praticar amanhã.'
+                              : checkedSleepCount <= 7
+                              ? '🌿 4-7: Você já está construindo uma boa rotina.'
+                              : '🌳 8-11: Excelente! A consistência costuma ser a chave para um sono de melhor qualidade.'}
+                          </p>
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
+
+                  {/* 4. Organizando a Mente (Decisão Curto-Circuito por Aba) */}
                   {currEx.id === 'preocupacoes' && (
                     <div className="py-2 mb-6 space-y-4">
                       
@@ -619,7 +704,7 @@ export default function ExercisesPage() {
                         </motion.div>
                       )}
 
-                      {/* PRODUCTIVE RESULT (Routes to Problem Solving -> openEx(3)) */}
+                      {/* PRODUCTIVE RESULT (Routes to Problem Solving -> openEx(4)) */}
                       {isAllProductive && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-2 space-y-4">
                           <div>
@@ -628,7 +713,7 @@ export default function ExercisesPage() {
                               Existe algo que pode ser feito. Em vez de permanecer preso na preocupação, transforme-a em um pequeno plano de ação. Pergunte: qual é o menor passo que posso dar hoje?
                             </p>
                             <button
-                              onClick={() => openEx(3)}
+                              onClick={() => openEx(4)}
                               className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shadow-sm"
                             >
                               <span>DEFINIR O PRÓXIMO PASSO (Estratégia de Resolução)</span>
@@ -640,7 +725,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 4. Resolução de Problemas TCC (NOVO EXERCÍCIO ENCAMINHADO) */}
+                  {/* 5. Resolução de Problemas TCC */}
                   {currEx.id === 'resolucao_problemas' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-3">
@@ -686,7 +771,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 5. Check-in Emocional */}
+                  {/* 6. Check-in Emocional */}
                   {currEx.id === 'checkin' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Como você descreveria o que está sentindo agora?</p>
@@ -718,7 +803,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 6. Resgate de Segurança */}
+                  {/* 7. Resgate de Segurança */}
                   {currEx.id === 'seguranca' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Selecione uma lembrança ou âncora pessoal para fortalecer você agora:</p>
@@ -757,6 +842,8 @@ export default function ExercisesPage() {
                         ? 'Estou Mais Calmo'
                         : currEx.id === 'ancora'
                         ? 'Estou Mais Presente'
+                        : currEx.id === 'sono'
+                        ? 'Cuidar do Meu Sono'
                         : currEx.id === 'checkin'
                         ? 'Reconheci Minhas Emoções'
                         : currEx.id === 'preocupacoes'
