@@ -40,11 +40,31 @@ const EXERCISES = [
 ];
 
 const GROUNDING = [
-  { count: 5, label: 'coisas que você pode ver ao seu redor agora' },
-  { count: 4, label: 'coisas que você pode tocar perto de você' },
-  { count: 3, label: 'sons que você consegue ouvir no ambiente' },
-  { count: 2, label: 'cheiros ou sensações do ar' },
-  { count: 1, label: 'coisa boa sobre você neste momento' },
+  {
+    count: 5,
+    label: '5 coisas que você pode ver ao seu redor (visão)',
+    instruction: 'Sem pressa, observe o ambiente ao seu redor. Escolha uma cor de sua preferência e identifique mentalmente cinco objetos dessa cor. Deixe seu olhar passear pelo ambiente enquanto faz essa busca.',
+  },
+  {
+    count: 4,
+    label: '4 coisas que você pode tocar perto de você (tato)',
+    instruction: 'Escolha quatro objetos ao seu redor e toque cada um deles. Observe com curiosidade sua textura, temperatura, peso ou formato, percebendo as sensações que surgem em suas mãos.',
+  },
+  {
+    count: 3,
+    label: '3 sons que você consegue ouvir no ambiente (audição)',
+    instruction: 'Feche os olhos por alguns instantes e identifique três sons ao seu redor. Observe se eles estão mais próximos ou distantes, se são mais agudos ou graves e como sua intensidade varia ao longo do tempo.',
+  },
+  {
+    count: 2,
+    label: '2 cheiros ou aromas no ar ao seu redor (olfato)',
+    instruction: 'Identifique dois aromas que você consegue perceber neste momento. Observe suas características: são agradáveis ou desagradáveis? Doces, cítricos ou suaves? Perceba como seu corpo reage a cada aroma, sem tentar mudar essa experiência.',
+  },
+  {
+    count: 1,
+    label: '1 coisa que você pode sentir o gosto (paladar)',
+    instruction: 'Perceba um sabor presente neste momento. Pode ser o gosto que ficou na boca, um gole de água ou um alimento. Observe suas características: é doce, salgado, amargo, azedo ou neutro? Perceba como esse sabor muda à medida que você presta atenção nele.',
+  },
 ];
 
 const EMOTIONS = [
@@ -377,24 +397,32 @@ export default function ExercisesPage() {
                   {/* 2. Âncora */}
                   {currEx.id === 'ancora' && (
                     <div className="py-2 space-y-2 mb-6">
-                      <p className="font-sans text-xs text-[#555] text-center mb-3">Observe o ambiente ao seu redor:</p>
+                      <p className="font-sans text-xs text-[#555] text-center mb-3">Toque em cada sentido para ler a instrução guiada:</p>
                       {GROUNDING.map((step, sIdx) => {
-                        const isDone = sIdx <= groundStep;
+                        const isSelected = groundStep === sIdx;
                         return (
-                          <button
-                            key={step.count} onClick={() => setGroundStep(sIdx)}
-                            className={`w-full p-3 border text-left flex items-center justify-between transition-colors cursor-pointer ${
-                              isDone ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A]' : 'bg-white border-[#E5E1DA] text-[#8E8A83]'
-                            }`}
-                          >
-                            <div className="flex items-center space-x-2.5">
-                              <span className="w-6 h-6 rounded-full bg-[#F9F7F2] border border-[#E5E1DA] flex items-center justify-center font-mono font-bold text-xs text-[#1A1A1A]">
-                                {step.count}
-                              </span>
-                              <span className="font-sans text-xs">{step.label}</span>
-                            </div>
-                            {isDone && <Check className="w-4 h-4 text-[#1A1A1A]" />}
-                          </button>
+                          <div key={step.count} className="space-y-1.5">
+                            <button
+                              onClick={() => setGroundStep(sIdx)}
+                              className={`w-full p-3 border text-left flex items-center justify-between transition-colors cursor-pointer ${
+                                isSelected ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-bold' : 'bg-white border-[#E5E1DA] text-[#555]'
+                              }`}
+                            >
+                              <div className="flex items-center space-x-2.5">
+                                <span className="w-6 h-6 rounded-full bg-[#F9F7F2] border border-[#E5E1DA] flex items-center justify-center font-mono font-bold text-xs text-[#1A1A1A]">
+                                  {step.count}
+                                </span>
+                                <span className="font-sans text-xs">{step.label}</span>
+                              </div>
+                              {isSelected && <Check className="w-4 h-4 text-[#1A1A1A]" />}
+                            </button>
+
+                            {isSelected && (
+                              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="p-4 bg-[#F9F7F2] border-l-2 border-[#1A1A1A] text-xs text-[#1A1A1A] leading-relaxed">
+                                {step.instruction}
+                              </motion.div>
+                            )}
+                          </div>
                         );
                       })}
                     </div>
@@ -467,7 +495,7 @@ export default function ExercisesPage() {
                   {/* Footer Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#E5E1DA]">
                     <button onClick={() => setShowCalm(true)} className="w-full sm:w-1/2 py-2.5 bg-[#1A1A1A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer">
-                      Estou Mais Tranquilo
+                      {currEx.id === 'desacelera' ? 'Estou Mais Calmo' : currEx.id === 'ancora' ? 'Estou Mais Presente' : currEx.id === 'checkin' ? 'Reconheci Minhas Emoções' : 'Reencontrei Meus Recursos'}
                     </button>
                     <button onClick={() => openEx((activeIdx + 1) % EXERCISES.length)} className="w-full sm:w-1/2 py-2.5 bg-[#F9F7F2] text-[#1A1A1A] border border-[#E5E1DA] font-bold text-xs uppercase tracking-wider cursor-pointer flex items-center justify-center space-x-1">
                       <span>Próximo Exercício</span>
