@@ -201,6 +201,7 @@ export default function ExercisesPage() {
   const [seconds, setSeconds] = useState(60);
   const [groundStep, setGroundStep] = useState(0);
   const [sleepChecks, setSleepChecks] = useState<Record<number, boolean>>({});
+  const [showSleepResult, setShowSleepResult] = useState(false);
   const [problemStep, setProblemStep] = useState(0);
   const [worryStep, setWorryStep] = useState(0);
   const [isStoppedUnproductive, setIsStoppedUnproductive] = useState(false);
@@ -227,7 +228,7 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setSleepChecks({}); setProblemStep(0); setWorryStep(0);
+    setGroundStep(0); setSleepChecks({}); setShowSleepResult(false); setProblemStep(0); setWorryStep(0);
     setIsStoppedUnproductive(false); setIsAllProductive(false);
     setSelectedEmotion(null); setSelectedStrength(null);
   };
@@ -601,35 +602,50 @@ export default function ExercisesPage() {
                         })}
                       </div>
 
-                      {/* Score Evaluation & Feedback Box */}
-                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-6 space-y-4">
-                        <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
-                          Parabéns por reservar alguns minutos para cuidar do seu sono. Lembre-se: mudanças consistentes costumam trazer mais resultados do que mudanças perfeitas.
-                        </p>
+                      {/* Check-in CTA Button */}
+                      {!showSleepResult && (
+                        <div className="pt-4">
+                          <button
+                            onClick={() => setShowSleepResult(true)}
+                            className="w-full py-3.5 bg-[#1A1A1A] text-white hover:bg-[#333] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shadow-sm"
+                          >
+                            <Check className="w-4 h-4 text-[#C5A059]" />
+                            <span>Concluir Check-in do Sono</span>
+                          </button>
+                        </div>
+                      )}
 
-                        <div className="pt-3 border-t border-[#E5E1DA] space-y-2">
-                          <p className="text-xs font-bold text-[#1A1A1A]">
-                            Você marcou <span className="underline decoration-[#C5A059] decoration-2 font-mono text-sm">{checkedSleepCount}</span> {checkedSleepCount === 1 ? 'item' : 'itens'} hoje:
+                      {/* Score Evaluation & Feedback Box (Revealed on Click) */}
+                      {showSleepResult && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-6 space-y-4">
+                          <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
+                            Parabéns por reservar alguns minutos para cuidar do seu sono. Lembre-se: mudanças consistentes costumam trazer mais resultados do que mudanças perfeitas.
                           </p>
-                          <div className="space-y-2 pt-1">
-                            <div className={`p-3 border text-xs font-sans transition-all ${
-                              checkedSleepCount <= 3 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
-                            }`}>
-                              🌱 0-3: Todo começo conta. Escolha um hábito para praticar amanhã.
-                            </div>
-                            <div className={`p-3 border text-xs font-sans transition-all ${
-                              checkedSleepCount >= 4 && checkedSleepCount <= 7 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
-                            }`}>
-                              🌿 4-7: Você já está construindo uma boa rotina.
-                            </div>
-                            <div className={`p-3 border text-xs font-sans transition-all ${
-                              checkedSleepCount >= 8 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
-                            }`}>
-                              🌳 8-11: Excelente! A consistência costuma ser a chave para um sono de melhor qualidade.
+
+                          <div className="pt-3 border-t border-[#E5E1DA] space-y-2">
+                            <p className="text-xs font-bold text-[#1A1A1A]">
+                              Você marcou <span className="underline decoration-[#C5A059] decoration-2 font-mono text-sm">{checkedSleepCount}</span> {checkedSleepCount === 1 ? 'item' : 'itens'} hoje:
+                            </p>
+                            <div className="space-y-2 pt-1">
+                              <div className={`p-3 border text-xs font-sans transition-all ${
+                                checkedSleepCount <= 3 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
+                              }`}>
+                                🌱 0-3: Todo começo conta. Escolha um hábito para praticar amanhã.
+                              </div>
+                              <div className={`p-3 border text-xs font-sans transition-all ${
+                                checkedSleepCount >= 4 && checkedSleepCount <= 7 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
+                              }`}>
+                                🌿 4-7: Você já está construindo uma boa rotina.
+                              </div>
+                              <div className={`p-3 border text-xs font-sans transition-all ${
+                                checkedSleepCount >= 8 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white font-bold shadow-sm' : 'bg-white border-[#E5E1DA] text-[#555]'
+                              }`}>
+                                🌳 8-11: Excelente! A consistência costuma ser a chave para um sono de melhor qualidade.
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </motion.div>
+                        </motion.div>
+                      )}
                     </div>
                   )}
 
