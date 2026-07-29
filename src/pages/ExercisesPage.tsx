@@ -81,7 +81,7 @@ const WORRY_QUESTIONS = [
     question: '1. Existe alguma ação concreta que eu possa fazer hoje sobre essa preocupação?',
     options: [
       { text: 'Sim', isUnproductive: false },
-      { text: 'Não (preocupação improdutiva)', isUnproductive: true },
+      { text: 'Não', isUnproductive: true },
     ]
   },
   {
@@ -89,14 +89,14 @@ const WORRY_QUESTIONS = [
     question: '2. Essa preocupação depende principalmente de mim?',
     options: [
       { text: 'Sim', isUnproductive: false },
-      { text: 'Não (preocupação improdutiva)', isUnproductive: true },
+      { text: 'Não', isUnproductive: true },
     ]
   },
   {
     id: 3,
     question: '3. Estou pensando em possibilidades futuras ou em um problema que já está acontecendo?',
     options: [
-      { text: 'Possibilidades futuras (preocupação improdutiva)', isUnproductive: true },
+      { text: 'Possibilidades futuras', isUnproductive: true },
       { text: 'Problema atual', isUnproductive: false },
     ]
   },
@@ -105,7 +105,7 @@ const WORRY_QUESTIONS = [
     question: '4. Pensar nisso agora está me ajudando a resolver ou apenas me deixando mais ansioso?',
     options: [
       { text: 'Está ajudando', isUnproductive: false },
-      { text: 'Está me deixando mais ansioso (preocupação improdutiva)', isUnproductive: true },
+      { text: 'Está me deixando mais ansioso', isUnproductive: true },
     ]
   },
   {
@@ -113,7 +113,7 @@ const WORRY_QUESTIONS = [
     question: '5. Se eu continuar pensando nisso pelos próximos 30 minutos, algo realmente mudará?',
     options: [
       { text: 'Sim', isUnproductive: false },
-      { text: 'Não (preocupação improdutiva)', isUnproductive: true },
+      { text: 'Não', isUnproductive: true },
     ]
   },
 ];
