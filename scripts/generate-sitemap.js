@@ -75,7 +75,7 @@ async function generateDynamicSitemap() {
     // Add dynamic articles
     posts.forEach((post) => {
       const date = post._updatedAt ? post._updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
-      xml += `  <url>\n    <loc>${domain}/artigos/${post.slug}</loc>\n    <lastmod>${date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
+      xml += `  <url>\n    <loc>${domain}/artigos/${post.slug}</loc>\n    <lastmod>${date}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
     });
     
     xml += `</urlset>\n`;
