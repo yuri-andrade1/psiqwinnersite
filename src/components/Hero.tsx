@@ -3,6 +3,7 @@ import { motion, type Variants } from 'motion/react';
 import { MessageSquare, ShieldCheck, Globe, Laptop, Sparkles } from 'lucide-react';
 import { DOCTOR_INFO } from '../data';
 import mainProfileImage from '../assets/images/principalimage.jpeg';
+import AmbientBreezeBackground from './AmbientBreezeBackground';
 
 export default function Hero() {
   const handleWhatsAppClick = () => {
@@ -35,8 +36,9 @@ export default function Hero() {
   };
 
   return (
-    <header id="inicio" className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-[#FDFCFB] border-b border-[#1A1A1A]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header id="inicio" className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-[#FDFCFB] border-b border-[#1A1A1A] overflow-hidden">
+      <AmbientBreezeBackground />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Decorative Line / Date / Issue Info */}
         <div className="flex justify-between items-center border-b border-[#1A1A1A] pb-3 mb-10 text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83]">

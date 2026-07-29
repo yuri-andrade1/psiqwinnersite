@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Brain, Flame, HeartCrack, Sparkles, Users, Compass, Check, ArrowRight } from 'lucide-react';
 import { SPECIALTIES, DOCTOR_INFO } from '../data';
+import AmbientBreezeBackground from './AmbientBreezeBackground';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain,
@@ -22,9 +23,9 @@ export default function Specialties() {
   };
 
   return (
-    <section id="especialidades" className="py-24 bg-[#F9F7F2] relative border-b border-[#1A1A1A]">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="especialidades" className="py-24 bg-[#F9F7F2] relative border-b border-[#1A1A1A] overflow-hidden">
+      <AmbientBreezeBackground />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-16">

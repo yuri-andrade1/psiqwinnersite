@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, MoonStar, ArrowRight, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import AmbientBreezeBackground from './AmbientBreezeBackground';
 
 const EXERCISES_PREVIEW = [
   { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', icon: Heart, badge: 'Destaque' },
@@ -11,8 +12,9 @@ const EXERCISES_PREVIEW = [
 
 export default function InteractiveExercises() {
   return (
-    <section id="exercicios" className="py-20 bg-[#FDFCFB] text-[#1A1A1A] border-b border-[#E5E1DA]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="exercicios" className="relative py-20 bg-[#FDFCFB] text-[#1A1A1A] border-b border-[#E5E1DA] overflow-hidden">
+      <AmbientBreezeBackground />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 border-b border-[#E5E1DA] pb-6">
