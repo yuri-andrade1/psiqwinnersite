@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, MoonStar, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, MoonStar, X, Check, ArrowRight, Home, MessageSquare, Play, Compass, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -11,7 +11,8 @@ const EXERCISES = [
     subtitle: 'Ritmo 4-7-8',
     desc: 'Uma pausa simples e eficaz para desacelerar os batimentos e acalmar a mente nos momentos em que tudo parecer muito acelerado.',
     icon: Heart,
-    badge: 'Destaque',
+    badge: 'Destaque Principal',
+    hero: true,
   },
   {
     id: 'ancora',
@@ -108,7 +109,7 @@ const SLEEP_ITEMS = [
   { id: 6, text: 'Pratique atividade física regularmente, de preferência durante o dia ou no início da noite.' },
   { id: 7, text: 'À noite, prefira uma iluminação mais suave e com tons quentes. Isso ajuda seu organismo a entender que está chegando a hora de descansar.' },
   { id: 8, text: 'Evite usar telas com muito brilho antes de dormir. Se precisar utilizá-las, reduza o brilho e, se possível, ative o filtro de luz noturna.' },
-  { id: 9, text: 'Se acordar durante a noite, tente não olhar para o relógio. Saber as horas pode aumentar a ansiedade e dificultar que o sono volte naturally.' },
+  { id: 9, text: 'Se acordar durante a noite, tente não olhar para o relógio. Saber as horas pode aumentar a ansiedade e dificultar que o sono volte naturalmente.' },
   { id: 10, text: 'Nas 2 a 3 horas antes de dormir, procure evitar trabalho ou estudos intensos. Prefira atividades relaxantes e pouco estimulantes, como ler um livro ou ouvir uma música tranquila.' },
   { id: 11, text: 'Sempre que possível, mantenha horários semelhantes para dormir e acordar, inclusive nos finais de semana.' },
 ];
@@ -278,7 +279,7 @@ export default function ExercisesPage() {
 
   const currEx = activeIdx !== null ? EXERCISES[activeIdx] : null;
   const mainExercise = EXERCISES[0];
-  const sideExercises = EXERCISES.slice(1);
+  const otherExercises = EXERCISES.slice(1);
 
   const checkedSleepCount = Object.values(sleepChecks).filter(Boolean).length;
 
@@ -328,7 +329,7 @@ export default function ExercisesPage() {
         </div>
 
         {/* Section Header */}
-        <div className="border-b border-[#E5E1DA] pb-8 mb-12 relative z-10">
+        <div className="border-b border-[#E5E1DA] pb-8 mb-10 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="max-w-2xl">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#8E8A83] block mb-2">
@@ -346,7 +347,7 @@ export default function ExercisesPage() {
             <div className="w-full sm:w-auto shrink-0">
               <button
                 onClick={() => setIsTriageOpen(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-4 py-3 bg-[#F9F7F2] hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-3.5 bg-[#F9F7F2] hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border border-[#1A1A1A] text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer text-center"
               >
                 <Compass className="w-4 h-4 text-[#C5A059] shrink-0" />
                 <span>Não sei qual escolher? Triagem Rápida</span>
@@ -355,91 +356,113 @@ export default function ExercisesPage() {
           </div>
         </div>
 
-        {/* Editorial Layout: Hero Feature (Left) + Side Grid (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          {/* LEFT COL: Large Hero Feature Card (Respiração Guiada) */}
-          <div className="lg:col-span-5 bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-md">
-            <div>
-              {/* Header Badges */}
-              <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#1A1A1A] bg-[#C5A059] px-3 py-1">
-                  EXERCÍCIO PRINCIPAL
+        {/* HERO FEATURE BANNER: Respiração Guiada (Horizontal Elegant Banner) */}
+        <div className="bg-[#1A1A1A] text-[#FDFCFB] border border-[#1A1A1A] p-6 sm:p-8 lg:p-10 mb-12 shadow-lg relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Content */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex items-center space-x-2">
+                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#1A1A1A] bg-[#C5A059] px-3 py-1 inline-block">
+                  EXERCÍCIO DESTAQUE
+                </span>
+                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#C5A059] border border-[#C5A059] px-2.5 py-1 inline-flex items-center gap-1">
+                  <Sparkles className="w-3 h-3" /> Recomendado
                 </span>
               </div>
 
-              {/* Title & Subtitle */}
-              <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#FDFCFB] mb-2">
+              <h2 className="font-display font-bold text-3xl sm:text-4xl text-[#FDFCFB] tracking-tight">
                 {mainExercise.title}
               </h2>
-              <p className="font-sans text-xs text-[#C5A059] font-bold uppercase tracking-wider mb-6">
+              <p className="font-sans text-xs text-[#C5A059] font-bold uppercase tracking-wider">
                 {mainExercise.subtitle}
               </p>
-              <p className="font-sans text-xs sm:text-sm text-[#8E8A83] leading-relaxed mb-8 max-w-lg">
+              <p className="font-sans text-xs sm:text-sm text-[#A39E93] leading-relaxed max-w-xl">
                 {mainExercise.desc}
               </p>
 
-              {/* Live Preview GIF Visual */}
-              <div className="my-6 p-6 bg-[#242424] border border-[#333] flex items-center space-x-6">
-                <div className="relative w-20 h-20 flex items-center justify-center flex-shrink-0 bg-white/5 rounded-lg overflow-hidden border border-white/10 p-1">
+              <div className="pt-2">
+                <button
+                  onClick={() => openEx(0)}
+                  className="w-full sm:w-auto px-8 py-4 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider transition-colors inline-flex items-center justify-center space-x-2 cursor-pointer shadow-md"
+                >
+                  <Play className="w-4 h-4 fill-current" />
+                  <span>Iniciar Respiração Guiada Agora</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Visual Animation Preview */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="w-full max-w-sm bg-[#242424] border border-[#333] p-5 rounded-xl flex items-center space-x-5 shadow-inner">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center flex-shrink-0 bg-white/5 rounded-lg overflow-hidden border border-white/10 p-1.5">
                   <img src="/exercicio.gif" alt="Exercício de Respiração" className="w-full h-full object-contain rounded" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#FDFCFB] mb-1">Ritmo de Respiração Guiada</p>
-                  <p className="text-[11px] text-[#8E8A83]">Sincronia suave para desacelerar o ritmo e acalmar a mente.</p>
+                  <p className="text-xs font-bold text-[#FDFCFB] mb-1.5">Ritmo Visual Guiado</p>
+                  <p className="text-[11px] text-[#A39E93] leading-relaxed">
+                    Sincronize sua inspiração e expiração para desacelerar o ritmo cardíaco.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="pt-6 border-t border-[#333]">
-              <button
-                onClick={() => openEx(0)}
-                className="w-full py-4 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center space-x-2 cursor-pointer"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                <span>Iniciar Respiração Guiada</span>
-              </button>
-            </div>
           </div>
+        </div>
 
-          {/* RIGHT COL: Side Grid of Other 7 Exercises */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {sideExercises.map((ex, sIdx) => {
-              const originalIdx = sIdx + 1;
-              const Icon = ex.icon;
-              return (
-                <div
-                  key={ex.id}
-                  className="bg-white border border-[#E5E1DA] hover:border-[#1A1A1A] p-5 transition-all shadow-sm flex flex-col justify-between group"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="p-2 bg-[#F9F7F2] border border-[#E5E1DA]">
-                        <Icon className="w-4 h-4 text-[#1A1A1A]" />
-                      </div>
-                      <span className="text-[9px] font-sans font-bold uppercase text-[#8E8A83] bg-[#F9F7F2] px-2 py-0.5 border border-[#E5E1DA]">
-                        {ex.badge}
-                      </span>
+        {/* SECTION TITLE FOR OTHER EXERCISES */}
+        <div className="flex items-center justify-between border-b border-[#E5E1DA] pb-4 mb-8">
+          <h3 className="font-display font-bold text-xl text-[#1A1A1A]">
+            Todas as Práticas de Autorregulação
+          </h3>
+          <span className="text-xs font-mono font-bold text-[#8E8A83]">
+            {EXERCISES.length} EXERCÍCIOS DISPONÍVEIS
+          </span>
+        </div>
+
+        {/* BALANCED GRID OF ALL EXERCISES (3 Columns on Desktop) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          {EXERCISES.map((ex, idx) => {
+            const Icon = ex.icon;
+            const isHero = ex.id === 'desacelera';
+            return (
+              <div
+                key={ex.id}
+                className={`bg-white border p-6 transition-all shadow-sm flex flex-col justify-between group ${
+                  isHero ? 'border-[#C5A059] ring-1 ring-[#C5A059]' : 'border-[#E5E1DA] hover:border-[#1A1A1A]'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`p-2.5 border ${isHero ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]' : 'bg-[#F9F7F2] text-[#1A1A1A] border-[#E5E1DA]'}`}>
+                      <Icon className="w-4 h-4" />
                     </div>
-
-                    <h3 className="font-display font-bold text-base text-[#1A1A1A] mb-0.5">{ex.title}</h3>
-                    <p className="font-sans text-[10px] text-[#8E8A83] font-semibold mb-2">{ex.subtitle}</p>
-                    <p className="font-sans text-xs text-[#555] leading-relaxed mb-4">{ex.desc}</p>
+                    <span className={`text-[9px] font-sans font-bold uppercase px-2.5 py-1 border ${
+                      isHero ? 'bg-[#C5A059] text-[#1A1A1A] border-[#C5A059]' : 'bg-[#F9F7F2] text-[#8E8A83] border-[#E5E1DA]'
+                    }`}>
+                      {ex.badge}
+                    </span>
                   </div>
 
-                  <button
-                    onClick={() => openEx(originalIdx)}
-                    className="w-full py-2 bg-[#F9F7F2] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white border border-[#E5E1DA] hover:border-[#1A1A1A] text-[11px] font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
-                  >
-                    <span>Iniciar Prática</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </button>
+                  <h4 className="font-display font-bold text-lg text-[#1A1A1A] mb-1">{ex.title}</h4>
+                  <p className="font-sans text-xs text-[#C5A059] font-bold mb-3">{ex.subtitle}</p>
+                  <p className="font-sans text-xs text-[#555] leading-relaxed mb-6">{ex.desc}</p>
                 </div>
-              );
-            })}
-          </div>
 
+                <button
+                  onClick={() => openEx(idx)}
+                  className={`w-full py-3 border text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center space-x-2 cursor-pointer ${
+                    isHero
+                      ? 'bg-[#C5A059] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white border-[#C5A059] hover:border-[#1A1A1A]'
+                      : 'bg-[#F9F7F2] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white border-[#E5E1DA] hover:border-[#1A1A1A]'
+                  }`}
+                >
+                  <span>Iniciar Prática</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            );
+          })}
         </div>
 
       </div>
@@ -672,7 +695,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 4. Não Consigo Dormir (NOVO EXERCÍCIO DE RESGATE NOTURNO) */}
+                  {/* 4. Não Consigo Dormir */}
                   {currEx.id === 'insonia' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs sm:text-sm font-bold text-[#1A1A1A] text-center mb-3">
