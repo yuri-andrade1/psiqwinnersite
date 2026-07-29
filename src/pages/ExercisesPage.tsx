@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, MoonStar, X, Check, ArrowRight, Home, MessageSquare, Play, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DOCTOR_INFO } from '../data';
 
@@ -28,6 +28,14 @@ const EXERCISES = [
     desc: 'Um protocolo prático de higiene do sono para preparar o seu corpo e sua mente para um descanso profundo e reparador.',
     icon: Moon,
     badge: 'Sono & Descanso',
+  },
+  {
+    id: 'insonia',
+    title: 'Não Consigo Dormir',
+    subtitle: 'Resgate Noturno TCC',
+    desc: 'Orientações práticas de controle de estímulo para quem acordou de madrugada ou está com dificuldade para voltar a dormir.',
+    icon: MoonStar,
+    badge: 'Insônia Noturna',
   },
   {
     id: 'preocupacoes',
@@ -100,9 +108,18 @@ const SLEEP_ITEMS = [
   { id: 6, text: 'Pratique atividade física regularmente, de preferência durante o dia ou no início da noite.' },
   { id: 7, text: 'À noite, prefira uma iluminação mais suave e com tons quentes. Isso ajuda seu organismo a entender que está chegando a hora de descansar.' },
   { id: 8, text: 'Evite usar telas com muito brilho antes de dormir. Se precisar utilizá-las, reduza o brilho e, se possível, ative o filtro de luz noturna.' },
-  { id: 9, text: 'Se acordar durante a noite, tente não olhar para o relógio. Saber as horas pode aumentar a ansiedade e dificultar que o sono volte naturalmente.' },
+  { id: 9, text: 'Se acordar durante a noite, tente não olhar para o relógio. Saber as horas pode aumentar a ansiedade e dificultar que o sono volte naturally.' },
   { id: 10, text: 'Nas 2 a 3 horas antes de dormir, procure evitar trabalho ou estudos intensos. Prefira atividades relaxantes e pouco estimulantes, como ler um livro ou ouvir uma música tranquila.' },
   { id: 11, text: 'Sempre que possível, mantenha horários semelhantes para dormir e acordar, inclusive nos finais de semana.' },
+];
+
+const NIGHT_INSOMNIA_ITEMS = [
+  { id: 1, text: 'Evite olhar repetidamente para o relógio.' },
+  { id: 2, text: 'Não tente "forçar" o sono.' },
+  { id: 3, text: 'Se não conseguir dormir após cerca de 20 minutos, levante-se da cama.' },
+  { id: 4, text: 'Faça uma atividade tranquila, com pouca luz.' },
+  { id: 5, text: 'Volte para a cama quando sentir sono novamente.' },
+  { id: 6, text: 'Lembre-se: uma noite ruim não significa que a próxima também será.' },
 ];
 
 const WORRY_QUESTIONS = [
@@ -202,6 +219,7 @@ export default function ExercisesPage() {
   const [groundStep, setGroundStep] = useState(0);
   const [sleepChecks, setSleepChecks] = useState<Record<number, boolean>>({});
   const [showSleepResult, setShowSleepResult] = useState(false);
+  const [nightChecks, setNightChecks] = useState<Record<number, boolean>>({});
   const [problemStep, setProblemStep] = useState(0);
   const [worryStep, setWorryStep] = useState(0);
   const [isStoppedUnproductive, setIsStoppedUnproductive] = useState(false);
@@ -228,7 +246,7 @@ export default function ExercisesPage() {
 
   const openEx = (idx: number) => {
     setActiveIdx(idx); setShowCalm(false); setSeconds(60); setPhase('inspire');
-    setGroundStep(0); setSleepChecks({}); setShowSleepResult(false); setProblemStep(0); setWorryStep(0);
+    setGroundStep(0); setSleepChecks({}); setShowSleepResult(false); setNightChecks({}); setProblemStep(0); setWorryStep(0);
     setIsStoppedUnproductive(false); setIsAllProductive(false);
     setSelectedEmotion(null); setSelectedStrength(null);
   };
@@ -240,6 +258,10 @@ export default function ExercisesPage() {
 
   const toggleSleepCheck = (id: number) => {
     setSleepChecks((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const toggleNightCheck = (id: number) => {
+    setNightChecks((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const handleWorryAnswer = (opt: { text: string; isUnproductive: boolean }) => {
@@ -381,7 +403,7 @@ export default function ExercisesPage() {
             </div>
           </div>
 
-          {/* RIGHT COL: Side Grid of Other 6 Exercises */}
+          {/* RIGHT COL: Side Grid of Other 7 Exercises */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {sideExercises.map((ex, sIdx) => {
               const originalIdx = sIdx + 1;
@@ -443,11 +465,12 @@ export default function ExercisesPage() {
                 {[
                   { idx: 0, title: '🫀 Coração acelerado, falta de ar ou agitação física', desc: 'Recomendação: Respiração Guiada (Ritmo 4-7-8)' },
                   { idx: 1, title: '🌀 Crises, pensamento acelerado ou sensação de desconexão', desc: 'Recomendação: Aterramento no Presente (5-4-3-2-1)' },
-                  { idx: 2, title: '🌙 Insônia, agitação noturna ou dificuldade para dormir', desc: 'Recomendação: Quero Dormir Melhor (Protocolo TCC)' },
-                  { idx: 3, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando a Mente (TCC)' },
-                  { idx: 4, title: '🎯 Preciso agir e criar um plano prático para um problema real', desc: 'Recomendação: Resolução de Problemas TCC' },
-                  { idx: 5, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
-                  { idx: 6, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
+                  { idx: 2, title: '🌙 Prevenção de insônia e preparação para o sono', desc: 'Recomendação: Quero Dormir Melhor (Higiene do Sono)' },
+                  { idx: 3, title: '🌌 Acordei de madrugada ou não consigo voltar a dormir', desc: 'Recomendação: Não Consigo Dormir (Resgate Noturno TCC)' },
+                  { idx: 4, title: '🧠 Mente cheia de "e se?", indecisão ou ruminação sobre o futuro', desc: 'Recomendação: Organizando a Mente (TCC)' },
+                  { idx: 5, title: '🎯 Preciso agir e criar um plano prático para um problema real', desc: 'Recomendação: Resolução de Problemas TCC' },
+                  { idx: 6, title: '😔 Tristeza, exaustão mental ou nó na garganta', desc: 'Recomendação: Check-in Emocional & Acolhimento' },
+                  { idx: 7, title: '💔 Autocrítica excessiva, insegurança ou medo de errar', desc: 'Recomendação: Resgate de Segurança (Autoestima TCC)' },
                 ].map((option) => (
                   <button
                     key={option.idx}
@@ -569,7 +592,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 3. Higiene do Sono (NOVO EXERCÍCIO COM CHECKBOXES & SCORE) */}
+                  {/* 3. Quero Dormir Melhor */}
                   {currEx.id === 'sono' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-3">
@@ -649,7 +672,49 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 4. Organizando a Mente (Decisão Curto-Circuito por Aba) */}
+                  {/* 4. Não Consigo Dormir (NOVO EXERCÍCIO DE RESGATE NOTURNO) */}
+                  {currEx.id === 'insonia' && (
+                    <div className="py-2 mb-6 space-y-4">
+                      <p className="font-sans text-xs sm:text-sm font-bold text-[#1A1A1A] text-center mb-3">
+                        Se já faz um tempo que você está acordado:
+                      </p>
+
+                      <div className="space-y-2.5">
+                        {NIGHT_INSOMNIA_ITEMS.map((item) => {
+                          const isChecked = !!nightChecks[item.id];
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() => toggleNightCheck(item.id)}
+                              className={`w-full p-3.5 border text-left font-sans text-xs transition-all cursor-pointer flex items-start justify-between space-x-3 shadow-sm ${
+                                isChecked
+                                  ? 'bg-[#F9F7F2] border-[#1A1A1A] text-[#1A1A1A] font-medium'
+                                  : 'bg-white border-[#E5E1DA] text-[#555] hover:border-[#1A1A1A]'
+                              }`}
+                            >
+                              <div className="flex items-start space-x-3">
+                                <div className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                                  isChecked ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white' : 'border-[#8E8A83] bg-white'
+                                }`}>
+                                  {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                                </div>
+                                <span className="leading-relaxed">{item.text}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Doctor's Final Reflection Box */}
+                      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-4 sm:p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-6">
+                        <p className="font-sans text-xs text-[#1A1A1A] leading-relaxed">
+                          Lembre-se: tentar forçar o sono costuma deixá-lo ainda mais distante. Permita que seu corpo encontre o próprio ritmo. Confie no processo e seja gentil consigo mesmo.
+                        </p>
+                      </motion.div>
+                    </div>
+                  )}
+
+                  {/* 5. Organizando a Mente (Decisão Curto-Circuito por Aba) */}
                   {currEx.id === 'preocupacoes' && (
                     <div className="py-2 mb-6 space-y-4">
                       
@@ -730,7 +795,7 @@ export default function ExercisesPage() {
                         </motion.div>
                       )}
 
-                      {/* PRODUCTIVE RESULT (Routes to Problem Solving -> openEx(4)) */}
+                      {/* PRODUCTIVE RESULT (Routes to Problem Solving -> openEx(5)) */}
                       {isAllProductive && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#F9F7F2] border-l-4 border-[#C5A059] mt-2 space-y-4">
                           <div>
@@ -739,7 +804,7 @@ export default function ExercisesPage() {
                               Existe algo que pode ser feito. Em vez de permanecer preso na preocupação, transforme-a em um pequeno plano de ação. Pergunte: qual é o menor passo que posso dar hoje?
                             </p>
                             <button
-                              onClick={() => openEx(4)}
+                              onClick={() => openEx(5)}
                               className="w-full py-3 bg-[#C5A059] text-[#1A1A1A] hover:bg-[#b08d4a] font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer shadow-sm"
                             >
                               <span>DEFINIR O PRÓXIMO PASSO (Estratégia de Resolução)</span>
@@ -751,7 +816,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 5. Resolução de Problemas TCC */}
+                  {/* 6. Resolução de Problemas TCC */}
                   {currEx.id === 'resolucao_problemas' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-3">
@@ -797,7 +862,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 6. Check-in Emocional */}
+                  {/* 7. Check-in Emocional */}
                   {currEx.id === 'checkin' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Como você descreveria o que está sentindo agora?</p>
@@ -829,7 +894,7 @@ export default function ExercisesPage() {
                     </div>
                   )}
 
-                  {/* 7. Resgate de Segurança */}
+                  {/* 8. Resgate de Segurança */}
                   {currEx.id === 'seguranca' && (
                     <div className="py-2 mb-6 space-y-4">
                       <p className="font-sans text-xs text-[#555] text-center mb-2">Selecione uma lembrança ou âncora pessoal para fortalecer você agora:</p>
@@ -870,6 +935,8 @@ export default function ExercisesPage() {
                         ? 'Estou Mais Presente'
                         : currEx.id === 'sono'
                         ? 'Cuidar do Meu Sono'
+                        : currEx.id === 'insonia'
+                        ? 'Voltar ao Descanso'
                         : currEx.id === 'checkin'
                         ? 'Reconheci Minhas Emoções'
                         : currEx.id === 'preocupacoes'

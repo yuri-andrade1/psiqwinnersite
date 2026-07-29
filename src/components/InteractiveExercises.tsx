@@ -1,12 +1,12 @@
 import React from 'react';
-import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, ArrowRight, Play } from 'lucide-react';
+import { Heart, Anchor, Smile, ShieldCheck, Brain, Target, Moon, MoonStar, ArrowRight, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const EXERCISES_PREVIEW = [
   { title: 'Respiração Guiada', subtitle: 'Ritmo 4-7-8', icon: Heart, badge: 'Destaque' },
   { title: 'Quero Dormir Melhor', subtitle: 'Higiene do Sono', icon: Moon, badge: 'Sono & Descanso' },
+  { title: 'Não Consigo Dormir', subtitle: 'Resgate Noturno', icon: MoonStar, badge: 'Insônia Noturna' },
   { title: 'Organizando a Mente', subtitle: 'Triagem TCC', icon: Brain, badge: 'Organizar' },
-  { title: 'Resolução de Problemas', subtitle: 'Plano em 6 Passos', icon: Target, badge: 'Foco & Ação' },
 ];
 
 export default function InteractiveExercises() {
