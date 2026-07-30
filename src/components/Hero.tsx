@@ -133,7 +133,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 100, delay: 0.15 }}
               whileHover={{ y: -4 }}
-              className="relative w-full max-w-[400px] aspect-square lg:max-w-none lg:aspect-[4/5] overflow-hidden bg-[#F9F7F2] border border-[#1A1A1A] editorial-shadow-dark group transition-shadow duration-300"
+              className="relative w-full max-w-[400px] aspect-square sm:max-w-[480px] sm:aspect-[4/3] lg:max-w-none lg:aspect-[4/5] overflow-hidden bg-[#F9F7F2] border border-[#1A1A1A] editorial-shadow-dark group transition-shadow duration-300"
             >
               {/* Profile Image with fallback */}
               <img

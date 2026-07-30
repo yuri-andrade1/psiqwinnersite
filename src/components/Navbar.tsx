@@ -52,13 +52,13 @@ export default function Navbar() {
           </a>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="flex space-x-6">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            <div className="flex space-x-3 xl:space-x-5">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="font-sans text-[11px] uppercase tracking-[1.5px] font-bold text-[#1A1A1A] hover:text-[#7A7A7A] transition-colors duration-200"
+                  className="font-sans text-[10px] xl:text-[11px] uppercase tracking-wider xl:tracking-[1.5px] font-bold text-[#1A1A1A] hover:text-[#7A7A7A] transition-colors duration-200"
                 >
                   {link.name}
                 </a>
@@ -67,15 +67,15 @@ export default function Navbar() {
 
             <button
               onClick={handleWhatsAppClick}
-              className="inline-flex items-center px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-[#1A1A1A] hover:bg-[#333] transition-colors duration-200 cursor-pointer rounded-none border border-[#1A1A1A]"
+              className="inline-flex items-center px-3.5 py-2.5 xl:px-4 text-[10px] xl:text-xs font-bold uppercase tracking-wider text-white bg-[#1A1A1A] hover:bg-[#333] transition-colors duration-200 cursor-pointer rounded-none border border-[#1A1A1A] shrink-0"
             >
-              <MessageSquare className="w-3.5 h-3.5 mr-2" />
+              <MessageSquare className="w-3.5 h-3.5 mr-1.5 xl:mr-2" />
               Agendar Consulta
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile/Tablet Menu Button */}
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-[#1A1A1A] hover:text-[#7A7A7A] p-2 focus:outline-none"
@@ -87,9 +87,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav Drawer */}
+      {/* Mobile/Tablet Nav Drawer */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-[#FDFCFB] border-b border-[#1A1A1A] transition-all duration-300 shadow-lg ${
+        className={`lg:hidden absolute top-full left-0 w-full bg-[#FDFCFB] border-b border-[#1A1A1A] transition-all duration-300 shadow-lg ${
           isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
         }`}
       >

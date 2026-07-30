@@ -71,8 +71,8 @@ export default function InstagramVideos() {
           </p>
         </div>
 
-        {/* Horizontal Reels Container (Scrollable on Mobile, Grid on Desktop) */}
-        <div className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory scrollbar-thin md:grid md:grid-cols-3 lg:grid-cols-4 md:overflow-x-visible md:pb-0">
+        {/* Horizontal Reels Container (Scrollable on Mobile, Grid on Tablet/Desktop) */}
+        <div className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory scrollbar-thin sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-x-visible sm:pb-0">
           {INSTAGRAM_VIDEOS.map((video) => (
             <motion.a
               key={video.id}
@@ -81,7 +81,7 @@ export default function InstagramVideos() {
               rel="noopener noreferrer"
               whileHover={{ y: -6 }}
               whileTap={{ scale: 0.97 }}
-              className="snap-start shrink-0 w-[240px] md:w-auto aspect-[9/16] relative bg-slate-900 border border-[#1A1A1A] overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+              className="snap-start shrink-0 w-[260px] sm:w-auto aspect-[9/16] relative bg-slate-900 border border-[#1A1A1A] overflow-hidden group cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
             >
               {/* Cover Image */}
               <img
